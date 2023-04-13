@@ -2,12 +2,13 @@ package sns;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.Vector;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 
 public class UserMgr {
-
 	private DBConnectionMgr pool;
+	private final SimpleDateFormat SDF_DATE = new SimpleDateFormat("yyyy'.'  M'.' d'.' (E)");
+	private final SimpleDateFormat SDF_TIME = new SimpleDateFormat("H:mm:ss");
 	
 	public UserMgr() {
 		pool = DBConnectionMgr.getInstance();
@@ -65,16 +66,16 @@ public class UserMgr {
 	}*/
 	
 	//회원가입
-	public boolean insertMember(UserinfoBean bean) {
+	public boolean join(UserinfoBean bean) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		String sql = null;
 		boolean flag = false;
 		try {
 			con = pool.getConnection();
-			sql = "insert tblMember(userName,userGender,userNickName,userEmail,userPwd,userPN,userImage,"
-					+ "userLegDate,userAd,userLegTime"	
-					+ "values(?,?,?,?,?,?,?,?,?,?)";
+			sql = "insert userinfo(userName,userGender,userNickName,userEmail,userPwd,userPN,userImage,"
+					+ "emailHash,userRegDate,userAd,userRegTime)"	
+					+ "values(?,?,?,?,?,?,?,?,now(),?,now())";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, bean.getUserName());
 			pstmt.setString(2, bean.getUserGender());
@@ -83,9 +84,8 @@ public class UserMgr {
 			pstmt.setString(5, bean.getUserPwd());
 			pstmt.setString(6, bean.getUserPN());
 			pstmt.setString(7, bean.getUserImage());
-			pstmt.setString(8, bean.getUserRegDate());
+			pstmt.setString(8, bean.getEmailHash());
 			pstmt.setInt(9, bean.getUserAd());
-			pstmt.setString(10, bean.getUserRegTime());
 			
 			if(pstmt.executeUpdate()==1)
 				flag = true;
@@ -93,6 +93,13 @@ public class UserMgr {
 			e.printStackTrace();
 		} finally {
 			pool.freeConnection(con, pstmt);
+			try {
+				con.close();
+				pstmt.close();		
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
 		}
 		return flag;
 	}

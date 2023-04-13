@@ -44,7 +44,7 @@
   <body>
     <nav id="navbar">
       <img src="images/joinLogo.png" id="joinLogo" />
-      <a href="login.html" id="logo">PhoTalk</a>
+      <a href="login.jsp" id="logo">PhoTalk</a>
       <ul>
         <li><a href="signUp.jsp" class="signUp">회원가입</a></li>
         <li>|</li>

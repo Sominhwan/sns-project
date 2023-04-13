@@ -1,10 +1,12 @@
+<%@page import="sns.UserMgr"%>
+<%@page import="sns.UserinfoBean"%>
+<%@page import="sns.SHA256"%>
 <%@page import="java.util.regex.Matcher"%>
 <%@page import="java.util.regex.Pattern"%>
 <%@page import="java.io.PrintWriter"%>
-<jsp:useBean id="mgr" class="sns.UserMgr" />
 <%@page contentType="text/html; charset=UTF-8"%>
 <%
-	request.setCharacterEncoding("utf-8"); 
+	request.setCharacterEncoding("UTF-8"); 
 	PrintWriter script = response.getWriter();
 	String userEmail = null;
 	String userName = null;;
@@ -13,6 +15,8 @@
 	String userPhoneNum = null;
 	String userPwd = null;
 	String agreement = null;
+	int userAd = 0;
+	String userImage = "images/profile.svg";
 
 	if(request.getParameter("userEmail")!=null){
 		userEmail = request.getParameter("userEmail");
@@ -75,6 +79,10 @@
 	}
 	if(request.getParameter("agreement")!=null){
 		agreement = request.getParameter("agreement");
+		if(agreement.equals("1"))
+			userAd = 1;
+		else
+			userAd = 0;	
 	}
 	if(userEmail == null || userName == null || userGender == null || userNickName == null || 
 			userPhoneNum == null || userPwd == null || agreement == null){
@@ -85,4 +93,37 @@
 		script.close();
 		return;
 	}
+	
+  	UserMgr userMgr = new UserMgr();
+
+	boolean result = userMgr.join(new UserinfoBean(userName, userGender, userNickName, userEmail, userPwd, userPhoneNum, SHA256.getSHA256(userEmail), userImage, userAd));
+ 	if(result) {
+		script.println("<script>");
+		script.println("alert('정상적인 로그인방식입니다..');");
+		script.println("location.replace('login.jsp')");
+		script.println("</script>");
+		script.close();
+		return;
+	} else if(result==false) {
+		script.println("<script>");
+		script.println("alert('이미 존재하는 아이디입니다.');");
+		script.println("history.back();");
+		script.println("</script>");
+		script.close();
+		return;
+	} 
+	
 %>
+<div>
+<%=userName%>
+<%=userGender%>
+<%=userNickName%>
+<%=userEmail%>
+<%=userPwd%>
+<%=userPhoneNum%>
+<%=SHA256.getSHA256(userEmail)%>
+<%=userImage%>
+<%=userAd%>
+<br>
+<%=result %>
+</div>

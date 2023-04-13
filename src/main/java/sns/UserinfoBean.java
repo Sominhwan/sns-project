@@ -17,6 +17,22 @@ public class UserinfoBean {
 	private String userRegDate;
 	private int userAd;
 	private String userRegTime;
+	
+	
+	public UserinfoBean(String userName, String userGender, String userNickName, String userEmail, String userPwd,
+			String userPN, String emailHash, String userImage, int userAd) {
+		super();
+		this.userName = userName;
+		this.userGender = userGender;
+		this.userNickName = userNickName;
+		this.userEmail = userEmail;
+		this.userPwd = userPwd;
+		this.userPN = userPN;
+		this.emailHash = emailHash;
+		this.userImage = userImage;
+		this.userAd = userAd;
+	}
+	
 	public String getUserName() {
 		return userName;
 	}
