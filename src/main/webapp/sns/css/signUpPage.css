@@ -1,0 +1,154 @@
+html {
+  height: 100%;
+  display: block;
+  touch-action: manipulation;
+  -webkit-text-size-adjust: 100%;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+nav {
+  width: 100%;
+  /* overflow: hidden; */
+  height: 80px;
+  background-color: #fff;
+  box-shadow: 0 3px 0 0 rgba(0, 0, 0, 0.16);
+}
+
+#navbar {
+  width: 100%;
+  position: fixed;
+}
+
+img#joinLogo {
+  position: absolute;
+  top: 31px;
+  left: 33px;
+}
+
+#logo {
+  position: absolute;
+  font-family: Billabong;
+  font-size: 45px;
+  left: 75px;
+  top: 20px;
+  text-decoration: none;
+  color: #000;
+}
+
+#navbar > ul {
+  float: right;
+  display: flex;
+  margin-right: 57px;
+  line-height: 45px;
+}
+
+li {
+  padding-right: 10px;
+  font-family: HelveticaNeue;
+  font-size: 18px;
+}
+
+a.signUp {
+  text-decoration: none;
+  color: #303030;
+}
+
+a.signUp:active {
+  text-decoration: underline;
+  color: #551a8b;
+}
+
+.signUp-logo {
+  position: absolute;
+  height: 270px;
+  width: 425px;
+  left: 50%;
+  top: 14%;
+  transform: translate(-53%, 0%);
+}
+
+img#logo2 {
+  position: absolute;
+  left: 10%;
+}
+
+#signUp-text {
+  position: absolute;
+  padding-top: 40%;
+  font-family: Billabong;
+  font-size: 70px;
+}
+
+#signUp-select {
+  position: absolute;
+  padding-top: 65%;
+  left: 6%;
+  font-family: HelveticaNeue;
+  font-size: 30px;
+  color: #474747;
+}
+
+/* 회원가입 버튼 */
+.signUp-Btn {
+  position: absolute;
+  height: 350px;
+  width: 600px;
+  left: 50%;
+  top: 49%;
+  transform: translate(-50%, 0%);
+}
+
+hr {
+  width: 600px;
+  background: #d8d8d8;
+  height: 1px;
+  border: 0;
+}
+
+#signUpBtn_false {
+  position: absolute;
+  margin-top: 4%;
+}
+
+#naverSignUpBtn_false {
+  position: absolute;
+  margin-top: 18%;
+}
+
+#kakaoSignUpBtn_false {
+  position: absolute;
+  margin-top: 32%;
+}
+/* 푸터 */
+.signUp_footer {
+  height: 120px;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+@media (max-height: 860px) {
+  .signUp_footer {
+    display: none;
+  }
+}
+.footer_inner {
+  position: relative;
+  width: 400px;
+  height: 100%;
+  margin: 0 auto;
+}
+
+.footer_info {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  color: #737373;
+  font-family: HelveticaNeue;
+  font-size: 12px;
+}

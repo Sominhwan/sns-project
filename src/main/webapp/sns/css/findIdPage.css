@@ -1,0 +1,212 @@
+html {
+  height: 100%;
+  display: block;
+  touch-action: manipulation;
+  -webkit-text-size-adjust: 100%;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+nav {
+  width: 100%;
+  /* overflow: hidden; */
+  height: 80px;
+  background-color: #fff;
+  box-shadow: 0 3px 0 0 rgba(0, 0, 0, 0.16);
+}
+
+#navbar {
+  width: 100%;
+  position: fixed;
+}
+
+img#signUpOkLogo {
+  position: absolute;
+  top: 31px;
+  left: 33px;
+}
+
+#logo {
+  position: absolute;
+  font-family: Billabong;
+  font-size: 45px;
+  left: 75px;
+  top: 20px;
+  text-decoration: none;
+  color: #000;
+}
+
+#navbar > ul {
+  float: right;
+  display: flex;
+  margin-right: 57px;
+  line-height: 45px;
+}
+
+li {
+  padding-right: 10px;
+  font-family: HelveticaNeue;
+  font-size: 18px;
+}
+
+a.signUp {
+  text-decoration: none;
+  color: #303030;
+}
+
+a.signUp:active {
+  text-decoration: underline;
+  color: #551a8b;
+}
+/* 아이디 찾기 텍스트 */
+.findIdInfo-text {
+  position: absolute;
+  height: 54px;
+  width: 215px;
+  left: 50%;
+  top: 23%;
+  transform: translate(-50%, 0%);
+}
+
+#findId-text {
+  font-size: 40px;
+
+  color: #6b6b6b;
+  font-family: MalgunGothic;
+  font-weight: bold;
+}
+
+/* 아이디 찾기 컨텐츠 */
+.findId-content {
+  position: absolute;
+  height: 400px;
+  width: 631px;
+  left: 50%;
+  top: 40%;
+  transform: translate(-50%, 0%);
+}
+
+#findIdComment {
+  position: absolute;
+  width: 631px;
+  left: 50%;
+  font-size: 18px;
+  font-family: MalgunGothic;
+  color: #474747;
+  transform: translate(-50%, 0%);
+}
+
+/* 아이디 폼 */
+form {
+  position: absolute;
+  width: 460px;
+  height: 290px;
+  left: 50%;
+  top: 25%;
+  transform: translate(-50%, 0%);
+}
+.input-box {
+  position: relative;
+  margin-top: 25px;
+}
+
+input[type="text"]:-ms-clear {
+  display: none;
+}
+
+.input-box > input {
+  background: transparent;
+  border: solid 1px #d2d2d2;
+  border-radius: 6px;
+  padding: 20px 0px 5px 0px;
+  font-size: 14pt;
+  width: 440px;
+  height: 30px;
+}
+
+#userName {
+  padding-left: 15px;
+}
+
+#userNickName {
+  padding-left: 15px;
+}
+
+input::placeholder {
+  color: transparent;
+}
+
+input:placeholder-shown + label {
+  color: #aaa;
+  font-size: 14pt;
+  top: 15px;
+}
+
+input:focus {
+  outline: none;
+  border: 1px solid #303030;
+}
+
+input:focus + label,
+label {
+  color: #aaa;
+  font-size: 10pt;
+  position: absolute;
+  left: 15px;
+  top: 5px;
+  transition: all 0.2s ease;
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+}
+
+.findIdBtn {
+  position: absolute;
+  top: 75%;
+  left: 50%;
+  font-family: MalgunGothic;
+  font-size: 25px;
+  width: 457px;
+  height: 59px;
+  transform: translate(-50%, 0%);
+  border: none;
+}
+
+.findIdBtnEnabled {
+  border: none;
+  background-color: #303030;
+  color: #fff;
+}
+
+/* 푸터 */
+.signUp_footer {
+  height: 120px;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+@media (max-height: 860px) {
+  .signUp_footer {
+    display: none;
+  }
+}
+.footer_inner {
+  position: relative;
+  width: 400px;
+  height: 100%;
+  margin: 0 auto;
+}
+
+.footer_info {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  color: #737373;
+  font-family: HelveticaNeue;
+  font-size: 12px;
+}

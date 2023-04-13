@@ -1,0 +1,9 @@
+<svg data-name="이메일 회원가입 폼" xmlns="http://www.w3.org/2000/svg" width="600" height="66" viewBox="0 0 600 66">
+    <g data-name="사각형 61" style="fill:#fff;stroke:#4b4a4a">
+        <path style="stroke:none" d="M0 0h600v66H0z"/>
+        <path style="fill:none" d="M.5.5h599v65H.5z"/>
+    </g>
+    <text data-name="Text State" transform="translate(121 42)" style="font-family:MalgunGothic,Malgun Gothic;fill:#474747;font-size:20px"><tspan x="0" y="0">이메일로</tspan><tspan y="0" style="font-family:SegoeUI,Segoe UI"> </tspan><tspan y="0">회원가입</tspan></text>
+    <path data-name="Icon material-email" d="M25.915 6H5.546a2.522 2.522 0 0 0-2.533 2.5L3 23.526a2.533 2.533 0 0 0 2.546 2.5h20.369a2.533 2.533 0 0 0 2.546-2.5V8.5A2.533 2.533 0 0 0 25.915 6zm0 5.007-10.184 6.26-10.185-6.26V8.5l10.184 6.259L25.915 8.5z" transform="translate(79.269 17.485)" style="fill:#787878"/>
+    <text data-name="Text State" transform="translate(313 44)" style="fill:#8e8e8e;font-size:13px;font-family:MalgunGothic,Malgun Gothic"><tspan x="0" y="0">이메일</tspan><tspan y="0" style="font-family:SegoeUI,Segoe UI">ID </tspan><tspan y="0">와</tspan><tspan y="0" style="font-family:SegoeUI,Segoe UI"> </tspan><tspan y="0">비밀번호로</tspan><tspan y="0" style="font-family:SegoeUI,Segoe UI"> </tspan><tspan y="0">회원가입</tspan></text>
+</svg>

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="190" height="50" viewBox="0 0 190 50">
+    <g data-name="그룹 19">
+        <g data-name="사각형 60" style="fill:#fff;stroke:#d2d2d2">
+            <path style="stroke:none" d="M0 0h190v50H0z"/>
+            <path style="fill:none" d="M.5.5h189v49H.5z"/>
+        </g>
+    </g>
+    <text data-name="Text State" transform="translate(75.828 33)" style="fill:#868e96;font-size:18px;font-family:MalgunGothic,Malgun Gothic"><tspan x="0" y="0">네이버</tspan></text>
+    <path d="M1541.651 666v15h4.781v-9.158l6.488 9.158h3.842v-15h-4.525v6.952l-5.379-6.952z" transform="translate(-1486.327 -648.5)" style="fill:#00c300"/>
+</svg>

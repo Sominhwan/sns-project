@@ -1,0 +1,152 @@
+html {
+  height: 100%;
+  display: block;
+  touch-action: manipulation;
+  -webkit-text-size-adjust: 100%;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+nav {
+  width: 100%;
+  /* overflow: hidden; */
+  height: 80px;
+  background-color: #fff;
+  box-shadow: 0 3px 0 0 rgba(0, 0, 0, 0.16);
+}
+
+#navbar {
+  width: 100%;
+  position: fixed;
+}
+
+img#signUpOkLogo {
+  position: absolute;
+  top: 31px;
+  left: 33px;
+}
+
+#logo {
+  position: absolute;
+  font-family: Billabong;
+  font-size: 45px;
+  left: 75px;
+  top: 20px;
+  text-decoration: none;
+  color: #000;
+}
+
+#navbar > ul {
+  float: right;
+  display: flex;
+  margin-right: 57px;
+  line-height: 45px;
+}
+
+li {
+  padding-right: 10px;
+  font-family: HelveticaNeue;
+  font-size: 18px;
+}
+
+a.signUp {
+  text-decoration: none;
+  color: #303030;
+}
+
+a.signUp:active {
+  text-decoration: underline;
+  color: #551a8b;
+}
+/* 비밀번호 변경 완료 텍스트 */
+.findPwdInfo-text {
+  position: absolute;
+  height: 260px;
+  width: 351px;
+  left: 50%;
+  top: 21%;
+  transform: translate(-50%, 0%);
+}
+
+#pwdChangeLogo {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0%);
+}
+#findPwd-text {
+  position: absolute;
+  font-size: 40px;
+  top: 70%;
+  color: #6b6b6b;
+  font-family: MalgunGothic;
+  font-weight: bold;
+}
+
+/* 비밀번호 변경 완료 컨텐츠 */
+.findPwd-content {
+  position: absolute;
+  height: 207px;
+  width: 460px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, 0%);
+}
+
+#findPwdComment {
+  position: absolute;
+  width: 287px;
+  left: 50%;
+  line-height: 30px;
+  font-size: 18px;
+  font-family: MalgunGothic;
+  color: #474747;
+  transform: translate(-50%, 0%);
+}
+
+.loginBtn {
+  position: absolute;
+  top: 75%;
+  left: 50%;
+  font-family: MalgunGothic;
+  font-size: 25px;
+  width: 460px;
+  height: 59px;
+  transform: translate(-50%, 0%);
+  background-color: #303030;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+/* 푸터 */
+.signUp_footer {
+  height: 120px;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+@media (max-height: 860px) {
+  .signUp_footer {
+    display: none;
+  }
+}
+.footer_inner {
+  position: relative;
+  width: 400px;
+  height: 100%;
+  margin: 0 auto;
+}
+
+.footer_info {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  color: #737373;
+  font-family: HelveticaNeue;
+  font-size: 12px;
+}
