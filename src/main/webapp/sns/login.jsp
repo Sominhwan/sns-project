@@ -1,6 +1,21 @@
+<%@page import="java.net.URLEncoder"%>
+<%@page import="sns.UserMgr"%>
+<%@page import="java.io.PrintWriter"%>
 <%@page contentType="text/html; charset=UTF-8"%>
-<%
-		
+  <%
+	request.setCharacterEncoding("UTF-8"); 
+	PrintWriter script = response.getWriter();
+	
+	String userEmail = null;
+	String userPwd = null;
+
+
+	if(session.getAttribute("userEmail")!=null && session.getAttribute("userPwd")!=null){
+		userEmail = (String)session.getAttribute("userEmail");
+		userPwd = (String)session.getAttribute("userPwd");
+	}
+	
+
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -12,6 +27,12 @@
     <link rel="stylesheet" href="css/loginPage.css" />
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <title>PhoTalk</title>
+    <script>
+      /* 로그인 확인 폼 제출 */
+      function loginFrm(){
+    	  document.login_frm.submit();       	
+      }
+    </script>
   </head>
   <body>
     <div class="content">
@@ -31,10 +52,11 @@
         </div>
       </div>
       <!-- 로그인 컨테이너 -->
+    <% if(userEmail==null && userPwd==null){ %>
       <div class="login_container" id="login_container">
         <img src="images/loginLogo.png" />
         <span id="logo_text">PhoTalk</span>
-        <form action="" method="POST">
+        <form action="loginChange" method="POST" name="login_frm" id = "login_frm">
           <div class="input-box">
             <input
               id="userEmail"
@@ -70,7 +92,7 @@
             type="button"
             disabled
             value="로그인"
-            onclick="loginOK()"
+            onclick="loginFrm()"
           />
         </form>
         <input type="checkbox" id="myCheck" />
@@ -118,8 +140,10 @@
         <span id="signUp">아직도 회원이 아닌가요?</span>
         <span id="signUpTag"><a href="signUp.jsp">회원가입</a></span>
       </div>
+     <% } else { %>
       <!-- 로그인 완료 컨테이너 -->
-      <div class="loginOK_container" id="loginOK_container" hidden>
+    
+      <div class="loginOK_container" id="loginOK_container">
         <img src="images/loginLogo.png" />
         <span id="logo2_text">PhoTalk</span>
         <!-- TODO 프로필 이미지 넣기 -->
@@ -136,8 +160,9 @@
           />
         </form>
         <span id="login">... 님이 아닌가요?</span>
-        <span id="loginTag"><a href="#" onclick="loginOK()">계정 변경</a></span>
+        <span id="loginTag"><a href="#" onclick="location.replace('loginChange')">계정 변경</a></span>
       </div>
+      <% } %>
     </div>
     <!-- 푸터 -->
     <footer class="login_footer">
@@ -172,4 +197,6 @@
     </footer>
   </body>
   <script src="js/login.js"></script>
+
 </html>
+

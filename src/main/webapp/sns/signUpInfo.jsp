@@ -37,6 +37,11 @@
       /* 페이지 전환 */
       
       function change(){
+    	  if(signUp.gender.value ==""){ 
+    		  alert("성별을 선택하세요.."); 
+    		  signUp.gender.focus(); 
+    		  return false; 
+    	  } 
     	  document.signUp.submit(); 
       }
     </script>
@@ -82,7 +87,7 @@
           <label for="userName">성명</label>
         </div>
         <select name="gender" id="select-box" onchange="selectBox(this.value)" >
-          <option value="default">=성별=</option>
+          <option value="" selected disabled>=성별=</option>
           <option value="남자">남성</option>
           <option value="여자">여성</option>
         </select>
@@ -103,11 +108,11 @@
             id="userPhoneNum"
             type="text"
             name="userPhoneNum"
-            placeholder="휴대폰 번호"
+            placeholder="휴대폰 번호('-' 없이)"
             maxlength="60"
             autocomplete="false"
           />
-          <label for="userPhoneNum">휴대폰 번호</label>
+          <label for="userPhoneNum">휴대폰 번호('-' 없이)</label>
         </div>
         <div class="input-box">
           <input
@@ -124,7 +129,7 @@
             <img src="images/pwdEyeBtnFalse.svg" alt="eye" />
           </span>
         </div>
-        <input type="hidden" id="userGender" name="userGender" value="default">
+        <input type="hidden" id="userGender" name="userGender">
         <input type="hidden" name="agreement" value="<%=agreement%>">
         <input
           class="next-button"

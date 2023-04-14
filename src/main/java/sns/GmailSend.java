@@ -57,4 +57,6 @@ public class GmailSend {
 	 * content = "내용 테스트2"; String toEmail = "thalsghks@naver.com";
 	 * GmailSend.send(title, content, toEmail); System.out.println("성공~~~~~~"); }
 	 */
+	
 }
+

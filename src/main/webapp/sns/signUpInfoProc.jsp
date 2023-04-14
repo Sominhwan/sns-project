@@ -24,7 +24,7 @@
 		Matcher emailMatcher1 = emailPattern1.matcher(userEmail);
 		if(!emailMatcher1.find()){
 			script.println("<script>");
-			script.println("alert('이메일을 양식에 맞게 입력해주세요.');");
+			script.println("alert('이메일을 양식에 맞게 입력하세요.');");
 			script.println("history.back();");
 			script.println("</script>");
 			script.close();
@@ -36,16 +36,6 @@
 	}
 	if(request.getParameter("userGender")!=null){
 		userGender = request.getParameter("userGender");
-		Pattern genderPattern1 = Pattern.compile("^[ㄱ-ㅎ가-힣]*$");
-		Matcher genderMatcher1 = genderPattern1.matcher(userGender);
-		if(!genderMatcher1.find()){
-			script.println("<script>");
-			script.println("alert('성병을 입력해주세요.');");
-			script.println("history.back();");
-			script.println("</script>");
-			script.close();
-			return;
-		  }
 	}
 	if(request.getParameter("userNickName")!=null){
 		userNickName = request.getParameter("userNickName");
@@ -56,7 +46,7 @@
 		Matcher phoneNumMatcher1 = phoneNumPattern1.matcher(userPhoneNum);
 		if(!phoneNumMatcher1.find()){
 			script.println("<script>");
-			script.println("alert('휴대폰 번호 - 없이 입력해주세요.');");
+			script.println("alert('휴대폰 번호를 양식에 맞게 다시 입력하세요.');");
 			script.println("history.back();");
 			script.println("</script>");
 			script.close();
@@ -70,7 +60,7 @@
 		Matcher passMatcher1 = passPattern1.matcher(userPwd);
 		if(!passMatcher1.find()){
 			script.println("<script>");
-			script.println("alert('비밀번호를 양식에 맞게 입력해주세요.');");
+			script.println("alert('비밀번호를 양식에 맞게 입력하세요.');");
 			script.println("history.back();");
 			script.println("</script>");
 			script.close();
@@ -98,9 +88,9 @@
 
 	boolean result = userMgr.join(new UserinfoBean(userName, userGender, userNickName, userEmail, userPwd, userPhoneNum, SHA256.getSHA256(userEmail), userImage, userAd));
  	if(result) {
+ 		session.setAttribute("userEmail", userEmail);
 		script.println("<script>");
-		script.println("alert('정상적인 로그인방식입니다..');");
-		script.println("location.replace('login.jsp')");
+		script.println("location.replace('emailSendProc.jsp')");
 		script.println("</script>");
 		script.close();
 		return;
@@ -114,16 +104,3 @@
 	} 
 	
 %>
-<div>
-<%=userName%>
-<%=userGender%>
-<%=userNickName%>
-<%=userEmail%>
-<%=userPwd%>
-<%=userPhoneNum%>
-<%=SHA256.getSHA256(userEmail)%>
-<%=userImage%>
-<%=userAd%>
-<br>
-<%=result %>
-</div>
