@@ -26,7 +26,6 @@
       };
       /* 페이지 이동 */
       function change(){
-    	  document.form_wrap.action = "signUpInfo.jsp";
     	  document.form_wrap.submit();       	
       }
 
@@ -47,7 +46,7 @@
       <span id="terms-text">서비스 이용약관에 동의해주세요.</span>
     </div>
     <div class="termsService-content">
-      <form method="POST" id="form_wrap" name="form_wrap">
+      <form action="signUpInfo.jsp" method="POST" id="form_wrap" name="form_wrap">
   
         <div class="terms_check_all">
           <input

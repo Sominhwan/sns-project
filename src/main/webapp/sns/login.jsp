@@ -7,15 +7,25 @@
 	PrintWriter script = response.getWriter();
 	
 	String userEmail = null;
-	String userPwd = null;
+	String userNickName = null;
+	String userImage = null;
+	String alertContent = null;
 
-
-	if(session.getAttribute("userEmail")!=null && session.getAttribute("userPwd")!=null){
+	if(session.getAttribute("userEmail")!=null){
 		userEmail = (String)session.getAttribute("userEmail");
-		userPwd = (String)session.getAttribute("userPwd");
 	}
 	
-
+	if(session.getAttribute("userNickName")!=null){
+		userNickName = (String)session.getAttribute("userNickName");
+	}
+	
+	if(session.getAttribute("userImage")!=null){
+		userImage = (String)session.getAttribute("userImage");
+	}
+	
+	if(session.getAttribute("alertContent")!=null){
+		alertContent = (String)session.getAttribute("alertContent");
+	}
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,14 +37,35 @@
     <link rel="stylesheet" href="css/loginPage.css" />
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <title>PhoTalk</title>
-    <script>
+    <script type="text/javascript">
       /* 로그인 확인 폼 제출 */
       function loginFrm(){
     	  document.login_frm.submit();       	
       }
+      /* 로그인 폼 엔터키로 이벤트 발생 */
+      function onEnterLogin(){
+   		var keyCode = window.event.keyCode;
+   		if (keyCode == 13) { //엔테키 이면
+	   		document.login_frm.submit(); 
+   		}
+  	  }   
+      /* 메인화면 이동 검증 */
+      function checkEmail(){
+      <% 
+      	 UserMgr userMgr = new UserMgr();
+         int userEmailCertification = userMgr.getEmailcertification(userEmail);
+    	 
+      %>
+   		if(<%=userEmailCertification%>==1){
+   			alert('이메일 검증 확인');
+   			/* document.loginOk_frm.submit(); */	
+   		}else{
+   			alert('이메일 인증을 하지 않은 계정입니다.');
+   		}
+  	  }  
     </script>
   </head>
-  <body>
+  <body onkeydown="javascript:onEnterLogin();">
     <div class="content">
       <div class="left-content">
         <div id="mockUp">
@@ -52,18 +83,19 @@
         </div>
       </div>
       <!-- 로그인 컨테이너 -->
-    <% if(userEmail==null && userPwd==null){ %>
+    <% if(userEmail==null){ %>
       <div class="login_container" id="login_container">
         <img src="images/loginLogo.png" />
         <span id="logo_text">PhoTalk</span>
         <form action="loginChange" method="POST" name="login_frm" id = "login_frm">
           <div class="input-box">
-            <input
+            <input -webkit-autofill
               id="userEmail"
               type="text"
               name="userEmail"
               placeholder="이메일을 입력해 주세요"
               maxlength="60"
+              style="-webkit-box-shadow: 0 0 0 1000px #fff inset"
             />
             <label for="userEmail">이메일을 입력해 주세요</label>
             <span id="userEmailClear">
@@ -132,35 +164,41 @@
           ><a href="findPwd.html">PASS 찾기</a></span
         >
         <span id="kakaoLogin"
-          ><a href="#"><img src="images/kakaoLoginBtn.svg" /></a
+          ><a href="#"><img src="images/kakaoLoginBtn2.svg" /></a
         ></span>
         <span id="naverLogin"
           ><a href="#"><img src="images/naverLoginBtn.svg" /></a
         ></span>
+        <%if(alertContent!=null){ session.invalidate(); %>
+           <span style="position: absolute; left: 71px; top: 530px;
+           color:#ed4956; font-size:14px">* 로그인에 실패하였습니다.</span>
+         <%}%>   
+           
         <span id="signUp">아직도 회원이 아닌가요?</span>
         <span id="signUpTag"><a href="signUp.jsp">회원가입</a></span>
       </div>
      <% } else { %>
-      <!-- 로그인 완료 컨테이너 -->
-    
+      <!-- 로그인 완료 컨테이너 --> 
       <div class="loginOK_container" id="loginOK_container">
         <img src="images/loginLogo.png" />
         <span id="logo2_text">PhoTalk</span>
-        <!-- TODO 프로필 이미지 넣기 -->
-        <img class="profile" src="images/profile.svg" />
-        <form action="" method="POST">
+        <img class="profile" src="<%=userImage%>" />
+        <!-- form action 에 메인 페이지 주소 넣기 -->
+        <form action="" method="POST" name="loginOk_frm" id = "loginOk_frm">
           <input
             class="loginOKBtn"
             id="loginOKBtn"
             name="loginOKBtn"
             type="button"
-            disabled
-            value="... 님으로 계속"
-            onclick=""
+            value="<%=userNickName%> 님으로 계속"
+            onclick="checkEmail()"
+            style="cursor: pointer;"
           />
         </form>
-        <span id="login">... 님이 아닌가요?</span>
-        <span id="loginTag"><a href="#" onclick="location.replace('loginChange')">계정 변경</a></span>
+        <span id="login" style="position: absolute;height: 18px;width: 519.5px;font-size: 18px;
+           color: #868e96;top: 450px;left:25%;transform: translate(0%, 0%);"><%=userNickName%> 님이 아닌가요? <a href="#" 
+        style="text-decoration: none;color: #1877f2;"
+        onclick="location.replace('loginChange')">계정 변경</a></span>
       </div>
       <% } %>
     </div>
@@ -197,6 +235,5 @@
     </footer>
   </body>
   <script src="js/login.js"></script>
-
 </html>
 

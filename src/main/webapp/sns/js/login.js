@@ -102,4 +102,15 @@ function loginOK() {
   }  
 }
 
+/* 로그인 실패시 팝업 이벤트 */
+function close () { 
+    document.querySelector(".background").className = "background";
+}
+
+function check () { 
+  document.querySelector(".background").className = "background";
+}
+
+document.querySelector("#close").addEventListener('click', close);
+document.querySelector("#check").addEventListener('click', check);
 

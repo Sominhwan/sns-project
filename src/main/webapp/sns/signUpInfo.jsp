@@ -37,7 +37,7 @@
       /* 페이지 전환 */
       
       function change(){
-    	  if(signUp.gender.value ==""){ 
+    	  if(signUp.gender.value == null){ 
     		  alert("성별을 선택하세요.."); 
     		  signUp.gender.focus(); 
     		  return false; 
@@ -64,18 +64,19 @@
     <div class="signUpInfo-content">
       <form action="signUpInfoProc.jsp" method="POST" name="signUp">
         <div class="input-box">
-          <input
+          <input -webkit-autofill
             id="userEmail"
             type="text"
             name="userEmail"
             placeholder="이메일을 입력해 주세요"
             maxlength="60"
             autocomplete="false"
+            style="-webkit-box-shadow: 0 0 0 1000px #fff inset"
           />
           <label for="userEmail">이메일을 입력해 주세요</label>
         </div>
         <div class="input-box">
-          <input
+          <input -webkit-autofill
             id="userName"
             class="userName"
             type="text"
@@ -83,39 +84,42 @@
             placeholder="성명"
             maxlength="60"
             autocomplete="false"
+            style="-webkit-box-shadow: 0 0 0 1000px #fff inset"
           />
           <label for="userName">성명</label>
         </div>
         <select name="gender" id="select-box" onchange="selectBox(this.value)" >
-          <option value="" selected disabled>=성별=</option>
-          <option value="남자">남성</option>
-          <option value="여자">여성</option>
+          <option selected disabled>=성별=</option>
+          <option value="남성">남성</option>
+          <option value="여성">여성</option>
         </select>
 
         <div class="input-box">
-          <input
+          <input -webkit-autofill
             id="userNickName"
             type="text"
             name="userNickName"
             placeholder="닉네임"
             maxlength="60"
             autocomplete="false"
+            style="-webkit-box-shadow: 0 0 0 1000px #fff inset"
           />
           <label for="userNickName">닉네임</label>
         </div>
         <div class="input-box">
-          <input
+          <input -webkit-autofill
             id="userPhoneNum"
             type="text"
             name="userPhoneNum"
             placeholder="휴대폰 번호('-' 없이)"
-            maxlength="60"
+            maxlength="11"
             autocomplete="false"
+            style="-webkit-box-shadow: 0 0 0 1000px #fff inset"
           />
           <label for="userPhoneNum">휴대폰 번호('-' 없이)</label>
         </div>
         <div class="input-box">
-          <input
+          <input -webkit-autofill
             class="password"
             id="password"
             type="password"
@@ -123,6 +127,7 @@
             placeholder="비밀번호를 입력해 주세요 (8자 이상)"
             maxlength="50"
             autocomplete="false"
+            style="-webkit-box-shadow: 0 0 0 1000px #fff inset"
           />
           <label for="password">비밀번호를 입력해 주세요(영문,숫자 포함 8자 이상)</label>
           <span id="keyShow">

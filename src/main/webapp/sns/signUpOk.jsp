@@ -1,6 +1,11 @@
 <%@page contentType="text/html; charset=UTF-8"%>
 <%
-		
+	String userEmail = null;
+
+	if(session.getAttribute("userEmail")!=null){
+		userEmail = (String)session.getAttribute("userEmail");
+		session.invalidate();	
+	}
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,7 +34,7 @@
   <body>
     <nav id="navbar">
       <img src="images/joinLogo.png" id="signUpOkLogo" />
-      <a href="login.html" id="logo">PhoTalk</a>
+      <a href="login.jsp" id="logo">PhoTalk</a>
       <ul>
         <li><a href="signUp.jsp" class="signUp">회원가입</a></li>
         <li>|</li>
@@ -44,7 +49,7 @@
     <!-- 가입완료 버튼 -->
     <div class="signUpOk-content">
       <div id="emailComment">
-        thalsghks@naver.com 로 보낸 메일을 확인하여 이메일 인증을 완료해주세요.
+        <%=userEmail%> 로 보낸 메일을 확인하여 이메일 인증을 완료해주세요.
         인증이 완료될 경우에만 서비스를 이용하실 수 있습니다.
       </div>
       <div id="emailAlert">

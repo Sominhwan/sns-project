@@ -15,6 +15,7 @@ public class UserMgr {
 		pool = DBConnectionMgr.getInstance();
 	}
 	
+	// 로그인
 	public boolean userLogin(String userEmail, String userPwd) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -39,7 +40,7 @@ public class UserMgr {
 		return flag;
 	}
 	
-	//회원가입
+	// 회원가입
 	public boolean join(UserinfoBean bean) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -47,9 +48,9 @@ public class UserMgr {
 		boolean flag = false;
 		try {
 			con = pool.getConnection();
-			sql = "insert userinfo(userName,userGender,userNickName,userEmail,userPwd,userPN,userImage,"
+			sql = "insert userinfo(userName,userGender,userNickName,userEmail,userPwd,userPN,emailcertification,userImage,"
 					+ "emailHash,userRegDate,userAd,userRegTime)"	
-					+ "values(?,?,?,?,?,?,?,?,now(),?,now())";
+					+ "values(?,?,?,?,?,?,0,?,?,now(),?,now())";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, bean.getUserName());
 			pstmt.setString(2, bean.getUserGender());
@@ -71,6 +72,7 @@ public class UserMgr {
 		return flag;
 	}
 	
+	// 유저 이메일 가져오기
 	public String getUserEmail(String emailHash) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -94,6 +96,79 @@ public class UserMgr {
 		return null;
 	}
 	
+	// 유저 닉네임 가져오기
+	public String getUserNickName(String userEmail) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		try {
+			con = pool.getConnection();
+			sql = "SELECT userNickName FROM userinfo WHERE userEmail = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, userEmail);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				return rs.getString(1);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return null;
+	}
+	
+	// 유저 프로필 가져오기
+	public String getUserImage(String userImage) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		try {
+			con = pool.getConnection();
+			sql = "SELECT userImage FROM userinfo WHERE userEmail = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, userImage);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				return rs.getString(1);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return null;
+	}		
+	
+	// 이메일 검증 확인하기
+		public int getEmailcertification(String userEmail) {
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String sql = null;
+			try {
+				con = pool.getConnection();
+				sql = "SELECT emailcertification FROM userinfo WHERE userEmail = ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, userEmail);
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					return rs.getInt(1);
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				pool.freeConnection(con, pstmt, rs);
+			}
+			return -1;
+		}		
+	
+	// 이메일 검증하기
 	public boolean setEmailcertification(String userEmail) {
 		Connection con = null;
 		PreparedStatement pstmt = null;

@@ -132,6 +132,7 @@ input[type="text"]:-ms-clear {
 
 .input-box > input {
   background: transparent;
+  
   border: solid 1px #d2d2d2;
   border-radius: 6px;
   padding: 20px 0px 5px 0px;
@@ -392,26 +393,6 @@ img.profile {
   border-radius: 70%;
   border: solid 2px #dedede;
   object-fit: cover;
-}
-
-#login {
-  position: absolute;
-  font-size: 18px;
-  color: #868e96;
-  top: 450px;
-  left: 150px;
-}
-
-#loginTag {
-  position: absolute;
-  font-size: 16px;
-  top: 451px;
-  left: 310px;
-}
-
-#loginTag > a {
-  text-decoration: none;
-  color: #1877f2;
 }
 
 /* 푸터 시작 */

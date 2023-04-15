@@ -6,17 +6,15 @@
 <%
 	UserMgr userMgr = new UserMgr();
 	String userEmail = null;
-	
+	String userNickName = null;
 	if(session.getAttribute("userEmail")!=null){
 		userEmail = (String)session.getAttribute("userEmail");
+		userNickName = userMgr.getUserNickName(userEmail);	
 	}
 	
 	String host = "http://localhost:8081/sns-project/sns/";
 	String toEmail = userEmail;
-	String title = "Photalk 회원가입을 위한 이메일 확인 메일입니다.";
-	String content2 = "다음 링크에 접속하여 이메일 확인을 진행하세요. "+
-			"<a href='" + host + "emailCheckProc.jsp?code=" + new SHA256().getSHA256(toEmail) + "'>이메일 인증하기</a>";
-			
+	String title = "Photalk 회원가입을 위한 이메일 확인 메일입니다.";			
 	String content = "<html>\r\n"
 			+ "  <head></head>\r\n"
 			+ "  <body>\r\n"
@@ -69,7 +67,7 @@
 			+ "            <div>\r\n"
 			+ "              <ul style=\"list-style: none\">\r\n"
 			+ "                <li style=\"line-height: 40px; float: left\">\r\n"
-			+ "                  안녕하세요. PhoTalk 입니다.<br />항상 PhoTalk 서비스를\r\n"
+			+ "                  <b>"+userNickName+"</b> 님 안녕하세요. PhoTalk 입니다.<br />항상 PhoTalk 서비스를\r\n"
 			+ "                  이용해주셔서 감사합니다.<br /><br />\r\n"
 			+ "                  다음 링크에 접속하여 이메일 확인을 진행하세요.\r\n"
 			+ "                  <a href='"+host+"emailCheckProc.jsp?code=" + new SHA256().getSHA256(toEmail) + "'>이메일 인증하기</a>\r\n"						
