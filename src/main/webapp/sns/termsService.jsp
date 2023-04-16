@@ -1,5 +1,58 @@
 <%@page contentType="text/html; charset=UTF-8"%>
 <%
+	request.setCharacterEncoding("UTF-8"); 
+    /* 네이버 개인정보 저장 */
+	String userSocialId = null;
+	String userName = null;
+	String userGender = null;
+	String userEmail = null;
+	String userPN = null;
+	String userInfoType = "naver";
+	if(request.getAttribute("id")!=null){
+		userSocialId = (String)request.getAttribute("id");
+	}
+	if(request.getAttribute("name")!=null){
+		userName = (String)request.getAttribute("name");
+	}
+	if(request.getAttribute("gender")!=null){
+		userGender = (String)request.getAttribute("gender");
+		if(userGender.equals("M")){
+			userGender = userGender.replaceAll("M", "남성");
+		}else if(userGender.equals("F")){
+			userGender = userGender.replaceAll("F", "여성");
+		}
+	}
+	if(request.getAttribute("email")!=null){
+		userEmail = (String)request.getAttribute("email");
+	}
+	if(request.getAttribute("mobile")!=null){
+		userPN = (String)request.getAttribute("mobile");
+		userPN = userPN.replaceAll("-", "");
+	}
+	
+	/* 카카오 개인정보 저장 */
+	String id = null;
+	String email = null;
+	String nickname = null;
+	String gender = null;
+	String userInfoType2 = "kakao";
+	if(request.getParameter("id")!=null){
+		id = request.getParameter("id");
+	}
+	if(request.getParameter("email")!=null){
+		email = request.getParameter("email");
+	}
+	if(request.getParameter("nickname")!=null){
+		nickname = request.getParameter("nickname");
+	}
+	if(request.getParameter("gender")!=null){
+		gender = request.getParameter("gender");
+		if(gender.equals("male")){
+			gender = gender.replaceAll("male", "남성");
+		}else if(gender.equals("female")){
+			gender = gender.replaceAll("female", "여성");
+		}
+	}
 	
 %>
 <!DOCTYPE html>
@@ -26,9 +79,17 @@
       };
       /* 페이지 이동 */
       function change(){
-    	  document.form_wrap.submit();       	
+    	  var type = "<%=userSocialId%>"; /* 네이버 타입 */
+    	  var type2 = "<%=id%>"; /* 카카오 타입 */
+    	  if(type=="null" && type2=="null"){
+    		  document.form_wrap.action = "signUpInfo.jsp"; 		 
+    	  } else if(type!="null") {
+    		  document.form_wrap.action = "snsSignUpInfo.jsp";
+    	  } else if(type2!="null") {
+    		  document.form_wrap.action = "snsSignUpInfo2.jsp";
+    	  }	  
+    	  	document.form_wrap.submit();       	
       }
-
     </script>
   </head>
   <body>
@@ -46,8 +107,7 @@
       <span id="terms-text">서비스 이용약관에 동의해주세요.</span>
     </div>
     <div class="termsService-content">
-      <form action="signUpInfo.jsp" method="POST" id="form_wrap" name="form_wrap">
-  
+      <form method="POST" id="form_wrap" name="form_wrap">
         <div class="terms_check_all">
           <input
             type="checkbox"
@@ -97,12 +157,29 @@
           <label for="allowPromotions"></label>
           <span id="allAgree_text4">(선택) 서비스 유용한 소식 받기</span>
         </div>
+        <!-- 네이버 개인정보 폼 -->
+        <%if(userSocialId!=null){ %>
+        <input id="userSocialId" type="hidden" name="userSocialId" value="<%=userSocialId%>"/>
+        <input id="userName" type="hidden" name="userName" value="<%=userName%>"/>
+        <input id="userGender" type="hidden" name="userGender" value="<%=userGender%>"/>
+        <input id="userEmail" type="hidden" name="userEmail" value="<%=userEmail%>"/>
+        <input id="userPN" type="hidden" name="userPN" value="<%=userPN%>"/>
+        <input id="userInfoType" type="hidden" name="userInfoType" value="<%=userInfoType%>"/>
+        <%} %>
+        <!-- 카카오 개인정보 폼 -->
+        <%if(id!=null){ %>
+        <input id="userSocialId" type="hidden" name="userSocialId" value="<%=id%>"/>
+        <input id="userEmail" type="hidden" name="userEmail" value="<%=email%>"/>
+        <input id="userNickName" type="hidden" name="userNickName" value="<%=nickname%>"/>
+        <input id="userGender" type="hidden" name="userGender" value="<%=gender%>"/>
+        <input id="userInfoType" type="hidden" name="userInfoType" value="<%=userInfoType2%>"/>
+        <%} %>
       	<button
           	type="submit"
          	class="next-button"
          	id="next-button"
          	disabled
-         	onclick="change()"
+         	onclick="change();"
        	 >
          	 다음
         </button>

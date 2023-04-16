@@ -1,10 +1,43 @@
+<%@page import="java.io.PrintWriter"%>
 <%@page contentType="text/html; charset=UTF-8"%>
 <%
+	request.setCharacterEncoding("UTF-8");
+	String userSocialId = null;
+	String userName = null;
+	String userGender = null;
+	String userEmail = null;
+	String userPN = null;
+	String userInfoType = null;
 	String [] value = request.getParameterValues("agreement");	
 	int agreement = 0;
 	if(value.length==3){
 		agreement = 1;	
-	}		
+	}	
+	
+	if(request.getParameter("userSocialId")!=null){
+		userSocialId = request.getParameter("userSocialId");
+	} else{
+		PrintWriter script = response.getWriter();
+		script.println("<script>");
+		script.println("alert('세션 오류.');");
+		script.println("history.back();");
+		script.println("</script>");
+	}
+	if(request.getParameter("userName")!=null){
+		userName = request.getParameter("userName");
+	}
+	if(request.getParameter("userGender")!=null){
+		userGender = request.getParameter("userGender");
+	}
+	if(request.getParameter("userEmail")!=null){
+		userEmail = request.getParameter("userEmail");
+	}
+	if(request.getParameter("userPN")!=null){
+		userPN = request.getParameter("userPN");
+	}
+	if(request.getParameter("userInfoType")!=null){
+		userInfoType = request.getParameter("userInfoType");
+	}
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +45,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css/signUpInfoPage.css" />
+    <link rel="stylesheet" href="css/snsSignUpInfoPage.css" />
     <link rel="shortcut icon" type="image/x-icon" href="images/loginLogo.png" />
     <title>가입하기 - PhoTalk</title>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -28,20 +61,6 @@
           jQuery(spinner).css("display", "");
         }
       };
-      
-      var selectBox = function(value){
-    	  document.getElementById('userGender').value = value;
-    	}
-      /* 페이지 전환 */
-      
-      function change(){
-    	  if(signUp.gender.value == null){ 
-    		  alert("성별을 선택하세요.."); 
-    		  signUp.gender.focus(); 
-    		  return false; 
-    	  } 
-    	  document.signUp.submit(); 
-      }
     </script>
   </head>
   <body>
@@ -60,89 +79,70 @@
     </div>
     <!-- 가입정보 입력 폼 -->
     <div class="signUpInfo-content">
-      <form action="signUpInfoProc.jsp" method="POST" name="signUp">
+      <form action="snsSignUpInfoProc.jsp" method="POST">
         <div class="input-box">
-          <input -webkit-autofill
+          <input
             id="userEmail"
             type="text"
             name="userEmail"
+            readonly
+            value="<%=userEmail%>"
             placeholder="이메일을 입력해 주세요"
             maxlength="60"
             autocomplete="false"
-            style="-webkit-box-shadow: 0 0 0 1000px #fff inset"
           />
           <label for="userEmail">이메일을 입력해 주세요</label>
         </div>
         <div class="input-box">
-          <input -webkit-autofill
+          <input
             id="userName"
-            class="userName"
             type="text"
             name="userName"
+            readonly
+            value="<%=userName%>"
             placeholder="성명"
             maxlength="60"
             autocomplete="false"
-            style="-webkit-box-shadow: 0 0 0 1000px #fff inset"
           />
           <label for="userName">성명</label>
         </div>
-        <select name="gender" id="select-box" onchange="selectBox(this.value)" >
-          <option selected disabled>=성별=</option>
-          <option value="남성">남성</option>
-          <option value="여성">여성</option>
-        </select>
-
         <div class="input-box">
-          <input -webkit-autofill
+          <input
             id="userNickName"
             type="text"
             name="userNickName"
             placeholder="닉네임"
             maxlength="60"
             autocomplete="false"
-            style="-webkit-box-shadow: 0 0 0 1000px #fff inset"
           />
           <label for="userNickName">닉네임</label>
         </div>
         <div class="input-box">
-          <input -webkit-autofill
+          <input
             id="userPhoneNum"
             type="text"
             name="userPhoneNum"
-            placeholder="휴대폰 번호('-' 없이)"
-            maxlength="11"
+            readonly
+            value="<%=userPN%>"
+            placeholder="휴대폰 번호"
+            maxlength="60"
             autocomplete="false"
-            style="-webkit-box-shadow: 0 0 0 1000px #fff inset"
           />
-          <label for="userPhoneNum">휴대폰 번호('-' 없이)</label>
+          <label for="userPhoneNum">휴대폰 번호</label>
         </div>
-        <div class="input-box">
-          <input -webkit-autofill
-            class="password"
-            id="password"
-            type="password"
-            name="password"
-            placeholder="비밀번호를 입력해 주세요 (8자 이상)"
-            maxlength="50"
-            autocomplete="false"
-            style="-webkit-box-shadow: 0 0 0 1000px #fff inset"
-          />
-          <label for="password">비밀번호를 입력해 주세요(영문,숫자 포함 8자 이상)</label>
-          <span id="keyShow">
-            <img src="https://velog.velcdn.com/images/thalsghks/post/7910658e-94d5-4e16-b24a-a19ad98f6e70/image.svg" alt="eye" />
-          </span>
-        </div>
-        <input type="hidden" id="userGender" name="userGender">
-        <input type="hidden" name="agreement" value="<%=agreement%>">
-        <input
+        <input id="userGender" type="hidden" name="userGender" value="<%=userGender%>"/>
+        <input id="userSocialId" type="hidden" name="userSocialId" value="<%=userSocialId%>"/>
+        <input id="userInfoType" type="hidden" name="userInfoType" value="<%=userInfoType%>"/>
+        <input id="userAd" type="hidden" name="userAd" value="<%=agreement%>"/>
+        <button
+          type="submit"
           class="next-button"
           id="next-button"
-          name="next-button"
-          type="button"
           disabled
-          value="다음"
-          onclick="change()"
-        />
+          onclick="submit"
+        >
+          다음
+        </button>
       </form>
     </div>
     <!-- 푸터 시작 -->
@@ -152,7 +152,6 @@
       </div>
     </footer>
   </body>
-  <script src="js/signUpInfo.js"></script>
+  <script src="js/snsSignUpInfo.js"></script>
   <script src="js/spin.js"></script>
 </html>
-

@@ -44,10 +44,10 @@ $("#password").on("keyup", function(event) {
 $("#keyShow").on("click", function() {
   if ($("#password").attr("type") == "password") {
     $("#password").attr("type", "text");
-    $("#keyShow > img").attr({ src: "/images/pwdEyeBtnTrue.svg" });
+    $("#keyShow > img").attr({ src: "https://velog.velcdn.com/images/thalsghks/post/728ced01-321e-44a1-bb1e-b1810a4b86a0/image.svg" });
   } else {
     $("#password").attr("type", "password");
-    $("#keyShow > img").attr({ src: "/images/pwdEyeBtnFalse.svg" });
+    $("#keyShow > img").attr({ src: "https://velog.velcdn.com/images/thalsghks/post/7910658e-94d5-4e16-b24a-a19ad98f6e70/image.svg" });
   }
 });
 

@@ -16,7 +16,7 @@ public class GmailSend {
 	
 	private static class SMTPAuthenticator extends Authenticator {
 		public PasswordAuthentication getPasswordAuthentication() {
-			return new PasswordAuthentication("sby4006@gmail.com", "dnmhzvteqcdciohb");
+			return new PasswordAuthentication("sby4006@gmail.com", "mvttkkjjxyuxeeqs");
 		}
 	}
 	public static void send(String title, String content, String toEmail) {

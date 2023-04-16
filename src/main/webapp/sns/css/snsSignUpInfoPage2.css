@@ -115,8 +115,6 @@ input[type="text"]:-ms-clear {
 
 #userName {
   padding-left: 15px;
-  background-color: #efefef4d;
-  color: #aaa;
 }
 
 #userNickName {
@@ -125,8 +123,6 @@ input[type="text"]:-ms-clear {
 
 #userPhoneNum {
   padding-left: 15px;
-  background-color: #efefef4d;
-  color: #aaa;
 }
 
 input::placeholder {
@@ -140,12 +136,12 @@ input:placeholder-shown + label {
 }
 
 input#userEmail:focus,
-input#userName:focus,
-input#userPhoneNum:focus {
+input#userName:focus {
   outline: none;
 }
 
-input#userNickName:focus {
+input#userNickName:focus,
+input#userPhoneNum:focus {
   outline: none;
   border: 1px solid #303030;
 }

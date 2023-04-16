@@ -1,8 +1,11 @@
+<%@page import="java.math.BigInteger"%>
+<%@page import="java.security.SecureRandom"%>
 <%@page import="java.net.URLEncoder"%>
 <%@page import="sns.UserMgr"%>
 <%@page import="java.io.PrintWriter"%>
 <%@page contentType="text/html; charset=UTF-8"%>
   <%
+   /* 일반 로그인 */
 	request.setCharacterEncoding("UTF-8"); 
 	PrintWriter script = response.getWriter();
 	
@@ -26,6 +29,17 @@
 	if(session.getAttribute("alertContent")!=null){
 		alertContent = (String)session.getAttribute("alertContent");
 	}
+	
+	/* 네이버 로그인 */
+	String clientId = "8k6tTgl_X5mXWraZ1X4k";//애플리케이션 클라이언트 아이디값";
+	String redirectURI = URLEncoder.encode("http://localhost:8081/sns-project/sns/naverLoginOk", "UTF-8");
+	SecureRandom random = new SecureRandom();
+	String state = new BigInteger(130, random).toString();
+	String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
+	apiURL += "&client_id=" + clientId;
+	apiURL += "&redirect_uri=" + redirectURI;
+	apiURL += "&state=" + state;
+	session.setAttribute("state", state);	
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -53,8 +67,7 @@
       function checkEmail(){
       <% 
       	 UserMgr userMgr = new UserMgr();
-         int userEmailCertification = userMgr.getEmailcertification(userEmail);
-    	 
+         int userEmailCertification = userMgr.getEmailcertification(userEmail); 
       %>
    		if(<%=userEmailCertification%>==1){
    			alert('이메일 검증 확인');
@@ -114,7 +127,7 @@
             />
             <label for="password">비밀번호를 입력해 주세요</label>
             <span id="keyShow">
-              <img src="images/pwdEyeBtnFalse.svg" alt="eye" />
+              <img src="https://velog.velcdn.com/images/thalsghks/post/7910658e-94d5-4e16-b24a-a19ad98f6e70/image.svg" alt="eye" />
             </span>
           </div>
           <input
@@ -167,7 +180,7 @@
           ><a href="#"><img src="images/kakaoLoginBtn2.svg" /></a
         ></span>
         <span id="naverLogin"
-          ><a href="#"><img src="images/naverLoginBtn.svg" /></a
+          ><a href="<%=apiURL%>"><img src="images/naverLoginBtn.svg" /></a
         ></span>
         <%if(alertContent!=null){ session.invalidate(); %>
            <span style="position: absolute; left: 71px; top: 530px;

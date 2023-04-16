@@ -9,7 +9,7 @@
 	request.setCharacterEncoding("UTF-8"); 
 	PrintWriter script = response.getWriter();
 	String userEmail = null;
-	String userName = null;;
+	String userName = null;
 	String userGender = null;
 	String userNickName = null;
 	String userPhoneNum = null;
