@@ -16,7 +16,7 @@ public class GmailSend {
 	
 	private static class SMTPAuthenticator extends Authenticator {
 		public PasswordAuthentication getPasswordAuthentication() {
-			return new PasswordAuthentication("sby4006@gmail.com", "mvttkkjjxyuxeeqs");
+			return new PasswordAuthentication("photalk2@gmail.com", "qymxisfpnahvqyjw");
 		}
 	}
 	public static void send(String title, String content, String toEmail) {
@@ -41,7 +41,7 @@ public class GmailSend {
 			MimeMessage msg = new MimeMessage(session);
 			String message = content;
 			msg.setSubject(title);
-			Address fromAddr = new InternetAddress("sby4006@gmail.com"); 
+			Address fromAddr = new InternetAddress("photalk2@gmail.com"); 
 			msg.setFrom(fromAddr);
 			Address toAddr = new InternetAddress(toEmail); 
 			msg.addRecipient(Message.RecipientType.TO, toAddr);

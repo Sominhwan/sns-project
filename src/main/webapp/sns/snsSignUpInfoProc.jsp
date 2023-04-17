@@ -33,6 +33,7 @@
 	}
 	if(request.getParameter("userSocialId")!=null){
 		userSocialId = request.getParameter("userSocialId");
+		System.out.println(userSocialId);
 	}
 	if(request.getParameter("userAd")!=null){
 		agreement = Integer.parseInt(request.getParameter("userAd"));
@@ -41,9 +42,15 @@
 		userInfoType = request.getParameter("userInfoType");
 	}
 	
+	boolean result = false;
  	UserMgr userMgr = new UserMgr();
-	boolean result = userMgr.naverJoin(new UserinfoBean(userName, userGender, userNickName, userEmail,
-			userPN, userSocialId, emailcertification, userImage, agreement, userInfoType));
+ 	if(userInfoType.equals("naver")){
+ 		result = userMgr.snsJoin(new UserinfoBean(userName, userGender, userNickName, userEmail,
+			    userPN, userSocialId, emailcertification, userImage, agreement, userInfoType));
+ 	} else if(userInfoType.equals("kakao")){
+ 		result = userMgr.snsJoin(new UserinfoBean(userName, userGender, userNickName, userEmail,
+ 				userPN, userSocialId, emailcertification, userImage, agreement, userInfoType));
+ 	}
 	if(result){
 		session.invalidate();
 		script.println("<script>");

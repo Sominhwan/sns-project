@@ -76,7 +76,7 @@
                   var nickname = res.kakao_account.profile.nickname;
                   var gender = res.kakao_account.gender;
                   f = document.kakaologin;
-          		  f.id.value = id;
+          		  f.kakaoid.value = id;
           		  f.email.value = email;
           		  f.nickname.value = nickname;
           		  f.gender.value = gender;
@@ -138,7 +138,7 @@
     </div>
     <!-- 카카오 개인정보 저장 폼 -->
     <form name="kakaologin" method="post" action="termsService.jsp">
-  	<input type="hidden" name="id"/>
+  	<input type="hidden" name="kakaoid"/>
   	<input type="hidden" name="email"/>
 	<input type="hidden" name="nickname"/>
 	<input type="hidden" name="gender"/>

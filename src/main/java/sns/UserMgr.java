@@ -40,7 +40,7 @@ public class UserMgr {
 		return flag;
 	}
 	
-	// 네이버 로그인
+	// 네이버, 카카오 로그인
 	public boolean userNaverLogin(String userSocialId) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -96,8 +96,8 @@ public class UserMgr {
 		return flag;
 	}
 	
-	// 네이버 회원가입
-	public boolean naverJoin(UserinfoBean bean) {
+	// 네이버, 카카오 회원가입
+	public boolean snsJoin(UserinfoBean bean) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		String sql = null;

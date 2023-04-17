@@ -50,6 +50,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="images/loginLogo.png" />
     <link rel="stylesheet" href="css/loginPage.css" />
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="https://developers.kakao.com/sdk/js/kakao.js"></script>
     <title>PhoTalk</title>
     <script type="text/javascript">
       /* 로그인 확인 폼 제출 */
@@ -75,7 +76,42 @@
    		}else{
    			alert('이메일 인증을 하지 않은 계정입니다.');
    		}
-  	  }  
+  	  }
+      
+      /* 카카오 로그인 */
+      Kakao.init('7b282dfd5c5c643acd7323bd051ec42b');
+		function loginWithKakao() {
+     	 Kakao.Auth.login({
+          success: function (authObj) {
+              console.log(authObj); // access토큰 값
+              Kakao.Auth.setAccessToken(authObj.access_token); // access토큰값 저장
+              getInfo();
+          },
+          fail: function (err) {
+              console.log(err);
+          }
+     	 });
+  	   }
+		function getInfo() {
+          Kakao.API.request({
+              url: '/v2/user/me',
+              success: function (res) {
+            	  var id = res.id;  
+            	  var email = res.kakao_account.email;      
+                  var nickname = res.kakao_account.profile.nickname;
+                  var gender = res.kakao_account.gender;
+                  f = document.kakaologin;
+          		  f.id.value = id; 
+          		  f.email.value = email;
+          		  f.nickname.value = nickname;
+          		  f.gender.value = gender;
+          		  f.submit();
+              },
+              fail: function (error) {
+                  alert('카카오 로그인에 실패했습니다. 관리자에게 문의하세요.' + JSON.stringify(error));
+              }
+          });
+       }
     </script>
   </head>
   <body onkeydown="javascript:onEnterLogin();">
@@ -177,11 +213,19 @@
           ><a href="findPwd.html">PASS 찾기</a></span
         >
         <span id="kakaoLogin"
-          ><a href="#"><img src="images/kakaoLoginBtn2.svg" /></a
+          ><a href="javascript:loginWithKakao()"><img src="images/kakaoLoginBtn2.svg" /></a
         ></span>
         <span id="naverLogin"
           ><a href="<%=apiURL%>"><img src="images/naverLoginBtn.svg" /></a
         ></span>
+        <!-- 카카오 개인정보 저장 폼 -->
+        <form name="kakaologin" method="post" action="kakaoLoginOk">
+  	    <input type="hidden" name="id"/>
+  	    <input type="hidden" name="email"/>
+		<input type="hidden" name="nickname"/>
+		<input type="hidden" name="gender"/>
+	    </form>
+	    <!-- 로그인 실패시 뜨는 문구 -->
         <%if(alertContent!=null){ session.invalidate(); %>
            <span style="position: absolute; left: 71px; top: 530px;
            color:#ed4956; font-size:14px">* 로그인에 실패하였습니다.</span>

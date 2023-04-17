@@ -1,3 +1,5 @@
+<%@page import="java.io.PrintWriter"%>
+<%@page import="sns.UserMgr"%>
 <%@page contentType="text/html; charset=UTF-8"%>
 <%
 	request.setCharacterEncoding("UTF-8"); 
@@ -31,16 +33,40 @@
 	}
 	
 	/* 카카오 개인정보 저장 */
-	String id = null;
+	String kakaoid = null;
 	String email = null;
 	String nickname = null;
 	String gender = null;
 	String userInfoType2 = "kakao";
-	if(request.getParameter("id")!=null){
-		id = request.getParameter("id");
+		
+	if(request.getAttribute("kakaoid")!=null){
+		kakaoid = (String)request.getAttribute("kakaoid");
+	}
+	if(request.getAttribute("email")!=null){
+		email = (String)request.getAttribute("email");
+	}
+	if(request.getAttribute("nickname")!=null){
+		nickname = (String)request.getAttribute("nickname");
+	}
+	if(request.getAttribute("gender")!=null){
+		gender = (String)request.getAttribute("gender");
+	}
+	
+	if(request.getParameter("kakaoid")!=null){
+		kakaoid = request.getParameter("kakaoid");
 	}
 	if(request.getParameter("email")!=null){
 		email = request.getParameter("email");
+		UserMgr userMgr = new UserMgr();
+		if(userMgr.getUserSnsEmail(kakaoid).equals(email)){
+			PrintWriter script = response.getWriter();
+			script.println("<script>");
+			script.println("alert('이미 존재하는 계정입니다.');");
+			script.println("history.back();");
+			script.println("</script>");
+			script.close();
+			return;
+		}
 	}
 	if(request.getParameter("nickname")!=null){
 		nickname = request.getParameter("nickname");
@@ -53,7 +79,6 @@
 			gender = gender.replaceAll("female", "여성");
 		}
 	}
-	
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -80,7 +105,7 @@
       /* 페이지 이동 */
       function change(){
     	  var type = "<%=userSocialId%>"; /* 네이버 타입 */
-    	  var type2 = "<%=id%>"; /* 카카오 타입 */
+    	  var type2 = "<%=kakaoid%>"; /* 카카오 타입 */
     	  if(type=="null" && type2=="null"){
     		  document.form_wrap.action = "signUpInfo.jsp"; 		 
     	  } else if(type!="null") {
@@ -167,8 +192,8 @@
         <input id="userInfoType" type="hidden" name="userInfoType" value="<%=userInfoType%>"/>
         <%} %>
         <!-- 카카오 개인정보 폼 -->
-        <%if(id!=null){ %>
-        <input id="userSocialId" type="hidden" name="userSocialId" value="<%=id%>"/>
+        <%if(kakaoid!=null){ %>
+        <input id="userSocialId" type="hidden" name="userSocialId" value="<%=kakaoid%>"/>
         <input id="userEmail" type="hidden" name="userEmail" value="<%=email%>"/>
         <input id="userNickName" type="hidden" name="userNickName" value="<%=nickname%>"/>
         <input id="userGender" type="hidden" name="userGender" value="<%=gender%>"/>

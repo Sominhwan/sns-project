@@ -15,6 +15,7 @@
 	
 	if(request.getParameter("userSocialId")!=null){
 		userSocialId = request.getParameter("userSocialId");
+		System.out.println(userSocialId);
 	} else{
 		PrintWriter script = response.getWriter();
 		script.println("<script>");
@@ -69,11 +70,11 @@
         <li><a href="login.jsp" class="signUp">로그인</a></li>
       </ul>
     </nav>
-    <!-- 가입정보 입력 컨텐츠 -->
+    <!-- 카카오 가입정보 입력 컨텐츠 -->
     <div class="signUpInfo-text">
       <span id="signUp-text">가입정보를 입력해주세요.</span>
     </div>
-    <!-- 가입정보 입력 폼 -->
+    <!-- 카카오 가입정보 입력 폼 -->
     <div class="signUpInfo-content">
       <form action="snsSignUpInfoProc.jsp" method="POST">
         <div class="input-box">
@@ -118,7 +119,7 @@
             type="text"
             name="userPhoneNum"
             placeholder="휴대폰 번호"
-            maxlength="60"
+            maxlength="11"
             autocomplete="false"
           />
           <label for="userPhoneNum">휴대폰 번호</label>
