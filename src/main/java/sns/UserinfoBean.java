@@ -1,6 +1,6 @@
 package sns;
 
-public class UserinfoBean {
+public class UserinfoBean {	
 	private String userName;
 	private String userGender;
 	private String userNickName;
@@ -18,6 +18,10 @@ public class UserinfoBean {
 	private int userAd;
 	private String userRegTime;
 	private String userInfoType;
+	
+	public UserinfoBean() {
+		super();
+	}
 	
 	public UserinfoBean(String userName, String userGender, String userNickName, String userEmail, String userPwd,
 			String userPN, String emailHash, String userImage, int userAd) {

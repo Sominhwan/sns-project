@@ -227,28 +227,28 @@ public class UserMgr {
 	}		
 	
 	// 이메일 검증 확인하기
-		public int getEmailcertification(String userEmail) {
-			Connection con = null;
-			PreparedStatement pstmt = null;
-			ResultSet rs = null;
-			String sql = null;
-			try {
-				con = pool.getConnection();
-				sql = "SELECT emailcertification FROM userinfo WHERE userEmail = ?";
-				pstmt = con.prepareStatement(sql);
-				pstmt.setString(1, userEmail);
-				rs = pstmt.executeQuery();
-				if(rs.next()) {
-					return rs.getInt(1);
-				}
-
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				pool.freeConnection(con, pstmt, rs);
+	public int getEmailcertification(String userEmail) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		try {
+			con = pool.getConnection();
+			sql = "SELECT emailcertification FROM userinfo WHERE userEmail = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, userEmail);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				return rs.getInt(1);
 			}
-			return -1;
-		}		
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return -1;
+	}		
 	
 	// 이메일 검증하기
 	public boolean setEmailcertification(String userEmail) {
@@ -271,6 +271,35 @@ public class UserMgr {
 		}
 		return flag;
 	}
+	
+	// 아이디 찾기(이메일, 가입일자, 소셜가입 여부 확인)
+	public UserinfoBean getID(String userName, String userNickName ) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		UserinfoBean bean = new UserinfoBean();
+		try {
+			con = pool.getConnection();
+			sql = "SELECT userName, userNickName, userRegDate, userInfoType FROM userinfo WHERE userName = ? and userNickName = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, userName);
+			pstmt.setString(2, userNickName);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				bean.setUserName(rs.getString(1));
+				bean.setUserNickName(rs.getString(2));
+				bean.setUserRegDate(rs.getString(3));
+				bean.setUserInfoType(rs.getString(4));
+			}
+	
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return bean;
+	}		
 }
 
 

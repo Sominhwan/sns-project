@@ -207,7 +207,7 @@
             <img src="images/makePostCancelBtn.svg" />
           </span>
         </div>
-        <span class="id_pwd" id="id_find"><a href="findId.html">ID</a></span>
+        <span class="id_pwd" id="id_find"><a href="findId.jsp">ID</a></span>
         <span class="id_pwd" id="idPwd">/</span>
         <span class="id_pwd" id="pass_find"
           ><a href="findPwd.html">PASS 찾기</a></span
