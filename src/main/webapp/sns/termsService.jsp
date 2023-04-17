@@ -67,6 +67,7 @@
 			script.close();
 			return;
 		}
+		
 	}
 	if(request.getParameter("nickname")!=null){
 		nickname = request.getParameter("nickname");

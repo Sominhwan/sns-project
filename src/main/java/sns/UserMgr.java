@@ -5,10 +5,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.Vector;
 
 public class UserMgr {
 	private DBConnectionMgr pool;
-	private final SimpleDateFormat SDF_DATE = new SimpleDateFormat("yyyy'.'  M'.' d'.' (E)");
+	private final SimpleDateFormat SDF_DATE = new SimpleDateFormat("yyyy'.'M'.'d");
 	private final SimpleDateFormat SDF_TIME = new SimpleDateFormat("H:mm:ss");
 	
 	public UserMgr() {
@@ -175,7 +176,7 @@ public class UserMgr {
 		} finally {
 			pool.freeConnection(con, pstmt, rs);
 		}
-		return null;
+		return "null";
 	}
 	
 	// 유저 닉네임 가져오기
@@ -281,24 +282,26 @@ public class UserMgr {
 		UserinfoBean bean = new UserinfoBean();
 		try {
 			con = pool.getConnection();
-			sql = "SELECT userName, userNickName, userRegDate, userInfoType FROM userinfo WHERE userName = ? and userNickName = ?";
+			sql = "SELECT userEmail, userRegDate, userInfoType "
+					+ "FROM userinfo WHERE userName = ? and userNickName = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, userName);
 			pstmt.setString(2, userNickName);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-				bean.setUserName(rs.getString(1));
-				bean.setUserNickName(rs.getString(2));
-				bean.setUserRegDate(rs.getString(3));
-				bean.setUserInfoType(rs.getString(4));
+				bean.setUserEmail(rs.getString(1));
+				String tempDate = SDF_DATE.format(rs.getDate(2));
+				bean.setUserRegDate(tempDate);
+				bean.setUserInfoType(rs.getString(3));
+				return bean;
 			}
-	
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			pool.freeConnection(con, pstmt, rs);
 		}
-		return bean;
+		return null;
 	}		
 }
 

@@ -19,14 +19,7 @@ public class KakaoLoginServletOk extends HttpServlet {
     public KakaoLoginServletOk() {
         super();
     }
-
-	/*
-	 * protected void doGet(HttpServletRequest request, HttpServletResponse
-	 * response) throws ServletException, IOException { HttpSession session =
-	 * request.getSession(); session.invalidate(); String url = "login.jsp";
-	 * response.sendRedirect(url); }
-	 */
-    
+   
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String id = null;
 		String userEmail = null;
