@@ -20,12 +20,10 @@
 		userEmail = (String)session.getAttribute("userEmail");
 		for(Cookie c : cs){
 			if(c.getName().equals("loginCookie")){
-				System.out.println("안녕");
 				userEmail = c.getValue();
 			}
 		}
-	}
-	
+	}	
 	if(session.getAttribute("userNickName")!=null){
 		userNickName = (String)session.getAttribute("userNickName");
 	}
@@ -77,9 +75,21 @@
       <% 
       	 UserMgr userMgr = new UserMgr();
          int userEmailCertification = userMgr.getEmailcertification(userEmail); 
+         String adminCheck = null;
+         if(session.getAttribute("adminCheck")!=null){
+        	 adminCheck = (String)session.getAttribute("adminCheck");
+         }
       %>
+		if(<%=adminCheck%>!=null){
+			alert('관리자 로그인 모드');
+			location.replace('adminLogin.jsp');
+			return;
+		}      
+      
+      
    		if(<%=userEmailCertification%>==1){
    			alert('이메일 검증 확인');
+   			/* 메인 화면 링크 추가 */
    			/* document.loginOk_frm.submit(); */	
    		}else{
    			alert('이메일 인증을 하지 않은 계정입니다.');

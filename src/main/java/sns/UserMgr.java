@@ -17,12 +17,14 @@ public class UserMgr {
 	}
 	
 	// 일반 로그인
-	public boolean userLogin(String userEmail, String userPwd) {
+	public int userLogin(String userEmail, String userPwd) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = null;
-		boolean flag = false;
+		String email = null;
+		String password = null;
+		int flag = 0;
 	
 		try {
 			con = pool.getConnection();
@@ -31,8 +33,14 @@ public class UserMgr {
 			pstmt.setString(1, userEmail);
 			pstmt.setString(2, userPwd);
 			rs = pstmt.executeQuery();
-			if (rs.next())
-				flag = true;
+			if (rs.next()) {
+				email = rs.getString(1);
+				password = rs.getString(2);
+				flag = 1;
+			}
+			if(email.equals("admin") && password.equals("12345678")) {
+				flag = 2; // 관리자 모드 로그인 확인
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -64,6 +72,33 @@ public class UserMgr {
 		}
 		return flag;
 	}	
+	
+	// 관리자 로그인
+	public boolean adminLogin(String adminId, String adminPwd) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		String email = null;
+		String password = null;
+		boolean flag = false;
+		try {
+			con = pool.getConnection();
+			sql = "select mgEmail, pwd from manager where mgEmail = ? and pwd = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, adminId);
+			pstmt.setString(2, adminPwd);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				flag = true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return flag;
+	}
 	
 	// 일반 회원가입
 	public boolean join(UserinfoBean bean) {

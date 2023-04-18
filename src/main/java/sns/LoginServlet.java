@@ -23,16 +23,19 @@ public class LoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	HttpSession session = request.getSession();
     	Cookie[] cookies = request.getCookies() ;
+    	session.invalidate();
 		if(cookies != null){
-			for(int i=0; i < cookies.length; i++){	
-				// 쿠키의 유효시간을 0으로 설정하여 만료시킨다
-				cookies[i].setMaxAge(0) ;
-				System.out.print(cookies[i].getName());
-				// 응답 헤더에 추가한다
-				response.addCookie(cookies[i]) ;
+			for(int i=0; i < cookies.length; i++){					
+				if(cookies[i].getName().equals("loginCookie")) {
+					// 쿠키의 유효시간을 0으로 설정하여 만료시킨다
+					cookies[i].setMaxAge(0) ;
+					System.out.println(cookies[i].getName());
+					// 응답 헤더에 추가한다
+					response.addCookie(cookies[i]) ;
+				}
 			}
 		}
-    	session.invalidate();
+    	
     	String url = "login.jsp";
 		response.sendRedirect(url);
 	}
@@ -58,8 +61,8 @@ public class LoginServlet extends HttpServlet {
 		}
 		
 		UserMgr userMgr = new UserMgr();
-		boolean loginCheck = userMgr.userLogin(userEmail, userPwd);
-		if(loginCheck){ // 로그인 성공일 경우
+		int loginCheck = userMgr.userLogin(userEmail, userPwd);
+		if(loginCheck==1){ // 로그인 성공일 경우
 			userNickName = userMgr.getUserNickName(userEmail);
 			userImage = userMgr.getUserImage(userEmail);
 			
@@ -76,9 +79,19 @@ public class LoginServlet extends HttpServlet {
 			} 
 			String url = "login.jsp"; 
 			response.sendRedirect(url);
-		} else{ // 로그인 실패한 경우 
+		} else if(loginCheck==0){ // 로그인 실패한 경우 
 			session.setAttribute("alertContent", "true");
 			String url = "login.jsp"; 		
+			response.sendRedirect(url);
+		} else if(loginCheck==2) { // 관리자 로그인
+			userNickName = userMgr.getUserNickName(userEmail);
+			userImage = userMgr.getUserImage(userEmail);
+			
+			session.setAttribute("userEmail", userEmail); 				
+			session.setAttribute("userNickName", userNickName); 				
+			session.setAttribute("userImage", userImage); 
+			session.setAttribute("adminCheck", "1");
+			String url = "login.jsp"; 
 			response.sendRedirect(url);
 		}
 	}
