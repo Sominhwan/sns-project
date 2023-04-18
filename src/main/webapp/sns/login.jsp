@@ -14,8 +14,16 @@
 	String userImage = null;
 	String alertContent = null;
 
+	Cookie[] cs = request.getCookies();
+	
 	if(session.getAttribute("userEmail")!=null){
 		userEmail = (String)session.getAttribute("userEmail");
+		for(Cookie c : cs){
+			if(c.getName().equals("loginCookie")){
+				System.out.println("안녕");
+				userEmail = c.getValue();
+			}
+		}
 	}
 	
 	if(session.getAttribute("userNickName")!=null){
@@ -23,7 +31,7 @@
 	}
 	
 	if(session.getAttribute("userImage")!=null){
-		userImage = (String)session.getAttribute("userImage");
+		userImage = (String)session.getAttribute("userImage");	
 	}
 	
 	if(session.getAttribute("alertContent")!=null){
@@ -165,22 +173,12 @@
             <span id="keyShow">
               <img src="https://velog.velcdn.com/images/thalsghks/post/7910658e-94d5-4e16-b24a-a19ad98f6e70/image.svg" alt="eye" />
             </span>
-          </div>
-          <input
-            class="loginBtn"
-            id="loginBtn"
-            name="loginBtn"
-            type="button"
-            disabled
-            value="로그인"
-            onclick="loginFrm()"
-          />
-        </form>
-        <input type="checkbox" id="myCheck" />
+          </div>      
+          <input type="checkbox" id="myCheck" name="myCheck" />
         <label for="myCheck"></label>
         <span id="auto_login_text">자동 로그인</span>
 
-        <input type="checkbox" id="popup" />
+        <input type="checkbox" id="popup" name="myCheck"/>
         <label for="popup"></label>
         <div>
           <div>
@@ -197,6 +195,17 @@
             />
           </a>
         </div>
+          <input
+            class="loginBtn"
+            id="loginBtn"
+            name="loginBtn"
+            type="button"
+            disabled
+            value="로그인"
+            onclick="loginFrm()"
+          />
+        </form>
+        
         <!-- modal 영역 -->
         <div class="modal-bg" onClick="javascript:popClose();"></div>
         <div class="modal-wrap">
@@ -210,7 +219,7 @@
         <span class="id_pwd" id="id_find"><a href="findId.jsp">ID</a></span>
         <span class="id_pwd" id="idPwd">/</span>
         <span class="id_pwd" id="pass_find"
-          ><a href="findPwd.html">PASS 찾기</a></span
+          ><a href="findPwd.jsp">PASS 찾기</a></span
         >
         <span id="kakaoLogin"
           ><a href="javascript:loginWithKakao()"><img src="images/kakaoLoginBtn2.svg" /></a
@@ -226,7 +235,7 @@
 		<input type="hidden" name="gender"/>
 	    </form>
 	    <!-- 로그인 실패시 뜨는 문구 -->
-        <%if(alertContent!=null){ session.invalidate(); %>
+        <%if(alertContent!=null){ //session.invalidate(); %>
            <span style="position: absolute; left: 71px; top: 530px;
            color:#ed4956; font-size:14px">* 로그인에 실패하였습니다.</span>
          <%}%>   
@@ -251,11 +260,12 @@
             onclick="checkEmail()"
             style="cursor: pointer;"
           />
-        </form>
-        <span id="login" style="position: absolute;height: 18px;width: 519.5px;font-size: 18px;
+           <span id="login" style="position: absolute;height: 18px;width: 519.5px;font-size: 18px;
            color: #868e96;top: 450px;left:25%;transform: translate(0%, 0%);"><%=userNickName%> 님이 아닌가요? <a href="#" 
         style="text-decoration: none;color: #1877f2;"
         onclick="location.replace('loginChange')">계정 변경</a></span>
+        </form>
+       
       </div>
       <% } %>
     </div>

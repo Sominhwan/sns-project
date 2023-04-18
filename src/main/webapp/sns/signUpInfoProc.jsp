@@ -56,7 +56,7 @@
 	if(request.getParameter("password")!=null){
 		userPwd = request.getParameter("password");
 		//비밀번호 : 영문 숫자 포함 8자 이상
-		Pattern passPattern1 = Pattern.compile("^(?=.*[a-zA-Z])(?=.*\\d).{8,20}$");
+		Pattern passPattern1 = Pattern.compile("^(?=.*[a-zA-Z])(?=.*[0-9]).{8,20}$");
 		Matcher passMatcher1 = passPattern1.matcher(userPwd);
 		if(!passMatcher1.find()){
 			script.println("<script>");

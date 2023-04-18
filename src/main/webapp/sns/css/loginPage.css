@@ -36,7 +36,7 @@ html {
   }
 }
 
-@media (max-height: 920px) {
+@media (max-height: 940px) {
   .login_footer {
     display: none;
   }

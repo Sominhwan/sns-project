@@ -9,7 +9,7 @@ import java.util.Vector;
 
 public class UserMgr {
 	private DBConnectionMgr pool;
-	private final SimpleDateFormat SDF_DATE = new SimpleDateFormat("yyyy'.'M'.'d");
+	private final SimpleDateFormat SDF_DATE = new SimpleDateFormat("yyyy'.'MM'.'d");
 	private final SimpleDateFormat SDF_TIME = new SimpleDateFormat("H:mm:ss");
 	
 	public UserMgr() {
@@ -303,6 +303,82 @@ public class UserMgr {
 		}
 		return null;
 	}		
+	
+	// 이메일이 존재하는지 확인(이메일, 소셜가입 여부 확인)
+	public UserinfoBean getUserEmailCheck(String userEmail) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		UserinfoBean bean = new UserinfoBean();
+		try {
+			con = pool.getConnection();
+			sql = "SELECT userEmail, userInfoType "
+					+ "FROM userinfo WHERE userEmail = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, userEmail);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				bean.setUserEmail(rs.getString(1));		
+				bean.setUserInfoType(rs.getString(2));
+				return bean;
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return null;
+	}	
+	
+	// 비밀번호 가져오기
+	public String getUserPwd(String userEmail) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		try {
+			con = pool.getConnection();
+			sql = "SELECT userPwd "
+					+ "FROM userinfo WHERE userEmail = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, userEmail);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				return rs.getString(1);		
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return "1";
+	}	
+	
+	// 비밀번호 변경하기
+	public boolean setPassword(String userEmail, String userPwd) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		boolean flag = false;
+		try {
+			con = pool.getConnection();
+			sql = "UPDATE userinfo SET userPwd = ? WHERE userEmail = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, userPwd);
+			pstmt.setString(2, userEmail);
+			if(pstmt.executeUpdate()==1)
+				flag = true;	
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+		} finally {
+			pool.freeConnection(con, pstmt);
+		}
+		return flag;
+	}
 }
 
 
