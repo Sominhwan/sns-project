@@ -120,10 +120,11 @@
             회원관리
         </div>
         <div id="searchBox">
-            <input class="search" name="search" id="userName" onkeyup="searchFunction()" type="text" placeholder="성명을 입력하세요"/>
+            <input class="search" name="search" id="userName" onkeyup="searchFunction()" type="text" placeholder="성명을 입력하세요" maxlength="30"/>
             <button type="button" class="searchBtn" onclick="searchFunction();"></button>
         </div>
         <!-- 회원정보 테이블 -->
+        <div class="userTable-scroll">
         <div class="userTable-content">
         <table class="userTable">
             <thead id="head">
@@ -157,6 +158,7 @@
                 </tr> -->
                 </tbody>
         </table>
+        </div>
         </div>
     </div>
   </body>

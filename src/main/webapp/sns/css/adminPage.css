@@ -164,10 +164,31 @@ input:focus {
 }
 
 /* 회원정보 테이블 */
-.userTable-content {
+.userTable-scroll{
   position: relative;
   left: 100px;
   top: 115px;
+  width: 1370px;
+  height: 860px;
+  overflow-y: auto;
+  
+}
+
+.userTable-scroll::-webkit-scrollbar {
+  width: 5px; /* 스크롤바의 너비 */
+}
+
+.userTable-scroll::-webkit-scrollbar-thumb {
+  height: 30%; /* 스크롤바의 길이 */
+  background: #eeeeee; /* 스크롤바의 색상 */
+}
+
+.userTable-scroll::-webkit-scrollbar-track {
+  background: #f9f9f9; /*스크롤바 뒷 배경 색상*/
+}
+
+.userTable-content {
+  position: relative;
   width: 1365px;
 }
 
@@ -181,7 +202,9 @@ table.userTable {
 }
 
 table.userTable thead th {
+  position: sticky;
   padding: 10px;
+  top: 0;
   font-weight: bold;
   vertical-align: top;
   color: #474747;

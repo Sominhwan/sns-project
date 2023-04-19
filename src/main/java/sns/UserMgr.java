@@ -414,6 +414,33 @@ public class UserMgr {
 		}
 		return flag;
 	}
+	
+
+	public static void main(String []args) {
+		UserMgr mgr= new UserMgr();
+		String [] userName= new String[50];
+		String userGender = "남성";
+		String []userNickName = new String[50];
+		String []userEmail = new String[50];
+		String userPwd = "1234";
+		String []userPhoneNum = new String[50];
+		String userImage = "images/profile.svg";
+		int userAd = 1;
+		
+		for (int i = 0; i < 50; i++) {
+			userName[i] = "홍길동" + i;
+			userNickName[i] = "하이요" + i;
+			userEmail[i] = "abcd" + i + "@gmail.com";
+			userPhoneNum[i] = "0101234111"+ i;
+		}
+		
+		boolean result = false;
+		for (int j = 0; j < 50; j++) {
+			result = mgr.join(new UserinfoBean(userName[j], userGender, userNickName[j], userEmail[j], 
+					userPwd, userPhoneNum[j], SHA256.getSHA256(userEmail[j]), userImage, userAd));
+		}
+		
+	}
 }
 
 
