@@ -35,7 +35,7 @@
                         <form action="adminLogin" method="POST" name="login_frm">
                             <div class="form-group">
                                 <label class="form-control-label">USERNAME</label>
-                                <input type="text" name="adminId" class="form-control">
+                                <input type="text" autocomplete='off' name="adminId" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label class="form-control-label">PASSWORD</label>
