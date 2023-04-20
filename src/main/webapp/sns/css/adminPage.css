@@ -221,6 +221,8 @@ table.userTable td {
 }
 
 tr button {
+  margin-top: 3px;
+  margin-left: -5px;
   color: #1877f2;
   text-decoration: underline;
   background-color: #fff;
@@ -233,3 +235,15 @@ tr button:focus {
   outline: none;
 } 
 
+input[type="checkbox"] {
+  margin-top: 10px;
+  accent-color: #303030;
+  cursor: pointer;
+}
+
+#deleteBtn{
+  position: relative;
+  top: 10%;
+  left: 3.7%;
+  cursor: pointer;
+}

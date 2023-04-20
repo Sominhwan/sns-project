@@ -50,12 +50,16 @@
     		if(request.readyState == 4 && request.status == 200){
     			var object = eval('(' +request.responseText + ')');
     			var result = object.result;
+    			var j = 0;
+    			
     			for(var i = 0; i<result.length; i++){
     				var row = table.insertRow(0);
-    				for (var j = 0; j < result[i].length; j++) {
+    				var cell = row.insertCell(0);
+    				cell.innerHTML = `<input type="checkbox" id="myCheck"/>`;		
+    				for (j = 1; j < result[i].length; j++) {
 						var cell = row.insertCell(j);
-						cell.innerHTML = result[i][j].value;	
-					}
+						cell.innerHTML = result[i][j].value;					
+					}			
     				cell.innerHTML = `<button class="checkBtn">삭제</button>`;
     			}
     		}
@@ -67,7 +71,7 @@
 			var checkBtn = $(this);
 			var tr = checkBtn.parent().parent();
 			var td = tr.children();
-			var userEmail = td.eq(3).text();
+			var userEmail = td.eq(4).text(); // 이메일 선택
 			
 		    deleteUser(userEmail);
 		});
@@ -75,7 +79,6 @@
     	function deleteUser(userEmail) {
     		var request = new XMLHttpRequest();
     		request.open("Post", "UserInfoDelete?userEmail=" +userEmail,true);
-    		//request.open("Post", "UserSearch?userName=" + encodeURIComponent(document.getElementById("userName").value),true);
     		request.onreadystatechange = deleteProcess;
     		request.send(null);
 		};
@@ -86,8 +89,8 @@
     			alert('삭제 성공!');
     		} 
     	}
-	 	
-	  	$(document).on('click', 'tr', function(){ 				
+	 		 	
+	/*   	$(document).on('click', 'tr', function(){ 				
 	 			var tr = $(this);
 	 			var td = tr.children();
 	 			alert(td.eq(3).text());
@@ -97,17 +100,7 @@
 	 			});
 	 			
 	 	});	 
-	 /* 	$(document).on('dblclick', 'tr', function(){ 				
- 			var tr = $(this);
- 			var td = tr.children();
- 			alert(td.eq(2).text());
- 			td.each(function(i){
- 				//tdArr.push(td.eq(i).text());	
- 				td.eq(i).css({"background-color":"#111","color":"#111"});
- 			});
- 			
- 	    });	 */
-	 
+ */ 
     	window.onload = function(){
     		searchFunction();
     	}
@@ -202,6 +195,7 @@
         <table class="userTable">
             <thead id="head">
                 <tr> 
+                    <th scope="cols">선택</th>
                     <th scope="cols">번호</th>
                     <th scope="cols">성명</th>
                     <th scope="cols">닉네임</th>
@@ -216,23 +210,11 @@
                 </tr>
             </thead>
             <tbody id="ajaxTable">
-               <!--  <tr>     
-                    <td>1</td>
-                    <td>홍길동</td>
-                    <td>abcd1234</td>
-                    <td>sby4006@gmail.com</td>
-                    <td>RmYrsHJswnQrcwcsaf</td>
-                    <td>01011111111</td>
-                    <td>부산광역시 승학로</td>
-                    <td>1</td>
-                    <td>일반</td>
-                    <td>2023.01.01</td>
-                    <td class="delete"><a onclick="location.href('login.html')" style="cursor: pointer;">삭제</a></td>
-                </tr> -->
-                </tbody>
+            </tbody>
         </table>
         </div>
         </div>
+        <img src="adminImages/delete.svg" alt="deleteBtn" id="deleteBtn">
     </div>
   </body>
 </html>

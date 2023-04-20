@@ -196,9 +196,7 @@ label {
 }
 
 input[type="checkbox"] + label {
-  position: absolute;
-  top: 430px;
-  left: 71px;
+
   width: 19.1px;
   height: 19.1px;
   background: url("../images/autoLoginCheckBoxFalse.svg") no-repeat 0 0px /

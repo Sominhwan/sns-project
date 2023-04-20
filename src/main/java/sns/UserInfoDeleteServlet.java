@@ -19,6 +19,7 @@ public class UserInfoDeleteServlet extends HttpServlet {
 		String userEmail = request.getParameter("userEmail");
 		AdminMgr mgr = new AdminMgr();
 		mgr.deleteUserInfo(userEmail);
+		System.out.println(userEmail);
 	}
 
 }

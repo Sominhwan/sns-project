@@ -29,7 +29,8 @@ public class UserSearchServlet extends HttpServlet {
 		AdminMgr mgr = new AdminMgr();
 		ArrayList<UserinfoBean> userList = mgr.search(userName);
 		for (int i = 0; i < userList.size(); i++) {
-			result.append("[{\"value\": \"" + (i+1) + "\"},");
+			result.append("[{\"value\": \"" + "" + "\"},");
+			result.append("{\"value\": \"" + (i+1) + "\"},");
 			result.append("{\"value\": \"" + userList.get(i).getUserName() + "\"},");
 			result.append("{\"value\": \"" + userList.get(i).getUserNickName() + "\"},");
 			result.append("{\"value\": \"" + userList.get(i).getUserEmail() + "\"},");
