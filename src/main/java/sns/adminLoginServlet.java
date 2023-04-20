@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet("/sns/adminLogin")
 public class adminLoginServlet extends HttpServlet {
@@ -30,6 +31,8 @@ public class adminLoginServlet extends HttpServlet {
 		UserMgr mgr = new UserMgr();
 		boolean adminCheck = mgr.adminLogin(adminId, adminPwd);
 		if(adminCheck) { // 로그인 성공할 시 
+			HttpSession session = request.getSession();
+			session.setAttribute("adminId", adminId);
 			RequestDispatcher re = request.getRequestDispatcher("adminPage.jsp");
 			re.forward(request, response);
 		} else { // 로그인 실패 시

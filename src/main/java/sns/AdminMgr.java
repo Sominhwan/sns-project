@@ -86,4 +86,23 @@ public class AdminMgr {
 		}
 		return userList;
 	}
+	
+	// 관리자 회원정보 삭제
+	public void deleteUserInfo(String userEmail) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		try {
+		   con = pool.getConnection();
+		   sql = "delete from userInfo where userEmail = ?";
+		   pstmt = con.prepareStatement(sql);
+		   pstmt.setString(1, userEmail);
+		   pstmt.executeUpdate();
+		    
+		} catch (Exception e) {
+		   e.printStackTrace();
+		} finally {
+		   pool.freeConnection(con, pstmt);
+		}
+	 }
 }

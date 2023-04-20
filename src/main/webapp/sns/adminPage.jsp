@@ -1,6 +1,29 @@
+<%@page import="java.io.PrintWriter"%>
 <%@page contentType="text/html; charset=UTF-8"%>
 <%
-		
+	PrintWriter script = response.getWriter();
+
+	if(session.getAttribute("adminId")!=null){
+		String adminId = (String)session.getAttribute("adminId");
+		if(adminId.equals("admin")){
+			script.println("<script>");
+			script.println("alert('관리자 페이지 진입.');");
+			script.println("</script>");	
+		} else {
+			session.invalidate();
+			script.println("<script>");
+			script.println("history.back();");
+			script.println("</script>");
+			script.close();		
+		}
+	} else {
+		session.invalidate();
+		script.println("<script>");
+		script.println("history.back();");
+		script.println("</script>");
+		script.close();
+	}
+	session.invalidate();
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,6 +37,7 @@
     <title>관리자페이지 - Photalk</title>
     <script type="text/javascript">
     	var request = new XMLHttpRequest();
+    	
     	function searchFunction(){
     		request.open("Post", "UserSearch?userName=" + encodeURIComponent(document.getElementById("userName").value),true);
     		request.onreadystatechange = searchProcess;
@@ -32,9 +56,58 @@
 						var cell = row.insertCell(j);
 						cell.innerHTML = result[i][j].value;	
 					}
+    				cell.innerHTML = `<button class="checkBtn">삭제</button>`;
     			}
     		}
     	}
+    	
+    	/* 회원정보 삭제 */
+        // 버튼 클릭시 Row 값 가져오기
+		$(document).on('click', '.checkBtn', function(){
+			var checkBtn = $(this);
+			var tr = checkBtn.parent().parent();
+			var td = tr.children();
+			var userEmail = td.eq(3).text();
+			
+		    deleteUser(userEmail);
+		});
+	   	
+    	function deleteUser(userEmail) {
+    		var request = new XMLHttpRequest();
+    		request.open("Post", "UserInfoDelete?userEmail=" +userEmail,true);
+    		//request.open("Post", "UserSearch?userName=" + encodeURIComponent(document.getElementById("userName").value),true);
+    		request.onreadystatechange = deleteProcess;
+    		request.send(null);
+		};
+	 	function deleteProcess(){
+    		// 통신 성공시
+    		if(request.readyState == 4 && request.status == 200){	
+    			searchFunction();
+    			alert('삭제 성공!');
+    		} 
+    	}
+	 	
+	  	$(document).on('click', 'tr', function(){ 				
+	 			var tr = $(this);
+	 			var td = tr.children();
+	 			alert(td.eq(3).text());
+	 			td.each(function(i){
+	 				//tdArr.push(td.eq(i).text());	
+	 				td.eq(i).css({"background-color":"#FBFBFB","color":"#000"});
+	 			});
+	 			
+	 	});	 
+	 /* 	$(document).on('dblclick', 'tr', function(){ 				
+ 			var tr = $(this);
+ 			var td = tr.children();
+ 			alert(td.eq(2).text());
+ 			td.each(function(i){
+ 				//tdArr.push(td.eq(i).text());	
+ 				td.eq(i).css({"background-color":"#111","color":"#111"});
+ 			});
+ 			
+ 	    });	 */
+	 
     	window.onload = function(){
     		searchFunction();
     	}
@@ -128,7 +201,7 @@
         <div class="userTable-content">
         <table class="userTable">
             <thead id="head">
-                <tr>
+                <tr> 
                     <th scope="cols">번호</th>
                     <th scope="cols">성명</th>
                     <th scope="cols">닉네임</th>

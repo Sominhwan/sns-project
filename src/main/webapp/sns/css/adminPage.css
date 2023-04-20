@@ -152,9 +152,9 @@ input:focus {
 }
 .searchBtn {
   position: absolute;
-  left: 94%;
+  left: 88%;
   top: 8px;
-  width: 24px;
+  width: 22px;
   right: 0;
   height: inherit;
   background: url("../adminImages/adminSearch.svg") no-repeat 0 0px / contain;
@@ -169,9 +169,8 @@ input:focus {
   left: 100px;
   top: 115px;
   width: 1370px;
-  height: 860px;
+  height: 65%;
   overflow-y: auto;
-  
 }
 
 .userTable-scroll::-webkit-scrollbar {
@@ -189,7 +188,7 @@ input:focus {
 
 .userTable-content {
   position: relative;
-  width: 1365px;
+  height: 0;
 }
 
 table.userTable {
@@ -220,7 +219,17 @@ table.userTable td {
   vertical-align: top;
   border-bottom: 1px solid #e7e7e7;
 }
-a {
+
+tr button {
   color: #1877f2;
   text-decoration: underline;
+  background-color: #fff;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
 }
+tr button:focus {
+  border: none;
+  outline: none;
+} 
+

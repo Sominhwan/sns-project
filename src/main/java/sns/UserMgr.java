@@ -415,7 +415,6 @@ public class UserMgr {
 		return flag;
 	}
 	
-
 	public static void main(String []args) {
 		UserMgr mgr= new UserMgr();
 		String [] userName= new String[50];
