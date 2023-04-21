@@ -46,14 +46,14 @@
 			var checkBtn = $(this);
 			var tr = checkBtn.parent().parent();
 			var td = tr.children();
-			var userEmail = td.eq(4).text(); // 이메일 선택
-			
-		    deleteUser(userEmail);
+			var postId = td.eq(2).text(); // 이메일 선택
+
+		    deleteUser(postId);
 		});
 	   	
-    	function deleteUser(userEmail) {
+    	function deleteUser(postId) {
     		var request = new XMLHttpRequest();
-    		request.open("Post", "UserInfoDelete?userEmail=" +userEmail,true);
+    		request.open("Post", "PostDelete?postId=" +postId,true);
     		request.onreadystatechange = deleteProcess;
     		request.send(null);
 		};
@@ -112,9 +112,9 @@
 				checkbox.each(function(i) {
 					var tr = checkbox.parent().parent().eq(i);
 					var td = tr.children();
-					var email = td.eq(4).text();
-					var userEmailAll = "";
-					tdArr.push(email);			
+					var postId = td.eq(2).text();
+					var postIdAll = "";
+					tdArr.push(postId);			
 				});
 				deleteCheckUser(tdArr);
 		    });
@@ -122,7 +122,7 @@
 	 	
     	function deleteCheckUser(tdArr) {
     		var request = new XMLHttpRequest();
-    		request.open("Post", "UserInfoDelete?userEmailAll=" +tdArr,true);
+    		request.open("Post", "PostDelete?postIdAll=" +tdArr,true);
     		request.onreadystatechange = deletAllProcess;
     		request.send(null);
 		};
@@ -227,7 +227,7 @@
             게시물 목록
         </div>
         <div id="searchBox">
-            <input class="search" name="search" id="userEmail" onkeyup="searchFunction()" type="text" placeholder="성명을 입력하세요" maxlength="30"/>
+            <input class="search" name="search" id="userEmail" onkeyup="searchFunction()" type="text" placeholder="작성자를 입력하세요" maxlength="30"/>
             <button type="button" class="searchBtn" onclick="searchFunction();"></button>
         </div>
         <!-- 게시물정보 테이블 -->
@@ -238,6 +238,7 @@
                 <tr> 
                     <th scope="cols">선택</th>
                     <th scope="cols">번호</th>
+                    <th scope="cols">게시물 ID</th>
                     <th scope="cols">작성자</th>
                     <th scope="cols">이미지 파일</th>
                     <th scope="cols">동영상 파일</th>

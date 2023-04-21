@@ -415,6 +415,7 @@ public class UserMgr {
 		return flag;
 	}
 	
+	// 임시 데이터 저장
 	public static void main(String []args) {
 		UserMgr mgr= new UserMgr();
 		String [] userName= new String[50];

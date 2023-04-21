@@ -96,7 +96,7 @@ public class AdminMgr {
 		ArrayList<PostBean> postList = new ArrayList<PostBean>();
 		try {
 			con = pool.getConnection();
-			sql = "select userEmail, likeNum, imageName, videoName, shareNum, "
+			sql = "select postId, userEmail, likeNum, imageName, videoName, shareNum, "
 					+ "commentNum, creationDate, postReport "
 					+ "from post where userEmail LIKE ? ";
 			pstmt = con.prepareStatement(sql);
@@ -104,31 +104,32 @@ public class AdminMgr {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				PostBean bean = new PostBean();
-				if(rs.getString(1)!=null) {
-					bean.setUserEmail(rs.getString(1));
+				bean.setPostId(rs.getInt(1));
+				if(rs.getString(2)!=null) {
+					bean.setUserEmail(rs.getString(2));
 				} else {
 					bean.setUserEmail("-");
 				}
-				bean.setLikeNum(rs.getInt(2));
-				if(rs.getString(3)!=null) {
-					bean.setImageName(rs.getString(3));
+				bean.setLikeNum(rs.getInt(3));
+				if(rs.getString(4)!=null) {
+					bean.setImageName(rs.getString(4));
 				} else {
 					bean.setImageName("-");
 				}
-				if(rs.getString(4)!=null) {
-					bean.setVideoName(rs.getString(4));
+				if(rs.getString(5)!=null) {
+					bean.setVideoName(rs.getString(5));
 				} else {
 					bean.setVideoName("-");
 				}
-				bean.setShareNum(rs.getInt(5));
-				bean.setCommentNum(rs.getInt(6));		
-				String tempDate = SDF_DATE.format(rs.getDate(7));
+				bean.setShareNum(rs.getInt(6));
+				bean.setCommentNum(rs.getInt(7));		
+				String tempDate = SDF_DATE.format(rs.getDate(8));
 				if(tempDate!=null) {
 					bean.setCreationDate(tempDate);
 				} else {
 					bean.setCreationDate("-");
 				}
-				bean.setPostReport(8);
+				bean.setPostReport(rs.getInt(9));
 				postList.add(bean);
 			}
 		} catch (Exception e) {
@@ -140,13 +141,51 @@ public class AdminMgr {
 	}
 	
 	// 관리자 회원정보 삭제
-	public void deleteUserInfo(String userEmail) {
+	public void deleteUserInfo(String postId) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		String sql = null;
 		try {
 		   con = pool.getConnection();
-		   sql = "delete from userInfo where userEmail = ?";
+		   sql = "delete from post where postId = ?";
+		   pstmt = con.prepareStatement(sql);
+		   pstmt.setString(1, postId);
+		   pstmt.executeUpdate();
+		    
+		} catch (Exception e) {
+		   e.printStackTrace();
+		} finally {
+		   pool.freeConnection(con, pstmt);
+		}
+	 }
+	
+	// 관리자 선택한 회원정보 모두 삭제
+	public void deleteUserAllInfo(String userEmail) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		try {
+		   con = pool.getConnection();
+		   sql = "delete from userInfo where userEmail in ?";
+		   pstmt = con.prepareStatement(sql);
+		   pstmt.setString(1, userEmail);
+		   pstmt.executeUpdate();
+			    
+		} catch (Exception e) {
+		   e.printStackTrace();
+		} finally {
+		   pool.freeConnection(con, pstmt);
+		}
+	 }
+	
+	// 관리자 회원 게시물 삭제
+	public void deletePostInfo(String userEmail) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		try {
+		   con = pool.getConnection();
+		   sql = "delete from post where userEmail = ?";
 		   pstmt = con.prepareStatement(sql);
 		   pstmt.setString(1, userEmail);
 		   pstmt.executeUpdate();
@@ -158,24 +197,53 @@ public class AdminMgr {
 		}
 	 }
 	
-	// 관리자 선택한 회원정보 모두 삭제
-		public void deleteUserAllInfo(String userEmail) {
-			Connection con = null;
-			PreparedStatement pstmt = null;
-			String sql = null;
-			try {
-			   con = pool.getConnection();
-			   sql = "delete from userInfo where userEmail in ?";
-			   pstmt = con.prepareStatement(sql);
-			   pstmt.setString(1, userEmail);
-			   pstmt.executeUpdate();
-			    
-			} catch (Exception e) {
-			   e.printStackTrace();
-			} finally {
-			   pool.freeConnection(con, pstmt);
-			}
-		 }
+	// 임시 데이터 저장
+	public void postInsert(PostBean bean) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		try {
+			con = pool.getConnection();
+			sql = "insert post(userEmail,likeNum,imageName,shareNum,commentNum,creationDate,postReport)"	
+					+ "values(?,?,?,?,?,now(),?)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, bean.getUserEmail());
+			pstmt.setInt(2, bean.getLikeNum());
+			pstmt.setString(3, bean.getImageName());
+			pstmt.setInt(4, bean.getShareNum());
+			pstmt.setInt(5, bean.getCommentNum());
+			pstmt.setInt(6, bean.getPostReport());
+				
+			pstmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt);
+		}
+	}	
 	
+	
+	
+	public static void main(String [] args) {
+		AdminMgr mgr = new AdminMgr();
+		String  [] userEmail = new String[50];
+		int likeNum = 50;
+		String imageName = "C:\\Jsp\\sns-project\\image.jpg";
+		int shareNum = 100;
+		int commentNum = 200;
+		int []postReport = new int[50];
+		
+		for (int i = 0; i < 50; i++) {
+			userEmail[i] = "email" + i + "@deu.ac.kr";
+			postReport[i] = i;
+		}
+		
+		for (int j = 0; j < 50; j++) {
+			mgr.postInsert(new PostBean(userEmail[j], likeNum, imageName, shareNum, commentNum, 
+					postReport[j]));
+		}		
+	}
+		
 	
 }

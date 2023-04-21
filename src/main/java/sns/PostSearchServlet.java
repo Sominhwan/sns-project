@@ -32,6 +32,7 @@ public class PostSearchServlet extends HttpServlet {
 		for (int i = 0; i < postList.size(); i++) {
 			result.append("[{\"value\": \"" + "" + "\"},");
 			result.append("{\"value\": \"" + (i+1) + "\"},");
+			result.append("{\"value\": \"" + postList.get(i).getPostId() + "\"},");
 			result.append("{\"value\": \"" + postList.get(i).getUserEmail() + "\"},");
 			result.append("{\"value\": \"" + postList.get(i).getImageName() + "\"},");
 			result.append("{\"value\": \"" + postList.get(i).getVideoName() + "\"},");

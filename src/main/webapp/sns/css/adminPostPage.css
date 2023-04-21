@@ -60,7 +60,7 @@ span.sideText {
 
 div#logout {
   position: relative;
-  top: 58%;
+  top: 65%;
   left: 9%;
 }
 a#logout {
@@ -131,7 +131,7 @@ nav {
 
 #searchBox {
   position: relative;
-  left: 1243px;
+  left: 67.7%;
   top: 80px;
   width: 280px;
   height: 37px;
@@ -245,6 +245,6 @@ input[type="checkbox"] {
 #deleteBtn{
   position: absolute;
   cursor: pointer;
-  top: 805px;
+  top: 80%;
   left: 35.5px;
 }

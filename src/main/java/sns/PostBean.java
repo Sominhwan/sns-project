@@ -10,6 +10,22 @@ public class PostBean {
 	private int commentNum;
 	private String creationDate;
 	private int postReport;
+	
+	public PostBean() {
+		super();
+	}
+
+	// 임시 생성자 생성
+	public PostBean(String userEmail, int likeNum, String imageName, int shareNum, int commentNum, int postReport) {
+		super();
+		this.userEmail = userEmail;
+		this.likeNum = likeNum;
+		this.imageName = imageName;
+		this.shareNum = shareNum;
+		this.commentNum = commentNum;
+		this.postReport = postReport;
+	}
+
 	public int getPostId() {
 		return postId;
 	}

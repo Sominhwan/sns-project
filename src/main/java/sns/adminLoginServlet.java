@@ -11,10 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @WebServlet("/sns/adminLogin")
-public class adminLoginServlet extends HttpServlet {
+public class AdminLoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
   
-    public adminLoginServlet() {
+    public AdminLoginServlet() {
         super();
     }
 
