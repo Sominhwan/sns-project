@@ -87,6 +87,58 @@ public class AdminMgr {
 		return userList;
 	}
 	
+	// 관리자 게시물 정보 검색
+	public ArrayList<PostBean> searchPost(String userEmail) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		ArrayList<PostBean> postList = new ArrayList<PostBean>();
+		try {
+			con = pool.getConnection();
+			sql = "select userEmail, likeNum, imageName, videoName, shareNum, "
+					+ "commentNum, creationDate, postReport "
+					+ "from post where userEmail LIKE ? ";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, "%" + userEmail + "%");
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				PostBean bean = new PostBean();
+				if(rs.getString(1)!=null) {
+					bean.setUserEmail(rs.getString(1));
+				} else {
+					bean.setUserEmail("-");
+				}
+				bean.setLikeNum(rs.getInt(2));
+				if(rs.getString(3)!=null) {
+					bean.setImageName(rs.getString(3));
+				} else {
+					bean.setImageName("-");
+				}
+				if(rs.getString(4)!=null) {
+					bean.setVideoName(rs.getString(4));
+				} else {
+					bean.setVideoName("-");
+				}
+				bean.setShareNum(rs.getInt(5));
+				bean.setCommentNum(rs.getInt(6));		
+				String tempDate = SDF_DATE.format(rs.getDate(7));
+				if(tempDate!=null) {
+					bean.setCreationDate(tempDate);
+				} else {
+					bean.setCreationDate("-");
+				}
+				bean.setPostReport(8);
+				postList.add(bean);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return postList;
+	}
+	
 	// 관리자 회원정보 삭제
 	public void deleteUserInfo(String userEmail) {
 		Connection con = null;
@@ -105,4 +157,25 @@ public class AdminMgr {
 		   pool.freeConnection(con, pstmt);
 		}
 	 }
+	
+	// 관리자 선택한 회원정보 모두 삭제
+		public void deleteUserAllInfo(String userEmail) {
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			String sql = null;
+			try {
+			   con = pool.getConnection();
+			   sql = "delete from userInfo where userEmail in ?";
+			   pstmt = con.prepareStatement(sql);
+			   pstmt.setString(1, userEmail);
+			   pstmt.executeUpdate();
+			    
+			} catch (Exception e) {
+			   e.printStackTrace();
+			} finally {
+			   pool.freeConnection(con, pstmt);
+			}
+		 }
+	
+	
 }

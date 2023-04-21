@@ -1,30 +1,5 @@
 <%@page import="java.io.PrintWriter"%>
 <%@page contentType="text/html; charset=UTF-8"%>
-<%
-	/* PrintWriter script = response.getWriter();
-
-	if(session.getAttribute("adminId")!=null){
-		String adminId = (String)session.getAttribute("adminId");
-		if(adminId.equals("admin")){
-			script.println("<script>");
-			script.println("alert('관리자 페이지 진입.');");
-			script.println("</script>");	
-		} else {
-			session.invalidate();
-			script.println("<script>");
-			script.println("history.back();");
-			script.println("</script>");
-			script.close();		
-		}
-	} else {
-		session.invalidate();
-		script.println("<script>");
-		script.println("history.back();");
-		script.println("</script>");
-		script.close();
-	} */
-	session.invalidate();
-%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -32,14 +7,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" type="image/x-icon" href="images/loginLogo.png" />
-    <link rel="stylesheet" href="css/adminPage.css" />
+    <link rel="stylesheet" href="css/adminPostPage.css" />
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <title>관리자페이지 - Photalk</title>
     <script type="text/javascript">
     	var request = new XMLHttpRequest();
     	
     	function searchFunction(){
-    		request.open("Post", "UserSearch?userName=" + encodeURIComponent(document.getElementById("userName").value),true);
+    		request.open("Post", "PostSearch?userEmail=" + encodeURIComponent(document.getElementById("userEmail").value),true);
     		request.onreadystatechange = searchProcess;
     		request.send(null);
     	}
@@ -58,7 +33,7 @@
     				cell.innerHTML = `<input type="checkbox" name= "myCheck" id="myCheck" class="myCheck" onclick="changeColor();"/>`;		
     				for (j = 1; j < result[i].length; j++) {
 						var cell = row.insertCell(j);
-						cell.innerHTML = result[i][j].value;					
+						cell.innerHTML = result[i][j].value;	
 					}			
     				cell.innerHTML = `<button class="checkBtn">삭제</button>`;
     			}
@@ -239,39 +214,38 @@
       </footer>
     </aside>
 </div>
-    <!-- 회원정보 네비게이션 바 -->
+    <!-- 게시물 네비게이션 바 -->
     <nav id="navbar">
-        <span id = "adminProfileLogo">
-        <img src="adminImages/adminProfileLogo.svg" />
+        <span id = "adminPostLogo">
+        <img src="adminImages/adminPostLogo.svg" />
         </span>
-        <span id="adminProfile-text">회원 관리</span>    
+        <span id="adminPostLogo-text">게시물 목록</span>    
     </nav>
-    <!-- 회원정보 컨텐츠 -->
+    <!-- 게시물정보 컨텐츠 -->
     <div class="userTable">
-        <div id="userManage">
-            회원관리
+        <div id="postList">
+            게시물 목록
         </div>
         <div id="searchBox">
-            <input class="search" name="search" id="userName" onkeyup="searchFunction()" type="text" placeholder="성명을 입력하세요" maxlength="30"/>
+            <input class="search" name="search" id="userEmail" onkeyup="searchFunction()" type="text" placeholder="성명을 입력하세요" maxlength="30"/>
             <button type="button" class="searchBtn" onclick="searchFunction();"></button>
         </div>
-        <!-- 회원정보 테이블 -->
-        <div class="userTable-scroll">
-        <div class="userTable-content">
-        <table class="userTable">
+        <!-- 게시물정보 테이블 -->
+        <div class="postTable-scroll">
+        <div class="postTable-content">
+        <table class="postTable">
             <thead id="head">
                 <tr> 
                     <th scope="cols">선택</th>
                     <th scope="cols">번호</th>
-                    <th scope="cols">성명</th>
-                    <th scope="cols">닉네임</th>
-                    <th scope="cols">이메일 주소</th>
-                    <th scope="cols">id값</th>
-                    <th scope="cols">휴대폰 번호</th>
-                    <th scope="cols">주소</th>
-                    <th scope="cols">이메일 인증</th>
-                    <th scope="cols">소셜 로그인</th>
-                    <th scope="cols">가입일</th>
+                    <th scope="cols">작성자</th>
+                    <th scope="cols">이미지 파일</th>
+                    <th scope="cols">동영상 파일</th>
+                    <th scope="cols">댓글수</th>
+                    <th scope="cols">좋아요 수</th>
+                    <th scope="cols">공유하기 수</th>
+                    <th scope="cols">신고횟수</th>
+                    <th scope="cols">날짜</th>
                     <th scope="cols" style="color: #fd3c56;">삭제</th>          
                 </tr>
             </thead>
