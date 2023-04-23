@@ -141,15 +141,15 @@ public class AdminMgr {
 	}
 	
 	// 관리자 회원정보 삭제
-	public void deleteUserInfo(String postId) {
+	public void deleteUserInfo(String userEmail) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		String sql = null;
 		try {
 		   con = pool.getConnection();
-		   sql = "delete from post where postId = ?";
+		   sql = "delete from userinfo where userEmail = ?";
 		   pstmt = con.prepareStatement(sql);
-		   pstmt.setString(1, postId);
+		   pstmt.setString(1, userEmail);
 		   pstmt.executeUpdate();
 		    
 		} catch (Exception e) {
@@ -158,15 +158,15 @@ public class AdminMgr {
 		   pool.freeConnection(con, pstmt);
 		}
 	 }
-	
-	// 관리자 선택한 회원정보 모두 삭제
+		
+	// 관리자 선택한 회원정보 선택 삭제
 	public void deleteUserAllInfo(String userEmail) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		String sql = null;
 		try {
 		   con = pool.getConnection();
-		   sql = "delete from userInfo where userEmail in ?";
+		   sql = "delete from userinfo where userEmail in ?";
 		   pstmt = con.prepareStatement(sql);
 		   pstmt.setString(1, userEmail);
 		   pstmt.executeUpdate();
@@ -177,17 +177,18 @@ public class AdminMgr {
 		   pool.freeConnection(con, pstmt);
 		}
 	 }
-	
-	// 관리자 회원 게시물 삭제
-	public void deletePostInfo(String userEmail) {
+		
+		
+	// 관리자 게시물 삭제
+	public void deletePostInfo(int postId) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		String sql = null;
 		try {
 		   con = pool.getConnection();
-		   sql = "delete from post where userEmail = ?";
+		   sql = "delete from post where postId = ?";
 		   pstmt = con.prepareStatement(sql);
-		   pstmt.setString(1, userEmail);
+		   pstmt.setInt(1, postId);
 		   pstmt.executeUpdate();
 		    
 		} catch (Exception e) {
@@ -196,6 +197,51 @@ public class AdminMgr {
 		   pool.freeConnection(con, pstmt);
 		}
 	 }
+	
+	// 관리자 게시물 선택 삭제
+	public void deletePostAllInfo(int postId) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		try {
+		   con = pool.getConnection();
+		   sql = "delete from post where postId = ?";
+		   pstmt = con.prepareStatement(sql);
+		   pstmt.setInt(1, postId);
+		   pstmt.executeUpdate();
+		    
+		} catch (Exception e) {
+		   e.printStackTrace();
+		} finally {
+		   pool.freeConnection(con, pstmt);
+		}
+	 }
+
+	// 관리자 회원 주소 정보 검색 (광고 동의한 주소만)
+	public ArrayList<UserinfoBean> searchUserEmail(String userEmail) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		ArrayList<UserinfoBean> userEmailList = new ArrayList<UserinfoBean>();
+		try {
+			con = pool.getConnection();
+			sql = "select userEmail from userinfo where userAd = 1 and userEmail LIKE ? ";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, "%" + userEmail + "%");
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				UserinfoBean bean = new UserinfoBean();
+				bean.setUserEmail(rs.getString(1));
+				userEmailList.add(bean);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return userEmailList;
+	}
 	
 	// 임시 데이터 저장
 	public void postInsert(PostBean bean) {
@@ -223,8 +269,7 @@ public class AdminMgr {
 		}
 	}	
 	
-	
-	
+		
 	public static void main(String [] args) {
 		AdminMgr mgr = new AdminMgr();
 		String  [] userEmail = new String[50];

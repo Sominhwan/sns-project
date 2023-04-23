@@ -141,7 +141,7 @@
 			    return ;
 		    } 		
 	 	}
-	 	
+	 	/* 페이지 로드시 searchFunction() 실행 */
     	window.onload = function(){
     		searchFunction();
     	}

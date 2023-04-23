@@ -14,20 +14,24 @@ public class PostDeleteServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8"); 
 		response.setContentType("text/html; charset=utf-8"); 
-		String postId = null;
-		String postIdAll = null;
+		int postId;
+		String postIdAll= null;
 		if(request.getParameter("postId")!=null) {
-			postId = request.getParameter("postId");
+			postId = Integer.parseInt(request.getParameter("postId"));
 			AdminMgr mgr = new AdminMgr();
-			mgr.deleteUserInfo(postId);		
+			mgr.deletePostInfo(postId);		
 		}
 		
 		if(request.getParameter("postIdAll")!=null) { 
 			postIdAll = request.getParameter("postIdAll"); 
 			String[] postId2 = postIdAll.split(",");
+	        int[] allId = new int[postId2.length];
+	        for (int i = 0; i < postId2.length; i++) {
+	        	allId[i] = Integer.parseInt(postId2[i]);
+	        }
 			AdminMgr mgr = new AdminMgr();
 			for(int i =0; i<postId2.length;i++)
-				mgr.deleteUserInfo(postId2[i]);    
+				mgr.deletePostAllInfo(allId[i]);    
 		}		
 	}
 
