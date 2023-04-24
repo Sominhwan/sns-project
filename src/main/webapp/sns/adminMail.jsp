@@ -12,9 +12,7 @@
     <title>관리자페이지 - Photalk</title>
     <script type="text/javascript" src="../smarteditor/js/HuskyEZCreator.js" charset="utf-8"></script>
     <script type="text/javascript">
-   		var emailArr = new Array(); // input 에 입력된 이메일을 담는 배열
-   		var allEmailArr = new Array(); // input 에 입력된 이메일을 담는 배열
-   		var tdArr = new Array(); // 주소록 이메일 담는 배열
+   		var allEmailArr = []; // send할 이메일을 담는 배열		
     	let oEditors = []
 
    		smartEditor = function() {
@@ -122,38 +120,29 @@
 			$("#addrInputBtn").click(function(){
 				var checkbox = $("input[name=myCheck]:checked");
 				// 체크된 체크박스 값을 가져온다
-				checkbox.each(function(i) {
+				var tdArr = new Array(); // 주소록 이메일 담는 배열
+				
+				checkbox.each(function(i) {		
 					var tr = checkbox.parent().parent().eq(i);
 					var td = tr.children();
 					var postId = td.eq(1).text();
-					var postIdAll = "";
-					
-					tdArr.push(postId);	
+					tdArr.push(postId);		
 				});
 				if(tdArr==''){
 					alert("선택한 정보가 없습니다.");
 				} else{
-					// TODO 선택한 이메일 정보 받는 사람에게 넣기
-					if(tdArr.length<11){
-						// 중복된 값 제거
-						allEmailArr.push(tdArr);
-						var set = new Set(tdArr);
-						//set.add();
-						allEmailArr = Array.from(set);
-						console.log(set);
-						var emailInput = document.getElementById("emailWrap");
+					var emailSet = new Set(tdArr);
+					for(let i=0;i<allEmailArr.length;i++)
+						emailSet.add(allEmailArr[i]);		
+					allEmailArr = Array.from(emailSet);
+				
+					var emailInput = document.getElementById("emailWrap");
 						emailInput.innerHTML = '';
+							
 						for(let i=0;i<allEmailArr.length;i++){	
-							//emailInput.innerHTML += '<span id="sendEmail">'+tdArr[i]+ '<button class="emailCancel" id="emailCancel'+ emailInput.childElementCount +'" onclick="deleteEmail('+emailInput.childElementCount+')"></button></span>';	
 							emailInput.innerHTML += '<span id="sendEmail">'+allEmailArr[i]+ '<button class="emailCancel" id="emailCancel'+ emailInput.childElementCount +'" onclick="deleteEmail('+emailInput.childElementCount+')"></button></span>';	
 						}
-						//$('#userAllEmail').val(tdArr); // input에 보낼 이메일 넣기
-						offDisplay();
-					} else {
-						alert("최대 10명한테만 전송이 가능합니다.");
-						document.getElementById("addrCheckBox").checked = false; 
-			    		changeAllColor();
-					} // else2
+						offDisplay();		
 				} // else1	
 		    });
 		});
@@ -166,34 +155,23 @@
 	 		var set = new Set(allEmailArr);
 	 		allEmailArr = Array.from(set);
 	 		for(let i=0;i<allEmailArr.length;i++){	
-				//emailInput.innerHTML += '<span id="sendEmail">'+tdArr[i]+ '<button class="emailCancel" id="emailCancel'+ emailInput.childElementCount +'" onclick="deleteEmail('+emailInput.childElementCount+')"></button></span>';	
 				emailInput.innerHTML += '<span id="sendEmail">'+allEmailArr[i]+ '<button class="emailCancel" id="emailCancel'+ emailInput.childElementCount +'" onclick="deleteEmail('+emailInput.childElementCount+')"></button></span>';	
 			}
-	 		//emailInput.innerHTML += '<span id="sendEmail">'+$('#emailInput').val()+ '<button class="emailCancel" id="emailCancel'+ emailInput.childElementCount +'" onclick="deleteEmail('+emailInput.childElementCount+')"></button></span>';			
-	 		//emailArr.push($('#emailInput').val());
-	 		console.log(emailArr);
-	 		$('#emailInput').val(''); // 이메일 입력란 엔터후 input 값 초기화
-	 		
+	 		$('#emailInput').val(''); // 이메일 입력란 엔터후 input 값 초기화	
 	 	}
+    	
     	/* 선택된 이메일 삭제 */
 	 	function deleteEmail(num){
-	 		//var emailInput = document.getElementById("emailWrap");
-	 		//$("#emailCancel").parent("#sendEmail") = '';
-	 		
-	 		$("#emailCancel"+num).parent("#sendEmail").remove();
-	 		//$('#userAllEmail').val.splice(num);
-	 		
-	 		
-	 		//emailArr = $('#userAllEmail').value;
-	 		console.log(emailArr);
-	 		//alert($('#userAllEmail').value);
-	 		//emailInput.innerHTML = '';
-	 		//$('#userAllEmail').val('');
+	 		const select = $("#emailCancel"+num).parent().text(); // 해당 이메일 주소 추출	
+	 		let i = allEmailArr.indexOf(select); // 특정 배열 인덱스 번호 추출
+	 		allEmailArr.splice(i, 1); // 해당 배열 삭제
+	 		$("#emailCancel"+num).parent("#sendEmail").remove();  	
 	 	}
     	
     	/* 메일 보내기 */
     	function sendEmail(){
     		/* TODO 아무것도 입력하지 않을시 예외처리 작성하기 */
+    		$('#userAllEmail').val(allEmailArr);
     		$("#mailFrm").attr("action","UserAdEmailSend").submit();
     		
     	}

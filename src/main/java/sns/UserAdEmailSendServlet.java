@@ -16,10 +16,9 @@ public class UserAdEmailSendServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8"); 
 		response.setContentType("text/html; charset=utf-8"); 
 		String[] arrayParam = request.getParameterValues("userAllEmail");
-
-			System.out.println(arrayParam[0]);
+		for(int i=0; i<arrayParam.length;i++)
+			System.out.println(arrayParam[i]);
 		
-		System.out.println("하이");
 	}
 
 }
