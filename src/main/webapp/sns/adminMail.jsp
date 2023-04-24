@@ -12,6 +12,9 @@
     <title>관리자페이지 - Photalk</title>
     <script type="text/javascript" src="../smarteditor/js/HuskyEZCreator.js" charset="utf-8"></script>
     <script type="text/javascript">
+   		var emailArr = new Array(); // input 에 입력된 이메일을 담는 배열
+   		var allEmailArr = new Array(); // input 에 입력된 이메일을 담는 배열
+   		var tdArr = new Array(); // 주소록 이메일 담는 배열
     	let oEditors = []
 
    		smartEditor = function() {
@@ -28,9 +31,7 @@
             			// 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음) 
             			bUseModeChanger : true
             	},
-        		fCreator: "createSEditor2"
-        		
-        		
+        		fCreator: "createSEditor2"     		
       		})
     	}
 	
@@ -65,8 +66,7 @@
     	}
     	
     	/* 주소록 검색 */
-    	function searchFunction(){	
-    		
+    	function searchFunction(){	  		
     		$.ajax({
                 url : "UserEmailSearch?userEmail="+document.getElementById("userEmail").value,
                 type : "post",
@@ -76,7 +76,7 @@
                 	searchProcess(result);
                 },
                 error : function(xhr, status, error){
-    
+    				alert("통신 실패");
                 }
             });
     	}
@@ -117,10 +117,9 @@
     		}
     	}
     	
-    	/* 주수록 정보 가져오기 */
+    	/* 주소록 정보 가져오기 */
 	 	$(function(){
 			$("#addrInputBtn").click(function(){
-				var tdArr = new Array();
 				var checkbox = $("input[name=myCheck]:checked");
 				// 체크된 체크박스 값을 가져온다
 				checkbox.each(function(i) {
@@ -128,20 +127,76 @@
 					var td = tr.children();
 					var postId = td.eq(1).text();
 					var postIdAll = "";
-					tdArr.push(postId);			
+					
+					tdArr.push(postId);	
 				});
 				if(tdArr==''){
 					alert("선택한 정보가 없습니다.");
 				} else{
 					// TODO 선택한 이메일 정보 받는 사람에게 넣기
-					alert(tdArr);
-					//changeAllColor();
-					//document.getElementById("addrCheckBox").checked = false;
-					offDisplay();
-				}
-				
+					if(tdArr.length<11){
+						// 중복된 값 제거
+						allEmailArr.push(tdArr);
+						var set = new Set(tdArr);
+						//set.add();
+						allEmailArr = Array.from(set);
+						console.log(set);
+						var emailInput = document.getElementById("emailWrap");
+						emailInput.innerHTML = '';
+						for(let i=0;i<allEmailArr.length;i++){	
+							//emailInput.innerHTML += '<span id="sendEmail">'+tdArr[i]+ '<button class="emailCancel" id="emailCancel'+ emailInput.childElementCount +'" onclick="deleteEmail('+emailInput.childElementCount+')"></button></span>';	
+							emailInput.innerHTML += '<span id="sendEmail">'+allEmailArr[i]+ '<button class="emailCancel" id="emailCancel'+ emailInput.childElementCount +'" onclick="deleteEmail('+emailInput.childElementCount+')"></button></span>';	
+						}
+						//$('#userAllEmail').val(tdArr); // input에 보낼 이메일 넣기
+						offDisplay();
+					} else {
+						alert("최대 10명한테만 전송이 가능합니다.");
+						document.getElementById("addrCheckBox").checked = false; 
+			    		changeAllColor();
+					} // else2
+				} // else1	
 		    });
 		});
+    	
+    	/* 받는사람 이메일 입력 기능 */
+	 	function inputEmail(){
+	 		var emailInput = document.getElementById("emailWrap");
+	 		emailInput.innerHTML = '';
+	 		allEmailArr.push($('#emailInput').val());
+	 		var set = new Set(allEmailArr);
+	 		allEmailArr = Array.from(set);
+	 		for(let i=0;i<allEmailArr.length;i++){	
+				//emailInput.innerHTML += '<span id="sendEmail">'+tdArr[i]+ '<button class="emailCancel" id="emailCancel'+ emailInput.childElementCount +'" onclick="deleteEmail('+emailInput.childElementCount+')"></button></span>';	
+				emailInput.innerHTML += '<span id="sendEmail">'+allEmailArr[i]+ '<button class="emailCancel" id="emailCancel'+ emailInput.childElementCount +'" onclick="deleteEmail('+emailInput.childElementCount+')"></button></span>';	
+			}
+	 		//emailInput.innerHTML += '<span id="sendEmail">'+$('#emailInput').val()+ '<button class="emailCancel" id="emailCancel'+ emailInput.childElementCount +'" onclick="deleteEmail('+emailInput.childElementCount+')"></button></span>';			
+	 		//emailArr.push($('#emailInput').val());
+	 		console.log(emailArr);
+	 		$('#emailInput').val(''); // 이메일 입력란 엔터후 input 값 초기화
+	 		
+	 	}
+    	/* 선택된 이메일 삭제 */
+	 	function deleteEmail(num){
+	 		//var emailInput = document.getElementById("emailWrap");
+	 		//$("#emailCancel").parent("#sendEmail") = '';
+	 		
+	 		$("#emailCancel"+num).parent("#sendEmail").remove();
+	 		//$('#userAllEmail').val.splice(num);
+	 		
+	 		
+	 		//emailArr = $('#userAllEmail').value;
+	 		console.log(emailArr);
+	 		//alert($('#userAllEmail').value);
+	 		//emailInput.innerHTML = '';
+	 		//$('#userAllEmail').val('');
+	 	}
+    	
+    	/* 메일 보내기 */
+    	function sendEmail(){
+    		/* TODO 아무것도 입력하지 않을시 예외처리 작성하기 */
+    		$("#mailFrm").attr("action","UserAdEmailSend").submit();
+    		
+    	}
     	
     	window.onload = function(){
     		searchFunction();
@@ -254,23 +309,27 @@
         </div>
         <span id="attached-file">파일첨부</span>
         <label id="myPC">내 PC</label>
+        <div id="emailWrap"><!-- <div id="sendEmail">thalsghks@naver.com<button id="emailCancel"></button></div> --></div>
         <form action="" method="POST" name="mailFrm" id="mailFrm">	
-        	<input id="emailInput" type="text" maxlength="50" autocomplete="false"/>
-        	<input id="titleInput" type="text" maxlength="50" autocomplete="false"/>
-        	<input id="attached-file-Input" readonly/>
+        	<input id="emailInput" name="emailInput" type="text" maxlength="30" autocomplete="false"
+        	onkeypress="if(window.event.keyCode==13){inputEmail()}"/>
+        	<!-- <div id="sendEmail">thalsghks@naver.com<button id="emailCancel"></button></div> -->
+        	<input id="titleInput" name="titleInput" type="text" maxlength="40" autocomplete="false"/>
+        	<input id="attached-file-Input" name="attached-file-Input" readonly/>
         	<!-- 스마트 에디터 -->
         	<div id="smarteditor">
             <textarea name="editorTxt" id="editorTxt" 
                   rows="20" cols="10" 
                   placeholder="내용을 입력해주세요"></textarea>   
             </div>
-            <input type="button" id="mailSendBtn" value="보내기" onclick="submitPost()"/>
+            <input type="button" id="mailSendBtn" value="보내기" onclick="sendEmail()"/>
+            <input type="hidden" id="userAllEmail" value="" name="userAllEmail"/>
         </form>
         
            
-         <span id="smsSend">
+         <!-- <span id="smsSend">
             SMS 보내기
-        </span>
+        </span> -->
     </div>
     
  
