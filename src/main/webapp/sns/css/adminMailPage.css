@@ -368,7 +368,7 @@ input:focus {
 
 #sendEmail{
   /* position: absolute; */
-  background-color: #0073E633;
+  /* background-color: #0073E633; */
   display: inline-block;
   padding: 6px 12px 6px 12px;
   border-radius: 15px;
@@ -404,17 +404,87 @@ input:focus {
 
 #titleInput:focus {
   border-width: 0 0 1px;
-   border-color: #474747;  
+  border-color: #474747;  
+}
+
+.filebox{
+  position: absolute;
+  left: 120px;
+  top: 240px;
+  height: 50px;
+  width: 333px;
+}
+
+.inputFile{
+  position: absolute;
+  border-radius: 5px;
+  overflow-y : scroll;
+  left: 130px;
+  top: 240.5px;
+  z-index: 5;
+  height: 47px;
+  width: 344px;
+  font-size: 13px;
+  padding-top: 4px;
+}
+
+.fileCancel{
+  position: relative;
+  left: 12px;
+  top: -3.5px;
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 8 8%22%3E%3Cpath d=%22m4.64 4 3.04 3.04a.453.453 0 0 1-.64.64L4 4.64.96 7.68a.453.453 0 0 1-.64-.64L3.36 4 .32.96A.453.453 0 1 1 .96.32L4 3.36 7.04.32a.453.453 0 1 1 .64.64L4.64 4z%22 fill=%22%23929294%22 opacity=%221%22/%3E%3C/svg%3E");
+  border: none;
+  background-color:transparent;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+.fileIcon{
+   padding-right: 6px;	
+   padding-top: 5px; 
+}
+
+.upload-name {
+  position: absolute;
+  left: 120px;
+  top: 240px;
+  display: inline-block;
+  height: 50px;
+  width: 333px;
+  padding: 0 10px;
+  vertical-align: middle;
+  outline: none;
+  border: solid 1px #e3e3e3;
+  border-radius: 4px;
+  color: #999999; 
+  text-align: center;
+}
+
+.upload-name::placeholder {
+   position: absolute;
+   top: 15px; /* adjust icon position */
+   left: 140px;
+   width: 100px; /* size of a single icon */
+   height: 20px;
+   background-image: url("../adminImages/file.svg"); /* all icons in a single file */
+   background-repeat: no-repeat;
+   color: #D8D8D8;
+}
+
+.upload-name:active { 
+   background-image: none; 
 }
 
 #attached-file-Input {
   position: absolute;
-  height: 50px;
-  width: 350px;
-  left: 120px;
-  top: 240px;
-  outline: none;
-  border: solid 1px #e3e3e3;
+  width: 0;
+  height: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
 }
 
 #smarteditor{

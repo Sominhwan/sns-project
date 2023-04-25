@@ -139,9 +139,14 @@
 					var emailInput = document.getElementById("emailWrap");
 						emailInput.innerHTML = '';
 							
-						for(let i=0;i<allEmailArr.length;i++){	
-							emailInput.innerHTML += '<span id="sendEmail">'+allEmailArr[i]+ '<button class="emailCancel" id="emailCancel'+ emailInput.childElementCount +'" onclick="deleteEmail('+emailInput.childElementCount+')"></button></span>';	
-						}
+				 		let regex = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
+				 		for(let i=0;i<allEmailArr.length;i++){	
+				 			if(regex.test(allEmailArr[i])){ // 정규검사식 참일 경우
+				 				emailInput.innerHTML += '<span id="sendEmail" style="background-color: #0073E633;">'+allEmailArr[i]+ '<button class="emailCancel" id="emailCancel'+ emailInput.childElementCount +'" onclick="deleteEmail('+emailInput.childElementCount+')"></button></span>';	
+				 			} else{
+				 				emailInput.innerHTML += '<span id="sendEmail" style="background-color: #fc193c33;">'+allEmailArr[i]+ '<button class="emailCancel" id="emailCancel'+ emailInput.childElementCount +'" onclick="deleteEmail('+emailInput.childElementCount+')"></button></span>';	
+				 			}
+				 		}
 						offDisplay();		
 				} // else1	
 		    });
@@ -151,14 +156,48 @@
 	 	function inputEmail(){
 	 		var emailInput = document.getElementById("emailWrap");
 	 		emailInput.innerHTML = '';
+	 		
+	 		if($('#emailInput').val()!=''){ // 입력된 값이 공백이 아닐때만 처리
 	 		allEmailArr.push($('#emailInput').val());
+	 		}
 	 		var set = new Set(allEmailArr);
 	 		allEmailArr = Array.from(set);
+	 		
+	 		let regex = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
 	 		for(let i=0;i<allEmailArr.length;i++){	
-				emailInput.innerHTML += '<span id="sendEmail">'+allEmailArr[i]+ '<button class="emailCancel" id="emailCancel'+ emailInput.childElementCount +'" onclick="deleteEmail('+emailInput.childElementCount+')"></button></span>';	
+	 			if(regex.test(allEmailArr[i])){ // 정규검사식 참일 경우
+	 				emailInput.innerHTML += '<span id="sendEmail" style="background-color: #0073E633;">'+allEmailArr[i]+ '<button class="emailCancel" id="emailCancel'+ emailInput.childElementCount +'" onclick="deleteEmail('+emailInput.childElementCount+')"></button></span>';	
+	 			} else{
+	 				emailInput.innerHTML += '<span id="sendEmail" style="background-color: #fc193c33;">'+allEmailArr[i]+ '<button class="emailCancel" id="emailCancel'+ emailInput.childElementCount +'" onclick="deleteEmail('+emailInput.childElementCount+')"></button></span>';	
+	 			}			
 			}
 	 		$('#emailInput').val(''); // 이메일 입력란 엔터후 input 값 초기화	
 	 	}
+    	
+    	/* input 포커스 벗어날시 자동 등록 */
+	 	$(function(){
+	 		$('#emailInput').blur(function(){
+	 			var emailInput = document.getElementById("emailWrap");
+	 			emailInput.innerHTML = '';
+	 			
+	 			if($('#emailInput').val()!=''){ // 입력된 값이 공백이 아닐때만 처리
+	 		 		allEmailArr.push($('#emailInput').val());
+	 		 	}
+	 			var set = new Set(allEmailArr);
+	 			allEmailArr = Array.from(set);
+	 			
+		 		let regex = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
+		 		for(let i=0;i<allEmailArr.length;i++){	
+		 			if(regex.test(allEmailArr[i])){ // 정규검사식 참일 경우
+		 				emailInput.innerHTML += '<span id="sendEmail" style="background-color: #0073E633;">'+allEmailArr[i]+ '<button class="emailCancel" id="emailCancel'+ emailInput.childElementCount +'" onclick="deleteEmail('+emailInput.childElementCount+')"></button></span>';	
+		 			} else{
+		 				emailInput.innerHTML += '<span id="sendEmail" style="background-color: #fc193c33;">'+allEmailArr[i]+ '<button class="emailCancel" id="emailCancel'+ emailInput.childElementCount +'" onclick="deleteEmail('+emailInput.childElementCount+')"></button></span>';	
+		 			}
+		 		}
+	 			
+	 			$('#emailInput').val(''); // 이메일 입력란 엔터후 input 값 초기화	
+	 		});
+	 	});
     	
     	/* 선택된 이메일 삭제 */
 	 	function deleteEmail(num){
@@ -174,6 +213,33 @@
     		$('#userAllEmail').val(allEmailArr);
     		$("#mailFrm").attr("action","UserAdEmailSend").submit();
     		
+    	}
+    	
+    	/* 파일 업로드 버튼 */
+    	function onClickUpload(){
+    	    let myInput = document.getElementById("attached-file-Input");
+            myInput.click();
+    	}
+    	
+    	/* 첨부파일 등록시 아이콘 삭제 */
+    	function hideIcon(self) {
+    	    self.style.backgroundImage = 'none';
+    	}
+    	
+    	/* input에 파일 업로드시 커스텀에 input에 파일 넣기 */
+    	function fileUpload(){
+    		var fileInput = document.getElementById("attached-file-Input");
+    		//var fileInput = document.getElementsByName("attached-file-Input");
+			var file = [];
+    		var fileSize = [];
+    			if(fileInput.files.length > 0 ){
+    				for( var j = 0; j < fileInput.files.length; j++ ){
+    					console.log(fileInput.files[j].name); // 파일명 출력
+    					file.push(fileInput.files[j].name);
+    					fileSize.push(fileInput.files[j].size);
+    				}
+    			}			
+    			$('#upload-name').val(fileSize);
     	}
     	
     	window.onload = function(){
@@ -286,14 +352,24 @@
             
         </div>
         <span id="attached-file">파일첨부</span>
-        <label id="myPC">내 PC</label>
+        <label id="myPC" onclick="onClickUpload();">내 PC</label>
         <div id="emailWrap"><!-- <div id="sendEmail">thalsghks@naver.com<button id="emailCancel"></button></div> --></div>
         <form action="" method="POST" name="mailFrm" id="mailFrm">	
         	<input id="emailInput" name="emailInput" type="text" maxlength="30" autocomplete="false"
         	onkeypress="if(window.event.keyCode==13){inputEmail()}"/>
-        	<!-- <div id="sendEmail">thalsghks@naver.com<button id="emailCancel"></button></div> -->
         	<input id="titleInput" name="titleInput" type="text" maxlength="40" autocomplete="false"/>
-        	<input id="attached-file-Input" name="attached-file-Input" readonly/>
+<!--          	<div class="fliebox" >
+        		<div class="inputFile" style="display: none">
+        		
+        			<div>
+        			<button class="fileCancel" id="fileCancel" onclick="deleteEmail('+emailInput.childElementCount+')"></button>
+        			<img src="adminImages/fileIcon.svg" alt="fileIcon" class="fileIcon"/>안녕
+        			</div>
+        		     			
+        		</div>
+        	<input class="upload-name" id="upload-name" placeholder="첨부파일" onchange="hideIcon(this);" readonly/>
+        	<input type="file" id="attached-file-Input" name="attached-file-Input" onchange="fileUpload()" multiple/>
+        	</div>  -->
         	<!-- 스마트 에디터 -->
         	<div id="smarteditor">
             <textarea name="editorTxt" id="editorTxt" 
