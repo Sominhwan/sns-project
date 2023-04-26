@@ -152,6 +152,7 @@
               "jpeg",
               "gif",
               "zip",
+              "svg",
             ]) <= 0
           ) {
             // 확장자 체크
@@ -165,16 +166,12 @@
           } else {
             // 전체 파일 사이즈
             totalFileSize += fileSizeMb;
-
             // 파일 배열에 넣기
             fileList[fileIndex] = files[i];
-
             // 파일 사이즈 배열에 넣기
             fileSizeList[fileIndex] = fileSizeMb;
-
             // 업로드 파일 목록 생성
             addFileList(fileIndex, fileName, fileSizeStr);
-
             // 파일 번호 증가
             fileIndex++;
           }
@@ -192,17 +189,14 @@
 
       var html = "";
       html += "<tr id='fileTr_" + fIndex + "'>";
-      html += "    <td id='dropZone' class='left' style='padding-left: 10px;'>";
+      html += "    <td id='dropZone' class='left' style='padding-left: 10px; margin-top: -10px; font-size: 13px; height='20px''>";
       html +=         "<button class='fileCancel' onclick='deleteFile(" +
       fIndex +
-      "); return false;'></button>"+
+      "); return false;' style='padding-top: 10px; width: 5px;'></button>"+
         fileName +
         " (" +
         fileSizeStr +
         ") " ;
-        //+ "<a href='#' onclick='deleteFile(" + fIndex + "); return false;' class='btn small bg_02'> 삭제</a>"
-      
-
       html += "    </td>";
       html += "</tr>";
 
@@ -237,41 +231,46 @@
 
     // 파일 등록
     function uploadFile() {
-      // 등록할 파일 리스트
       var uploadFileList = Object.keys(fileList);
+      var emailTitle = $('#titleInput').val();
       $('#userAllEmail').val(allEmailArr);
-      
+	  oEditors.getById["editorTxt"].exec("UPDATE_CONTENTS_FIELD", [])
+	  let content = document.getElementById("editorTxt").value   
+	  
+	  
       // 받는 이메일 주소가 존재하는지 체크
       if (allEmailArr.length == 0){
-          alert("보낼 이메일 주소가 없습니다.");
+          alert("이메일 주소를 입력하세요.");
           return;
       }
-      // 파일이 있는지 체크
-      if (uploadFileList.length == 0) {
-        // 파일등록 경고창
-        alert("파일이 없습니다.");
-        return;
-      }
-      
-
+      // 이메일 제목이 존재하는지 체크
+      if (emailTitle==null || emailTitle==''){
+          alert("제목을 입력하세요.");
+          return;
+      }      
       // 용량을 500MB를 넘을 경우 업로드 불가
       if (totalFileSize > maxUploadSize) {
         // 파일 사이즈 초과 경고창
         alert("총 용량 초과\n총 업로드 가능 용량 : " + maxUploadSize + " MB");
         return;
       }
-
-      if (confirm("등록 하시겠습니까?")) {
+	  // 메일 내용이 존재하는지 체크
+	  if(content == "" || content==null) {
+		  alert("내용을 입력해주세요.")
+	      oEditors.getById["editorTxt"].exec("FOCUS")
+		  return;
+	  } 
+		
+      if (confirm("메일을 전송 하시겠습니까?")) {
         // 등록할 파일 리스트를 formData로 데이터 입력
         //var form = $("#uploadForm");
         var formData = new FormData($("#uploadForm")[0]);
         for (var i = 0; i < uploadFileList.length; i++) {
-          formData.append("files", fileList[uploadFileList[i]]);
-          
+          formData.append("files", fileList[uploadFileList[i]]);    
         }
 
         $.ajax({
-            url : "UserAdEmailSend",
+            url : "UserAdEmailSend?content="+content,
             data : formData,
             type:'POST',
             enctype:'multipart/form-data',
@@ -280,9 +279,9 @@
             dataType:'json',
             cache:false,
             success:function(res){
-                alert("저장에 성공하셨습니다.");
+                alert("메일 전송 완료!");
             },error:function(res){
-                alert("오류 발생.\n관리자에게 문의해주세요.");
+                alert("메을 전송 실패!\n관리자에게 문의해주세요.");
             }
         });
       }
@@ -410,7 +409,8 @@
             </div>	   		
       		<div id="dropZone" style="position:absolute; left: 120px; top:245px; width: 354px; height: 50px; 
       			border: solid 1px #e3e3e3; border-radius: 5px; overflow-y: auto">
-        	<div id="fileDragDesc">파일을 드래그 해주세요.</div>
+        	<div id="fileDragDesc"><img src="adminImages/file.svg" id="fileIcon" alt="file" style="width: 11px; margin-right: -17px; margin-top: 5px;"/>
+        		파일을 드래그 해주세요.</div>
         	<table id="fileListTable" style="width=100%; height=100%; border=0px; font-size: 12px;">
           		<tbody id="fileTableTbody"></tbody>
         	</table>

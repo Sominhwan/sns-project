@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
@@ -20,7 +21,7 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 @WebServlet("/sns/UserAdEmailSend")
 public class UserAdEmailSendServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	public static final String SAVEFOLDER = "C:/Jsp/sns-project/src/main/webapp/sns/storage/";
+	public static final String SAVEFOLDER = "C:/Jsp/sns-project/src/main/webapp/sns/attachFile/";
 	public static final String ENCODING = "UTF-8";
 	public static final int MAXSIZE = 1024 * 1024 * 500; // 500MB
 	
@@ -28,13 +29,17 @@ public class UserAdEmailSendServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8"); 
 		response.setContentType("text/html; charset=utf-8");
 
-		MultipartRequest multi = new MultipartRequest(request, SAVEFOLDER, MAXSIZE, 
-		ENCODING, new DefaultFileRenamePolicy()); 
-		 
+		MultipartRequest multi = new MultipartRequest(request, SAVEFOLDER, MAXSIZE, ENCODING, new DefaultFileRenamePolicy());  
 		String [] userAllEmail = multi.getParameterValues("userAllEmail");
 		for(int i=0;i<userAllEmail.length;i++)
 			System.out.println(userAllEmail[i]);
-		  
+		
+		String titleInput = multi.getParameter("titleInput");
+		System.out.println(titleInput);
+			
+		String content = multi.getParameter("content");
+		System.out.println(content);
+
 		ArrayList saveFiles = new ArrayList();
 		ArrayList originFiles = new ArrayList();
 		  
@@ -53,11 +58,13 @@ public class UserAdEmailSendServlet extends HttpServlet {
 	          System.out.println(fileList[i]); 
 	       }
 	    }
-	     
-			/*
-			 * File file = new File(filename); // 파일 삭제 if (file.exists()) { file.delete();
-			 * }
-			 */
+	    
+	    for(int i=0; i<fileList.length; i++) {
+		       if(fileList[i].isFile()) { 
+		          fileList[i].delete(); 
+		       }
+		    }
+	
 	}		
 }
 	

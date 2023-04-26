@@ -407,51 +407,6 @@ input:focus {
   border-color: #474747;  
 }
 
-
-
-.fileDrop{
-  position: absolute;
-  left: 120px;
-  top: 240px;
-  display: inline-block;
-  width: 354px;
-  height: 50px;
-  border: solid 1px #e3e3e3;
-  overflow-y: scroll;
-  font-size: 13px;
- 
-  border-radius: 4px;
-}
-.fileDrop .fileList .fileName{
-  padding-left: 20px;
-}
-.fileDrop .fileList .fileSize{
-  padding-right: 20px; 
-  float:right;
-}
-
-
-.filebox{
-  position: absolute;
-  left: 120px;
-  top: 240px;
-  height: 50px;
-  width: 333px;
-}
-
-.inputFile{
-  position: absolute;
-  border-radius: 5px;
-  overflow-y : scroll;
-  left: 130px;
-  top: 240.5px;
-  z-index: 5;
-  height: 47px;
-  width: 344px;
-  font-size: 13px;
-  padding-top: 4px;
-}
-
 .fileCancel{
   position: relative;
   left: 12px;
@@ -464,11 +419,6 @@ input:focus {
   background-color:transparent;
   background-repeat: no-repeat;
   cursor: pointer;
-}
-
-.fileIcon{
-   padding-right: 6px;	
-   padding-top: 5px; 
 }
 
 .upload-name {
@@ -537,20 +487,7 @@ input:focus {
   font-family: MalgunGothic;
 }
 
-
-
-/* SMS 보내기 */
-#smsSend {
-  position: relative;
-  left: 50%;
-  top: 62px;
-  font-family: MalgunGothic;
-  font-size: 20px;
-  font-weight: bold;
-}
-
-
-
+/* 파일전송 */
 .upload-btn-wrapper {
   position: relative;
   left: -151px;
@@ -594,5 +531,15 @@ input:focus {
    padding-top: 8px;
 }
 
+
+/* SMS 보내기 */
+#smsSend {
+  position: relative;
+  left: 50%;
+  top: 62px;
+  font-family: MalgunGothic;
+  font-size: 20px;
+  font-weight: bold;
+}
 
 

@@ -1,6 +1,7 @@
 var allEmailArr = []; // send할 이메일을 담는 배열		
 let oEditors = []
 
+		/* 스마트 에디터 기능*/
    		smartEditor = function() {
       		console.log("Naver SmartEditor")
       		nhn.husky.EZCreator.createInIFrame({
