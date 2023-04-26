@@ -193,50 +193,9 @@ let oEditors = []
 	 		$("#emailCancel"+num).parent("#sendEmail").remove();  	
 	 	}
     	
-    	/* 메일 보내기 */
-    	function sendEmail(){
-    		/* TODO 아무것도 입력하지 않을시 예외처리 작성하기 */
-    		$('#userAllEmail').val(allEmailArr);
-    		$('#fileName').val(fileList);
-    		$("#mailFrm").attr("action","UserAdEmailSend").submit();
-    		
-    	}
-    	
-    	/* 파일 업로드 버튼 */
-    	function onClickUpload(){
-    	    let myInput = document.getElementById("attached-file-Input");
-            myInput.click();
-    	}
-    	
-    	/* 첨부파일 등록시 아이콘 삭제 */
-    	function hideIcon(self) {
-    	    self.style.backgroundImage = 'none';
-    	}
-    	
-    	/* input에 파일 업로드시 fileDrop 에 파일 넣기 */
-    	function fileUpload(){
-    		var fileInput = document.getElementById("attached-file-Input");
-    		var files = fileInput.files
-            if(files != null && files != undefined){
-                var tag = "";
-                for(i=0; i<files.length; i++){
-                    var f = files[i];
-                    fileList.push(f);
-                    var fileName = f.name;
-                    var fileSize = f.size / 1024 ;
-                    fileSize = fileSize < 1 ? fileSize.toFixed(3) : fileSize.toFixed(1);
-                    tag += 
-                            "<div class='fileList'>" +
-                                "<span class='fileName'>"+fileName+"</span>" +
-                                "<span class='fileSize'>"+fileSize+" KB</span>" +
-                                "<span class='clear'></span>" +
-                            "</div>";
-                }
-                $('#fileDrop').append(tag);
-            }			
-    	}  	
-    		
     	window.onload = function(){
     		searchFunction();
     	}
+    	
+    	
     	

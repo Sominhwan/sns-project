@@ -123,7 +123,7 @@ nav {
 #mailSend {
   position: relative;
   left: 45px;
-  top: 40px;
+  top: 30px;
   font-family: MalgunGothic;
   font-size: 20px;
   font-weight: bold;
@@ -515,14 +515,13 @@ input:focus {
   position: absolute;
   z-index: 5;
   width: 90%;
-  height: 72%;
+  height: 71%;
   top: 320px;
 }
 
 #editorTxt{
-  z-index: 5;
-  width: 90%;
-  height: 70%;
+  height: inherit;
+  width: inherit;
 }
 
 #mailSendBtn{
@@ -530,8 +529,8 @@ input:focus {
   width: 70px;
   height: 28px;
   background-color: #fff;
-  left: 43.5%;
-  top: 15%;
+  left: 47px;
+  top: 70px;
   border-radius: 3px;
   border: solid 1px #eee;
   cursor: pointer;
@@ -552,6 +551,48 @@ input:focus {
 
 
 
+.upload-btn-wrapper {
+  position: relative;
+  left: -151px;
+  top: 208px;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.upload-btn {
+  border: solid 1px #e3e4e4;
+  background-color: white;
+  padding: 2px 10px;
+  border-radius: 8px;
+  font-family: MalgunGothic;
+  font-size: 14px;
+  border-radius: 5px;
+  z-index: 10;
+}
+
+.upload-btn-wrapper input[type="file"] {
+   font-size: 100px;
+   position: absolute;
+   left: 0;
+   top: 0;
+   opacity: 0;
+}
+
+#fileDragDesc {
+   position: relative;
+   color: #929294;
+   width: 354px;
+   height: 50px;
+   font-size: 12px;
+   text-align: center;
+   line-height: 50px;
+   vertical-align: middle;
+ }
+ 
+.fileCancel{
+   padding-right: 30px; 
+   padding-top: 8px;
+}
 
 
 
