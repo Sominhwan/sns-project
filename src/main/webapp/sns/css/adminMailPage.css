@@ -552,6 +552,8 @@ input:focus {
   z-index: 10;
 }
 
+::-webkit-file-upload-button { cursor:pointer; }
+
 .upload-btn-wrapper input[type="file"] {
    font-size: 100px;
    position: absolute;

@@ -19,6 +19,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+import javax.mail.internet.MimeUtility;
 
 public class GmailSend {	
 	private static class SMTPAuthenticator extends Authenticator {
@@ -59,7 +60,7 @@ public class GmailSend {
 		}
 	}
 	
-	public static void sendAll(String title, String content, String []toEmail, Vector<String> attach) {
+	public static boolean sendAll(String title, String content, String []toEmail, Vector<String> attach) {
 		Properties p = new Properties();
 
 		p.put("mail.smtp.starttls.enable", "true");
@@ -101,7 +102,7 @@ public class GmailSend {
 				MimeBodyPart mbp2 = new MimeBodyPart();
 				FileDataSource fds = new FileDataSource(attach.get(i)); // 파일 읽어오기
 				mbp2.setDataHandler(new DataHandler(fds)); // 파일 첨부
-				mbp2.setFileName(fds.getName());
+				mbp2.setFileName(MimeUtility.encodeText(fds.getName(),"euc-kr","B"));
 				if (!attach.get(i).equals("")) {
 					messageMulti.addBodyPart(mbp2);
 				}
@@ -120,9 +121,11 @@ public class GmailSend {
 			Transport.send(msg);
 			
 			System.out.println("message sent successfully...");
+			return true;
 		} catch (Exception e) { 
 			e.printStackTrace();
 		}
+		return false;
 	}
 }
 

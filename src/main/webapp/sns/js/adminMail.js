@@ -1,17 +1,19 @@
 var allEmailArr = []; // send할 이메일을 담는 배열		
-let oEditors = []
+let oEditors = [];
 		/* 화면 전환*/
 		function changePage(){
 			if ($('.mailTable').css('display') == 'block') {
             	$('.mailTable').css('display', 'none');
             	$('#smsBtn').css('display', 'none');
             	$('#mailBtn').css('display', 'block');       
-            	document.getElementById("adminMailLogo-text").innerHTML = "SMS 보내기";	    	
+            	document.getElementById("adminMailLogo-text").innerHTML = "SMS 보내기";	
+            	document.getElementById("navLogo").setAttribute("src", "./adminImages/adminSMSLogo.svg");    	
         	} else {
            	    $('.mailTable').css('display', 'block');
            		$('#mailBtn').css('display', 'none');
             	$('#smsBtn').css('display', 'block');
-            	document.getElementById("adminMailLogo-text").innerHTML = "메일 보내기";	    	
+            	document.getElementById("adminMailLogo-text").innerHTML = "메일 보내기";	
+            	document.getElementById("navLogo").setAttribute("src", "./adminImages/adminMailLogo.svg");      	
         	}
 		}
 		/* 스마트 에디터 기능*/
@@ -173,6 +175,35 @@ let oEditors = []
 			}
 	 		$('#emailInput').val(''); // 이메일 입력란 엔터후 input 값 초기화	
 	 	}
+	 	
+	 	/* input 태그 엔터시 submit 이벤트 막음 */
+		document.uploadForm.addEventListener("keydown", evt => {
+    		if ((evt.keyCode || evt.which) === 13) {
+        		evt.preventDefault();
+    		}
+		});	 	
+	 	
+	 	/* 엔터시 이메일 입력 기능 */
+	 	function inputEmail2(){
+	 		var emailInput = document.getElementById("emailWrap");
+	 		emailInput.innerHTML = '';
+	 		
+	 		if($('#emailInput').val()!=''){ // 입력된 값이 공백이 아닐때만 처리
+	 		allEmailArr.push($('#emailInput').val());
+	 		}
+	 		var set = new Set(allEmailArr);
+	 		allEmailArr = Array.from(set);
+	 		
+	 		let regex = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
+	 		for(let i=0;i<allEmailArr.length;i++){	
+	 			if(regex.test(allEmailArr[i])){ // 정규검사식 참일 경우
+	 				emailInput.innerHTML += '<span id="sendEmail" style="background-color: #0073E633;">'+allEmailArr[i]+ '<button class="emailCancel" id="emailCancel'+ emailInput.childElementCount +'" onclick="deleteEmail('+emailInput.childElementCount+')"></button></span>';	
+	 			} else{
+	 				emailInput.innerHTML += '<span id="sendEmail" style="background-color: #fc193c33;">'+allEmailArr[i]+ '<button class="emailCancel" id="emailCancel'+ emailInput.childElementCount +'" onclick="deleteEmail('+emailInput.childElementCount+')"></button></span>';	
+	 			}			
+			}
+	 		$('#emailInput').val(''); // 이메일 입력란 엔터후 input 값 초기화	
+	 	}	 	
     	
     	/* input 포커스 벗어날시 자동 등록 */
 	 	$(function(){

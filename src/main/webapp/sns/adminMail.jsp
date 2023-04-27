@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" type="image/x-icon" href="images/loginLogo.png" />
     <link rel="stylesheet" href="css/adminMailPage.css" />
+    <link rel="stylesheet" href="css/loading.css" />
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <title>관리자페이지 - Photalk</title>
     <script type="text/javascript" src="../smarteditor/js/HuskyEZCreator.js" charset="utf-8"></script>
@@ -231,9 +232,9 @@
       var uploadFileList = Object.keys(fileList);
       var emailTitle = $('#titleInput').val();
       $('#userAllEmail').val(allEmailArr);
-	  oEditors.getById["editorTxt"].exec("UPDATE_CONTENTS_FIELD", [])
-	  let content = document.getElementById("editorTxt").value   
-	  	  
+	  oEditors.getById["editorTxt"].exec("UPDATE_CONTENTS_FIELD", []);
+	  let content = document.getElementById("editorTxt").value;   
+	  $('#mailContent').val(content);
       // 받는 이메일 주소가 존재하는지 체크
       if (allEmailArr.length == 0){
           alert("이메일 주소를 입력하세요.");
@@ -270,14 +271,14 @@
         allEmailArr = [];
 		var emailWrap = document.getElementById("emailWrap");
 		emailWrap.innerHTML = '';
-/*         oEditors.getById["editorTxt"].exec("SET_IR", [""]);
-        content = ''; */
+        oEditors.getById["editorTxt"].exec("SET_IR", [""]);
+
 		document.getElementById("fileTableTbody").innerHTML = "";
         fileList = [];
         fileSizeList = [];
         
         $.ajax({
-            url : "UserAdEmailSend?content="+content,
+            url : "UserAdEmailSend",
             data : formData,
             type:'POST',
             enctype:'multipart/form-data',
@@ -285,16 +286,24 @@
             contentType:false,
             dataType:'json',
             cache:false,
-            success:function(res){
-                alert("메일 전송 완료!");
-            },error:function(res){
-                alert("메일 전송 실패!\n관리자에게 문의해주세요.");
+            success:function(obj){
+                var result = obj.result;
+            	alert(result);
+            },error:function(){
+                alert("메일 전송 실패");
             }
         });
       }
     }
     </script>
   </head>
+  <!-- 로딩바 -->
+    <div id="loading" style="display: none">
+      <div id="loading_bar">
+        <!-- 로딩바의 경로를 img 태그안에 지정해준다. -->
+        <img src="adminImages/Spin-loading.gif" style="width: 100px;"/>
+      </div>
+    </div>
   <body>
     <div class="left-side">
     <aside>
@@ -365,7 +374,7 @@
     <!-- 메일 네비게이션 바 -->
     <nav id="navbar">
         <span id = "adminMailLogo">
-        <img src="adminImages/adminMailLogo.svg" />
+        <img src="adminImages/adminMailLogo.svg" id="navLogo"/>
         </span>
         <span id="adminMailLogo-text">메일 보내기</span>          
     <!--     <span id="adminSMSLogo-text">SMS 보내기</span>   -->  
@@ -399,17 +408,16 @@
         		</div>
         		<input type="button" id="addrInputBtn" value="확인"/>
         	</div>  
-            
         </div>
         <span id="attached-file">파일첨부</span>
         <div id="emailWrap"></div>
     	<div class="upload-btn-wrapper">
-      	<input type="file" id="input_file" multiple="multiple" style="height: 100%"/>
+      	<input type="file" id="input_file" multiple="multiple" style="height: 100%; cursor: pointer;"/>
       	<button class="upload-btn" style="cursor: pointer;">내 PC</button>
     	</div>
 
         <form name="uploadForm" id="uploadForm" enctype="multipart/form-data" method="post">
-      		<input id="emailInput" name="emailInput" type="text" maxlength="30" autocomplete="false"/>
+      		<input id="emailInput" name="emailInput" type="text" onkeyup="if(window.event.keyCode==13){inputEmail2()}" maxlength="30" autocomplete="false"/>
         	<input id="titleInput" name="titleInput" type="text" maxlength="40" autocomplete="false"/>
         	<!-- 스마트 에디터 -->
         	<div id="smarteditor">
@@ -425,6 +433,7 @@
           		<tbody id="fileTableTbody"></tbody>
         	</table>
       		</div>
+      		<input type="hidden" id="mailContent" name="mailContent"/>
       		<input type="hidden" id="userAllEmail" value="" name="userAllEmail"/>
     	</form>
     	<div class="sendMail-Content">
@@ -438,4 +447,5 @@
  
   </body>
   <script src="js/adminMail.js"></script>
+  <script src="js/loading.js"></script>
 </html>

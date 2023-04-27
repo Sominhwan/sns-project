@@ -17,6 +17,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONObject;
+
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
@@ -44,8 +46,8 @@ public class UserAdEmailSendServlet extends HttpServlet {
 		String[] toEmail = pattern.split(allEmail);	
 		
 		String titleInput = multi.getParameter("titleInput");			
-		String content = request.getParameter("content");
-
+		String content = multi.getParameter("mailContent");
+		System.out.println(content);
 		ArrayList saveFiles = new ArrayList();
 		ArrayList originFiles = new ArrayList();
 		  
@@ -64,21 +66,34 @@ public class UserAdEmailSendServlet extends HttpServlet {
 	          getFilePath[i] = fileList[i].getAbsolutePath();
 	       }
 	    }
-	    
-	    sendMail(toEmail,titleInput,content,getFilePath );	
-	    // 이메일 전송 완료 후 파일 삭제
-		for(int i=0; i<fileList.length; i++) { 
-			if(fileList[i].isFile()) {
-				fileList[i].delete(); 
-			} 
-		 }	 
+	    // 메일 전송 성공시 true 값 반환 후 메일 전송 완료 json 파일 전달
+	    if(sendMail(toEmail,titleInput,content,getFilePath)) { 
+	    	// 이메일 전송 완료 후 파일 삭제
+	    	for(int i=0; i<fileList.length; i++) { 
+	    		if(fileList[i].isFile()) {
+	    			fileList[i].delete(); 
+	    		} 
+	    	}
+		
+	    	JSONObject jobj = new JSONObject();
+	    	jobj.put("result", "메일 전송 완료");
+	    	PrintWriter out = response.getWriter();
+	    	out.print(jobj.toString());
+	    	out.close();
+	    } else {
+	    	for(int i=0; i<fileList.length; i++) { 
+	    		if(fileList[i].isFile()) {
+	    			fileList[i].delete(); 
+	    		} 
+	    	}	    	 	
+	    }
 	}
 	
-	public void sendMail(String []email, String title, String content, String [] getFilePath) {			
+	public boolean sendMail(String []email, String title, String content, String [] getFilePath) {			
 		Vector<String> attachmentFiles = new Vector<String>();
 		for(int i=0;i<getFilePath.length;i++)
 			attachmentFiles.add(getFilePath[i]);	
-		GmailSend.sendAll(title, content, email, attachmentFiles);	
+		return GmailSend.sendAll(title, content, email, attachmentFiles);	
 	}
 }
 	
