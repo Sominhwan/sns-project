@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="159.341" height="28.128" viewBox="0 0 159.341 28.128">
+    <g data-name="그룹 366">
+        <path data-name="Icon awesome-exchange-alt" d="M0 11.813v-1.125A1.687 1.687 0 0 1 1.688 9H27V5.625a1.689 1.689 0 0 1 2.881-1.193l5.625 5.625a1.688 1.688 0 0 1 0 2.386l-5.625 5.625A1.689 1.689 0 0 1 27 16.875V13.5H1.688A1.687 1.687 0 0 1 0 11.813zM34.313 22.5H9v-3.375a1.689 1.689 0 0 0-2.881-1.193L.494 23.557a1.688 1.688 0 0 0 0 2.386l5.625 5.625A1.689 1.689 0 0 0 9 30.375V27h25.313A1.687 1.687 0 0 0 36 25.313v-1.125a1.687 1.687 0 0 0-1.687-1.688z" transform="translate(123.341 -3.936)" style="fill:#474747"/>
+        <g data-name="그룹 364">
+            <text data-name="Text State" transform="translate(0 22)" style="font-size:20px;font-family:MalgunGothic,Malgun Gothic;fill:#474747"><tspan x="0" y="0">메일 보내기</tspan></text>
+        </g>
+    </g>
+</svg>

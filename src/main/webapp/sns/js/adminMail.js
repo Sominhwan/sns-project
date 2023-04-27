@@ -1,6 +1,19 @@
 var allEmailArr = []; // send할 이메일을 담는 배열		
 let oEditors = []
-
+		/* 화면 전환*/
+		function changePage(){
+			if ($('.mailTable').css('display') == 'block') {
+            	$('.mailTable').css('display', 'none');
+            	$('#smsBtn').css('display', 'none');
+            	$('#mailBtn').css('display', 'block');       
+            	document.getElementById("adminMailLogo-text").innerHTML = "SMS 보내기";	    	
+        	} else {
+           	    $('.mailTable').css('display', 'block');
+           		$('#mailBtn').css('display', 'none');
+            	$('#smsBtn').css('display', 'block');
+            	document.getElementById("adminMailLogo-text").innerHTML = "메일 보내기";	    	
+        	}
+		}
 		/* 스마트 에디터 기능*/
    		smartEditor = function() {
       		console.log("Naver SmartEditor")

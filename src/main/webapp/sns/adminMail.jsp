@@ -208,13 +208,10 @@
       console.log("deleteFile.fIndex=" + fIndex);
       // 전체 파일 사이즈 수정
       totalFileSize -= fileSizeList[fIndex];
-
       // 파일 배열에서 삭제
       delete fileList[fIndex];
-
       // 파일 사이즈 배열 삭제
       delete fileSizeList[fIndex];
-
       // 업로드 파일 테이블 목록에서 삭제
       $("#fileTr_" + fIndex).remove();
 
@@ -236,8 +233,7 @@
       $('#userAllEmail').val(allEmailArr);
 	  oEditors.getById["editorTxt"].exec("UPDATE_CONTENTS_FIELD", [])
 	  let content = document.getElementById("editorTxt").value   
-	  
-	  
+	  	  
       // 받는 이메일 주소가 존재하는지 체크
       if (allEmailArr.length == 0){
           alert("이메일 주소를 입력하세요.");
@@ -255,8 +251,8 @@
         return;
       }
 	  // 메일 내용이 존재하는지 체크
-	  if(content == "" || content==null) {
-		  alert("내용을 입력해주세요.")
+	  if(content == "" || content==null || content=='&nbsp;' || content=='<p>&nbsp;</p>') {
+		  alert("내용을 입력해주세요.");
 	      oEditors.getById["editorTxt"].exec("FOCUS")
 		  return;
 	  } 
@@ -268,7 +264,18 @@
         for (var i = 0; i < uploadFileList.length; i++) {
           formData.append("files", fileList[uploadFileList[i]]);    
         }
-
+        // 전송 후 입력폼 초기화
+        $('#titleInput').val('');
+        $('#emailInput').val('');
+        allEmailArr = [];
+		var emailWrap = document.getElementById("emailWrap");
+		emailWrap.innerHTML = '';
+/*         oEditors.getById["editorTxt"].exec("SET_IR", [""]);
+        content = ''; */
+		document.getElementById("fileTableTbody").innerHTML = "";
+        fileList = [];
+        fileSizeList = [];
+        
         $.ajax({
             url : "UserAdEmailSend?content="+content,
             data : formData,
@@ -281,7 +288,7 @@
             success:function(res){
                 alert("메일 전송 완료!");
             },error:function(res){
-                alert("메을 전송 실패!\n관리자에게 문의해주세요.");
+                alert("메일 전송 실패!\n관리자에게 문의해주세요.");
             }
         });
       }
@@ -360,7 +367,10 @@
         <span id = "adminMailLogo">
         <img src="adminImages/adminMailLogo.svg" />
         </span>
-        <span id="adminMailLogo-text">메일 보내기</span>    
+        <span id="adminMailLogo-text">메일 보내기</span>          
+    <!--     <span id="adminSMSLogo-text">SMS 보내기</span>   -->  
+        <img src="adminImages/smsBtn.svg" id="smsBtn" onclick="changePage()"/>
+        <img src="adminImages/mailBtn.svg" id="mailBtn" onclick="changePage()"/>
     </nav>
     <!-- 메일 보내기, SMS 보내기 컨텐츠 -->
     <div class="mailTable">
@@ -417,7 +427,9 @@
       		</div>
       		<input type="hidden" id="userAllEmail" value="" name="userAllEmail"/>
     	</form>
-    	<input type="button" onclick="uploadFile();" id="mailSendBtn" value="보내기"/> 
+    	<div class="sendMail-Content">
+    	<input type="button" onclick="uploadFile();" id="mailSendBtn" value="보내기"/>
+    	</div> 
          <!-- <span id="smsSend">
             SMS 보내기
         </span> -->

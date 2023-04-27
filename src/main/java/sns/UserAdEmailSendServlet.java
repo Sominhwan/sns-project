@@ -8,6 +8,8 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.Vector;
+import java.util.regex.Pattern;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -30,15 +32,19 @@ public class UserAdEmailSendServlet extends HttpServlet {
 		response.setContentType("text/html; charset=utf-8");
 
 		MultipartRequest multi = new MultipartRequest(request, SAVEFOLDER, MAXSIZE, ENCODING, new DefaultFileRenamePolicy());  
-		String [] userAllEmail = multi.getParameterValues("userAllEmail");
-		for(int i=0;i<userAllEmail.length;i++)
-			System.out.println(userAllEmail[i]);
+		String []userAllEmail = multi.getParameterValues("userAllEmail");
+		StringBuilder stringBuilder = new StringBuilder();
+
+		for (int i = 0; i < userAllEmail.length; i++) {
+		  stringBuilder.append(userAllEmail[i]);
+		}
+
+		String allEmail = stringBuilder.toString();	
+		Pattern pattern = Pattern.compile(",");
+		String[] toEmail = pattern.split(allEmail);	
 		
-		String titleInput = multi.getParameter("titleInput");
-		System.out.println(titleInput);
-			
-		String content = multi.getParameter("content");
-		System.out.println(content);
+		String titleInput = multi.getParameter("titleInput");			
+		String content = request.getParameter("content");
 
 		ArrayList saveFiles = new ArrayList();
 		ArrayList originFiles = new ArrayList();
@@ -52,20 +58,28 @@ public class UserAdEmailSendServlet extends HttpServlet {
 	     
 	    File dir = new File(SAVEFOLDER);
 	    File[] fileList = dir.listFiles(); // 디렉토리의 모든 파일 리스트 가져오기
-
+	    String [] getFilePath = new String[fileList.length];
 	    for(int i=0; i<fileList.length; i++) {
 	       if(fileList[i].isFile()) { 
-	          System.out.println(fileList[i]); 
+	          getFilePath[i] = fileList[i].getAbsolutePath();
 	       }
 	    }
 	    
-	    for(int i=0; i<fileList.length; i++) {
-		       if(fileList[i].isFile()) { 
-		          fileList[i].delete(); 
-		       }
-		    }
+	    sendMail(toEmail,titleInput,content,getFilePath );	
+	    // 이메일 전송 완료 후 파일 삭제
+		for(int i=0; i<fileList.length; i++) { 
+			if(fileList[i].isFile()) {
+				fileList[i].delete(); 
+			} 
+		 }	 
+	}
 	
-	}		
+	public void sendMail(String []email, String title, String content, String [] getFilePath) {			
+		Vector<String> attachmentFiles = new Vector<String>();
+		for(int i=0;i<getFilePath.length;i++)
+			attachmentFiles.add(getFilePath[i]);	
+		GmailSend.sendAll(title, content, email, attachmentFiles);	
+	}
 }
 	
 

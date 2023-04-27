@@ -104,11 +104,29 @@ nav {
   left: 10px;
   top: 31px;
 }
+
 #adminMailLogo-text {
   position: relative;
   font-size: 20px;
   top: 25px;
   color: #474747;
+}
+
+#smsBtn{
+  position: relative;
+  float: right;
+  top: 30px;
+  right: 365px;
+  cursor: pointer;
+}
+
+#mailBtn{
+  position: relative;
+  float: right;
+  top: 30px;
+  right: 365px;
+  cursor: pointer;
+  display: none;
 }
 
 /* 메일 보내기 컨텐츠 */
@@ -119,11 +137,12 @@ nav {
   width: 100%;
   height: 100%;
 }
+
 /* 메일 보내기 */
 #mailSend {
   position: relative;
   left: 45px;
-  top: 30px;
+  top: 15px;
   font-family: MalgunGothic;
   font-size: 20px;
   font-weight: bold;
@@ -192,7 +211,7 @@ thead#head{
   display:block;
   height: 35px;
   width: 370px;
-  background-color: #e9e9e9;
+  border-bottom: solid 1px #eee;
   font-weight: normal;
   text-align: center;
 }
@@ -222,7 +241,7 @@ th#address{
   position: relative;
   left: 112px;	
   bottom: 2px;
-  color: #fff;
+  color: #303030;
   font-size: 20px;
   cursor: pointer;
 }
@@ -233,6 +252,20 @@ th#address{
   height: 345px;
   overflow-y: scroll;
   text-align: center;
+}
+
+#ajaxTable::-webkit-scrollbar {
+  width: 10px; /* 스크롤바의 너비 */
+
+}
+
+#ajaxTable::-webkit-scrollbar-thumb {
+  height: 30%; /* 스크롤바의 길이 */
+  background: #eeeeee; /* 스크롤바의 색상 */
+}
+
+#ajaxTable::-webkit-scrollbar-track {
+  background: #fff; /*스크롤바 뒷 배경 색상*/
 }
 
 tr{
@@ -474,15 +507,27 @@ input:focus {
   width: inherit;
 }
 
+/* 메일 보내기 버튼 콘텐츠 */
+.sendMail-Content{
+  position: absolute;
+  height: 40px;
+  width: 79%;
+  top: 55px; 
+  left: 25px;
+  border-bottom: solid 1.5px #eee;
+  border-top: solid 1.5px #eee;
+}
+
 #mailSendBtn{
   position: absolute;
   width: 70px;
   height: 28px;
+  top: 15%;
   background-color: #fff;
-  left: 47px;
-  top: 70px;
+  left: 20px;
+  /* top: 70px; */
   border-radius: 3px;
-  border: solid 1px #eee;
+  border: solid 1px #303030;
   cursor: pointer;
   font-family: MalgunGothic;
 }
@@ -541,5 +586,4 @@ input:focus {
   font-size: 20px;
   font-weight: bold;
 }
-
 
