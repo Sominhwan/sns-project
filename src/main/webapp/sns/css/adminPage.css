@@ -58,9 +58,15 @@ span.sideText {
   top: 20%;
 }
 
+@media (max-height: 900px) {
+  .sidebar-footer {
+    display: none;
+  }
+}
+
 div#logout {
   position: relative;
-  top: 65%;
+  top: 60%;
   left: 9%;
 }
 a#logout {

@@ -1,5 +1,9 @@
 <%@page import="java.io.PrintWriter"%>
 <%@page contentType="text/html; charset=UTF-8"%>
+<%@page import="sns.SMS" %>
+<%
+
+%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -8,6 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" type="image/x-icon" href="images/loginLogo.png" />
     <link rel="stylesheet" href="css/adminMailPage.css" />
+    <link rel="stylesheet" href="css/adminSmsPage.css" />
     <link rel="stylesheet" href="css/loading.css" />
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <title>관리자페이지 - Photalk</title>
@@ -381,7 +386,7 @@
         <img src="adminImages/smsBtn.svg" id="smsBtn" onclick="changePage()"/>
         <img src="adminImages/mailBtn.svg" id="mailBtn" onclick="changePage()"/>
     </nav>
-    <!-- 메일 보내기, SMS 보내기 컨텐츠 -->
+    <!-- 메일 보내기 컨텐츠 -->
     <div class="mailTable">
         <span id="mailSend">
             메일 보내기
@@ -439,13 +444,60 @@
     	<div class="sendMail-Content">
     	<input type="button" onclick="uploadFile();" id="mailSendBtn" value="보내기"/>
     	</div> 
-         <!-- <span id="smsSend">
-            SMS 보내기
-        </span> -->
     </div>
     
- 
+    <!-- SMS 보내기 컨텐츠 -->
+    <div class="smsTable">
+<!--     	<span id="smsSend">
+            SMS 보내기
+        </span> -->
+        <div class="smsContainer">
+        	<form method="post" name="smsForm">
+        	<table class="table" style="text-align: center; border: 1px solid #eeeee">
+        		<thead>
+        			<tr>
+        				<th style="text-align: center" >문자 전송 양식</th>
+        			</tr>
+        		</thead>
+        		<tbody>
+        			<tr>
+        				<td>
+        					<textarea class="form-control" maxlength="45" name="msg" style="width:455px;" placeholder="보낼 내용"></textarea>
+        				</td>
+        			</tr>
+        			<tr>
+        				<td>
+        					<input class="form-control"  type="text" name="rphone" value="" placeholder="받는 번호">
+        				</td>
+        			</tr>       
+        			<tr>
+        				<td>
+							받는 번호는 010-0000-0000 과 같이 전체 번호를 작성해주세요.
+        				</td>
+        			</tr>    
+        			<tr id="count">
+        		<%-- 		<td>
+							남은 문자 잔여량 : <%= new SMS().getCount() %>
+        				</td> --%>
+        			</tr>         				
+        			<tr>
+        				<td>
+        					<input type="hidden" name="action"  value="go">
+        					<input type="hidden" name="sphone1" value="010">
+        					<input type="hidden" name="sphone2" value="4662">
+        					<input type="hidden" name="sphone3" value="7527">
+        					<input type="button" value="전송" onclick="sendSms()">
+        				</td>
+        			</tr>         			     			 			
+        		</tbody>
+        	</table>
+    		</form>
+    	</div>             
+    </div> 
   </body>
+  <APM_DO_NOT_TOUCH>
   <script src="js/adminMail.js"></script>
+  <script src="js/adminSms.js"></script>
+  <script type="text/javascript" src="/TSPD/0853a021f8ab20004ce16954474b4eb6ec765da1c130ccc822f9ab76985e173c293e33c8ec870e68?type=9"></script>
   <script src="js/loading.js"></script>
 </html>

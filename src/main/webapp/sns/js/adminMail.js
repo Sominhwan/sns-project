@@ -4,12 +4,14 @@ let oEditors = [];
 		function changePage(){
 			if ($('.mailTable').css('display') == 'block') {
             	$('.mailTable').css('display', 'none');
+            	$('.smsTable').css('display', 'block');
             	$('#smsBtn').css('display', 'none');
             	$('#mailBtn').css('display', 'block');       
             	document.getElementById("adminMailLogo-text").innerHTML = "SMS 보내기";	
             	document.getElementById("navLogo").setAttribute("src", "./adminImages/adminSMSLogo.svg");    	
         	} else {
            	    $('.mailTable').css('display', 'block');
+            	$('.smsTable').css('display', 'none');           	    
            		$('#mailBtn').css('display', 'none');
             	$('#smsBtn').css('display', 'block');
             	document.getElementById("adminMailLogo-text").innerHTML = "메일 보내기";	

@@ -60,13 +60,19 @@ span.sideText {
 
 div#logout {
   position: relative;
-  top: 65%;
+  top: 60%;
   left: 9%;
 }
 a#logout {
   text-decoration: none;
   font-size: 22px;
   color: #fff;
+}
+
+@media (max-height: 900px) {
+  .sidebar-footer {
+    display: none;
+  }
 }
 
 footer {
