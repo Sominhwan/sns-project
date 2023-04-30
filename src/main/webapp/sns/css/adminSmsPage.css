@@ -9,7 +9,7 @@
 }
 
 #smsSend {
-  position: relative;
+  position: absolute;
   left: 45px;
   top: 17px;
   font-family: MalgunGothic;
@@ -17,12 +17,240 @@
   font-weight: bold;
 }
 
-.smsContainer{
+/* SMS 테이블 */
+#iphone{
   position: relative;
-  width: 700px;
-  height: 500px;
-  background-color: #eeeeee;
-  left: 50px;
-  top: 50%;
-  
+  top: 130px;
+  left: 350px;
+  width: 350px;	
+}
+
+.table{
+  position: absolute;
+  top: 217.5px;
+  left: 393px;
+  width: 302.5px;
+  height: 540px;
+  background-color: #3D4D60;
+}
+
+thead{
+  height: 50px;	
+  width: 302px;
+}
+
+.textCount{
+   position: absolute;
+   left: 234px;
+   top: 277px;
+   font-size: 14px;
+   color: #707070;
+}
+
+.textTotal{
+   position: absolute;
+   left: 250px;
+   top: 277px;
+   font-size: 14px;
+   color: #707070;
+}
+
+textarea[name=msg]{
+  width: 270px;
+  height: 240px;
+  border-radius: 5px;
+  border: solid 2px #303030;
+  outline-style: none;
+  resize: none;
+  padding: 10px;
+}
+
+.receiveInput{
+  width: 200px;
+  border-radius: 5px;
+  border: solid 2px #303030;
+  outline-style: none;
+  font-size: 13px;
+  height: 20px;
+}
+
+input[name=rphone]{
+  width: 160px;
+  margin-top: 10px;
+  border-radius: 5px;
+  border: solid 2px #303030;
+  outline-style: none;
+  font-size: 13px;
+  height: 20px;	
+  padding-left: 3px;
+}
+
+#openBtn{
+  padding-bottom: 20px;
+  border-radius: 5px;
+  width: 113px;
+  height: 20px;
+  text-align: center;
+}
+
+#userPhone-content{
+  position: absolute;
+  background-color: #fff;
+  border: solid 1px #eee;
+  width: 107px;
+  height: 77px;
+  left: 578px;
+  top: 665px;
+  font-size: 12px;
+  overflow-y: scroll;
+}
+
+.userPhoneTable tbody tr{
+  height: 18px;
+  cursor: pointer;
+}
+
+.changeColor {
+  background-color: #bff0ff;
+}
+
+.sendBtn{
+  background-color: #E5F6FF;
+  border-radius: 3px;
+  border: none;
+  height: 25px;
+  padding-left: 10px; 
+  padding-right: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* SMS 메시지 보관함 */
+.sms-log-table{
+  position: absolute;
+  left: 850px;
+  top: 130px;
+  width: 650px;
+  height: 720px;
+  border: solid 1px #a4a4a4;
+  border-radius: 8px;
+}
+
+.smsSendLog{
+  position: absolute;
+  left:40px;
+  top:30px;
+  font-size: 20px;
+  color: #303030;
+}
+
+#excelBtn{
+  position: absolute;
+  left: 520px;
+  top: 30px;
+  width: 100px;
+  height: 30px;
+  background-color: #2398F5;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  font-size: 14px;
+}
+
+.smsLogTable{
+  position: relative;
+  border-collapse: collapse;
+  top: 70px;
+  left: 30px;
+  width: 590px;
+  height: 650px;  
+ 
+}
+
+#smsHead{
+  display:block;
+  width: 590px;
+  height: 50px;
+  border-top: solid 3px #a4a4a4;
+}
+
+#phone{
+  width: 140px; 
+  font-weight: normal;	
+  border-right: solid 2px #eee;
+  border-bottom: solid 2px #eee;
+}
+
+#content{
+  width: 310px; 
+  font-weight: normal;	
+  border-right: solid 2px #eee;
+  border-bottom: solid 2px #eee;
+}
+
+#date{
+  width:140px; 
+  font-weight: normal;	
+  border-bottom: solid 2px #eee;
+}
+
+#ajaxTable3{
+  display:block;
+  width: 590px;
+  height: 450px;
+  overflow-y: scroll;
+  text-align: center;
+}
+
+#ajaxTable3 td{
+  border-bottom: solid 1px #eee;	
+}
+
+#phone-row{
+  width: 140px; 
+  font-weight: normal;		
+}
+
+#content-row{
+  width: 310px; 
+  font-weight: normal;		
+}
+
+#date-row{
+  width:140px; 
+  font-weight: normal;		
+}
+
+/* 잔여 문자량 */
+.smsCount{
+  position: absolute;
+  left: 30px;
+  top: 600px;
+  width: 590px;
+  height: 100px;
+  border-top: solid 2px #eee;
+}
+
+.sendCount{
+  float: left;
+  color: #303030;
+  margin-left: 5px;
+  margin-top: 5px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.sendContent{
+  position: relative;
+  width: 580px;
+  height:30px;	
+  top:10px;
+}
+.count{
+  float: right;
+  color: red;
+  margin-right: 5px;
+  margin-top: 5px;
+  font-size: 18px;
+  font-weight: bold;
 }

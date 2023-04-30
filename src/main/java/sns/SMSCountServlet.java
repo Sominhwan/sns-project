@@ -20,7 +20,6 @@ public class SMSCountServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8"); 
 		response.setContentType("text/html; charset=utf-8"); 
 
-		System.out.println("테스트 메일");
 		try {
 			response.getWriter().write(getJSON());
 		} catch (IOException e) {

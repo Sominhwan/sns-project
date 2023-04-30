@@ -32,8 +32,7 @@ public class KakaoLoginServletOk extends HttpServlet {
 				
 		HttpSession session = request.getSession();
 		
-		if(request.getParameter("id")!=null){
-			
+		if(request.getParameter("id")!=null){			
 			id = request.getParameter("id");
 		}
 		if(request.getParameter("email")!=null){

@@ -73,6 +73,7 @@ let oEditors = [];
                 url : "UserEmailSearch?userEmail="+document.getElementById("userEmail").value,
                 type : "post",
                 dataType : "json",
+                global: false,
                 success : function(obj){
                 	var result = obj.result; 
                 	searchProcess(result);

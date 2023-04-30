@@ -24,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import Decoder.BASE64Decoder;
@@ -47,6 +48,8 @@ public class SmsSendServlet extends HttpServlet {
 		        String sms_url = "";
 
 		        sms_url = "https://sslsms.cafe24.com/sms_sender.php"; // SMS 전송요청 URL
+		        String setPhone = request.getParameter("rphone");
+		        String setContent = request.getParameter("msg");
 		        String user_id = base64Encode("thalsghks"); // SMS아이디
 		        String secure = base64Encode("a7df2ef01970f20ed87a0051f81592ff");//인증키
 		        String msg = base64Encode(nullcheck(request.getParameter("msg"), ""));
@@ -180,11 +183,27 @@ public class SmsSendServlet extends HttpServlet {
 			        if(nointeractive.equals("1") && !(Result.equals("Test Success!")) && !(Result.equals("success")) && !(Result.equals("reserved")) ) {
 			            out.println("<script>alert('" + alert + "')</script>");
 			        }
-			        else if(!(nointeractive.equals("1"))) {
-				    	JSONObject jobj = new JSONObject();
-				    	jobj.put("result", alert);
-				    	out.print(jobj.toString());
-				    	out.close();
+			        else if(!(nointeractive.equals("1"))) { // 메일 전송 성공시
+			        	//rphone, msg
+			        	AdminMgr mgr = new AdminMgr();			        	
+			        	mgr.setSMS(new SMSBean(setPhone, setContent));
+			        	ArrayList<SMSBean> smsList = mgr.getSMS();
+			    		
+			    		JSONObject sendObject = new JSONObject();  
+			    		JSONArray sendArray = new JSONArray();
+			    		
+			        	for(int i=0;i<smsList.size();i++) {
+			        		JSONObject sendSMS = new JSONObject(); // sms 메시지 
+			        		sendSMS.put("userPN", smsList.get(i).getUserPN());
+			        		sendSMS.put("content", smsList.get(i).getContent());
+			        		sendSMS.put("userRegTime", smsList.get(i).getUserRegTime());	
+			        		sendArray.add(sendSMS);
+			        	}
+			        	sendObject.put("sms", sendArray);
+			        	sendObject.put("result", alert);
+			        				        	
+			        	out.print(sendObject.toString());
+			        	out.close();
 			        }
 		        }
 		    }

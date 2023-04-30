@@ -242,6 +242,83 @@ public class AdminMgr {
 		}
 		return userEmailList;
 	}
+
+	// 관리자 회원 휴대폰 정보 가져오기
+	public ArrayList<UserinfoBean> getUserPN() {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		ArrayList<UserinfoBean> userUserPNList = new ArrayList<UserinfoBean>();
+		try {
+			con = pool.getConnection();
+			sql = "select userPN from userinfo where userAd = 1";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				UserinfoBean bean = new UserinfoBean();		
+				bean.setUserPN(phone_format(rs.getString(1)));
+				userUserPNList.add(bean);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return userUserPNList;
+	}
+	
+	// 휴대폰 번호 형식 전환
+	public String phone_format(String number) {
+		String regEx = "(\\d{3})(\\d{3,4})(\\d{4})";
+	    return number.replaceAll(regEx, "$1-$2-$3");
+	}
+	
+	// 메시지 내용 저장
+	public void setSMS(SMSBean bean) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		try {
+			con = pool.getConnection();
+			sql = "insert sms(userPN,content,userRegTime) values(?,?,now())";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, bean.getUserPN());
+			pstmt.setString(2, bean.getContent());			
+			pstmt.executeUpdate();			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt);
+		}
+	}
+		
+	// 메시지 가져오기
+	public ArrayList<SMSBean> getSMS() {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		ArrayList<SMSBean> smsList = new ArrayList<SMSBean>();
+		try {
+			con = pool.getConnection();
+			sql = "SELECT userPN, content, userRegTime FROM sms";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				SMSBean bean = new SMSBean();	
+				bean.setUserPN(rs.getString(1));
+				bean.setContent(rs.getString(2));
+				bean.setUserRegTime(rs.getString(3));
+				smsList.add(bean);
+			}		
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return smsList;
+	}	
 	
 	// 임시 데이터 저장
 	public void postInsert(PostBean bean) {
@@ -268,8 +345,7 @@ public class AdminMgr {
 			pool.freeConnection(con, pstmt);
 		}
 	}	
-	
-		
+			
 	public static void main(String [] args) {
 		AdminMgr mgr = new AdminMgr();
 		String  [] userEmail = new String[50];
