@@ -496,9 +496,10 @@
     			<img alt="phoneNav" src="adminImages/phoneNav.svg" id="phoneNav">
     			<img alt="kakaoProfile" src="images/profile.svg" id="kakaoProfile" style="border-radius: 40%; width: 28px;">
     			<img alt="kakaoShareImg" src="adminImages/kakaoShareImg.png" id="kakaoShareImg">
+    			<span style="position:absolute; left:55px; top:45px;font-size: 14px;">관리자</span>
     			<span style="position:absolute; left:3px; top:3px;font-size: 10px;">오후 2:30</span>
-    			<span style="position:absolute; left:90px; top:425px;color:#040404;font-size: 11px;">오후 1:30</span>
-    			<button type="button" id="shareBtn" onclick="">공유하기</button>
+    			<span style="position:absolute; left:90px; top:400px;color:#040404;font-size: 11px;">오후 1:30</span>
+    			<button type="button" id="shareBtn" onclick="sendLinkCustom();">PhoTalk 바로가기</button>
     			<img alt="smsSendBtn" src="adminImages/smsSendBtn.svg" id="smsSendBtn" onclick="changeSharePage()">
     		</div>
          	<div id="userPhone-content" style="display: none">
@@ -515,6 +516,7 @@
        		<!-- sms 메시지 보관함 -->
        		<div class="sms-log-table">
        			<span class="smsSendLog">SMS 전송 내역</span>		
+       			<button id="smsSampleBtn" type="button" onclick="changeSMSTable()" style="cursor: pointer;">SMS 문구</button>
        			<button id="excelBtn" type="button" onclick="" style="cursor: pointer;">엑셀 다운로드</button>
 				<table class="smsLogTable" id="smsLogTable">
             		<thead id="smsHead">
@@ -534,6 +536,61 @@
            	 		<% } %>               	 			       	 		
         			</tbody>
         		</table>  
+				<table class="smsSampleTable" id="smsSampleTable" style="display: none">
+            		<thead id="smsHead2">
+               			<tr> 
+                    		<th scope="cols" id="num">번호</th>       
+                    		<th scope="cols" id="content2">내용</th>            
+               			</tr>
+           			</thead>
+           	 		<tbody id="ajaxTable4">
+            			<tr>
+           					<td scope="row" id="num-row">1</td>
+           					<td scope="row" id="content2-row">안녕하세요 PhoTalk 입니다.</td>    					
+           	 			</tr>	
+            			<tr>
+           					<td scope="row" id="num-row">2</td>
+           					<td scope="row" id="content2-row">PhoTalk 서비스를 이용해주셔서 감사합니다.</td>    					
+           	 			</tr>	
+            			<tr>
+           					<td scope="row" id="num-row">3</td>
+           					<td scope="row" id="content2-row">$회원님. 본 서비스를 이용해주셔서 감사합니다.</td>    					
+           	 			</tr>	
+            			<tr>
+           					<td scope="row" id="num-row">4</td>
+           					<td scope="row" id="content2-row">***광고 메일***<br>국내 최초 sns 웹 서비스<br>다음 링크를 통해 접속 가능</td>    					
+           	 			</tr>	
+            			<tr>
+           					<td scope="row" id="num-row">5</td>
+           					<td scope="row" id="content2-row">안녕하세요. $회원님 항상 최고의 서비스를 제공하기 위해 최선을 다하겠습니다.</td>    					
+           	 			</tr>	
+            			<tr>
+           					<td scope="row" id="num-row">6</td>
+           					<td scope="row" id="content2-row">13~15시 이벤트 예정. 더 자세한 것은 PhoTalk 링크를 통해 확인하세요.</td>    					
+           	 			</tr>	
+            			<tr>
+           					<td scope="row" id="num-row">7</td>
+           					<td scope="row" id="content2-row">회원탈퇴 일시: 2023.04.04 오전 11시30분</td>    					
+           	 			</tr>	
+            			<tr>
+           					<td scope="row" id="num-row">8</td>
+           					<td scope="row" id="content2-row">지금 바로 PhoTalk 서비스를 시작하세요.</td>    					
+           	 			</tr>	
+            			<tr>
+           					<td scope="row" id="num-row">9</td>
+           					<td scope="row" id="content2-row">(광고)PhoTalk<br><br>많은 분들이 이용하는 서비스를 이옹하시겠습니까?</td>    					
+           	 			</tr>	
+             			<tr>
+           					<td scope="row" id="num-row">10</td>
+           					<td scope="row" id="content2-row">바로가기 링크 : http://localhost:8081/sns-project/sns/login.jsp</td>    					
+           	 			</tr>	
+            			<tr>
+           					<td scope="row" id="num-row">11</td>
+           					<td scope="row" id="content2-row">2023년 최고의 sns 웹 사이트 PhoTalk</td>    					
+           	 			</tr>	           	 			          	 			           	 			           	 			           	 			           	 			           	 			           	 			           	 			           	 			             	 			       	 		
+        			</tbody>
+        		</table>          		
+        		
         		<div class="smsCount" id="smsCount">
         		</div>     		
        		</div> 		  		      		
@@ -547,5 +604,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.14.3/xlsx.full.min.js"></script>
   <!--FileSaver savaAs 이용 -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js"></script>
+  <!-- 카카오 스크립트 -->
+  <script type="text/JavaScript" src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
   <script src="js/loading.js"></script>
 </html>

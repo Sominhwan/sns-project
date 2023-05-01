@@ -134,7 +134,14 @@ function changeSharePage(){
      }	
 }
 
-
+/* 카카오 공유하기 */
+function sendLinkCustom() {
+	Kakao.init("7b282dfd5c5c643acd7323bd051ec42b");
+    Kakao.Link.sendCustom({
+		templateId:93255
+    });
+}
+    
 /* 휴대폰 로그 테이블 마우스 호버시 색깔 변경 */
 function changeColor2(){
 	$('.smsLogTable tbody tr').mouseover(function(){
@@ -162,6 +169,17 @@ function userPhoneList(){
     } else {
         $('#userPhone-content').css('display', 'block');          	    
     }	
+}
+
+/* sms 문구 테이블 변경 */
+function changeSMSTable(){
+	if ($('.smsLogTable').css('display') == 'block') {
+        $('.smsLogTable').css('display', 'none');
+        $('.smsSampleTable').css('display', 'block');           	
+     } else {
+		$('.smsSampleTable').css('display', 'none');
+        $('.smsLogTable').css('display', 'block');         	                 	       	
+     }	
 }
 
 /* 엑셀 다운로드 이벤트 */

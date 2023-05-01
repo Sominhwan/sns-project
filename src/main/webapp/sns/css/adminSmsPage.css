@@ -156,17 +156,18 @@ input[name=rphone]{
 #kakaoShareImg{
   position: absolute;
   left: 125px;
-  top: 65px;
+  top: 90px;
 }
 
 #shareBtn{
   position: absolute;
   width: 147px;
   height: 23px;
-  background-color: #473434;
-  color: #fff;
+  background-color: #eeeeee;
+  border-radius: 3px;
+  font-size: 10px;
   left: 148px;
-  top: 326px;
+  top: 360px;
   border: none;
   outline: none;
   cursor: pointer;
@@ -196,6 +197,19 @@ input[name=rphone]{
   top:30px;
   font-size: 20px;
   color: #303030;
+}
+
+#smsSampleBtn{
+  position: absolute;
+  left: 405px;
+  top: 30px;
+  width: 100px;
+  height: 30px;
+  background-color: #D4D4D4;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  font-size: 14px;
 }
 
 #excelBtn{
@@ -276,6 +290,64 @@ input[name=rphone]{
 
 #date-row{
   width:140px; 
+  font-weight: normal;		
+}
+
+/* sms 문구 */
+.smsSampleTable{
+  position: relative;
+  border-collapse: collapse;
+  top: 70px;
+  left: 30px;
+  width: 590px;
+  height: 650px;  
+ 
+}
+
+#smsHead2{
+  display:block;
+  width: 590px;
+  height: 50px;
+  border-top: solid 3px #a4a4a4;
+}
+
+#num{
+  width: 100px; 
+  font-weight: normal;	
+  border-right: solid 2px #eee;
+  border-bottom: solid 2px #eee;
+}
+
+#content2{
+  width: 490px; 
+  font-weight: normal;	
+  border-bottom: solid 2px #eee;
+}
+
+
+#ajaxTable4{
+  display:block;
+  width: 590px;
+  height: 450px;
+  overflow-y: scroll;
+  text-align: center;
+}
+
+#ajaxTable4 td{
+  border-bottom: solid 1px #eee;	
+}
+
+.changeAjaxTable4Color {
+  background-color: #f5f5f5;
+}
+
+#num-row{
+  width: 100px; 
+  font-weight: normal;		
+}
+
+#content2-row{
+  width: 490px; 
   font-weight: normal;		
 }
 
