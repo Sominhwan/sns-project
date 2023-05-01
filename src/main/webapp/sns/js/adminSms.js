@@ -35,6 +35,7 @@ function setSMS(sms){
 						   '<td scope="row" id="content-row">' + sms[i].content + '</td>' +
 						   '<td scope="row" id="date-row">' + sms[i].userRegTime + '</td></tr>';
 	});	
+	changeColor2();
 }
 
 (function(){
@@ -103,7 +104,7 @@ $('.form-control').keyup(function () {
     };
 });
 
-/* 테이블 마우스 호버시 색깔 변경 */
+/* 휴대폰 테이블 마우스 호버시 색깔 변경 */
 function changeColor(){
 	$('.userPhoneTable tr').mouseover(function(){
 	   $(this).addClass('changeColor');
@@ -112,13 +113,22 @@ function changeColor(){
 	});
 }
 
-/* 휴대폰 테이블 클리시 이벤트 발생 */
+/* 휴대폰 테이블 클릭시 이벤트 발생 */
 function clickTd(){
     $(".userPhoneTable tr td").click(function(){
         var text = $(this).text();
         $('input[name=rphone]').val(text);     
         userPhoneList();
     });
+}
+
+/* 휴대폰 로그 테이블 마우스 호버시 색깔 변경 */
+function changeColor2(){
+	$('.smsLogTable tbody tr').mouseover(function(){
+	   $(this).addClass('changeAjaxTable3Color');
+	}).mouseout(function() {
+	   $(this).removeClass('changeAjaxTable3Color');
+	});
 }
  
 function userPhoneList(){
@@ -129,8 +139,51 @@ function userPhoneList(){
     }	
 }
 
+/* 엑셀 다운로드 이벤트 */
+const excelDownload = document.querySelector('#excelBtn');
+
+document.addEventListener('DOMContentLoaded', ()=>{
+    excelDownload.addEventListener('click', exportExcel);
+});
+
+function exportExcel(){ 
+	// step 1. workbook 생성
+  	var wb = XLSX.utils.book_new();
+  	// step 2. 시트 만들기 
+ 	var newWorksheet = excelHandler.getWorksheet();
+  	// step 3. workbook에 새로만든 워크시트에 이름을 주고 붙인다.  
+  	XLSX.utils.book_append_sheet(wb, newWorksheet, excelHandler.getSheetName());
+  	// step 4. 엑셀 파일 만들기 
+  	var wbout = XLSX.write(wb, {bookType:'xlsx',  type: 'binary'});
+  	// step 5. 엑셀 파일 내보내기 
+  	saveAs(new Blob([s2ab(wbout)],{type:"application/octet-stream"}), excelHandler.getExcelFileName());
+}
+
+var excelHandler = {
+    getExcelFileName : function(){
+        return 'smsLog.xlsx';	//파일명
+    },
+    getSheetName : function(){
+        return 'Table Test Sheet';	//시트명
+    },
+    getExcelData : function(){
+        return document.getElementById('smsLogTable'); 	//TABLE id
+    },
+    getWorksheet : function(){
+        return XLSX.utils.table_to_sheet(this.getExcelData());
+    }
+}
+
+function s2ab(s) { 
+  	var buf = new ArrayBuffer(s.length); //convert s to arrayBuffer
+  	var view = new Uint8Array(buf);  //create uint8array as viewer
+  	for (var i=0; i<s.length; i++) view[i] = s.charCodeAt(i) & 0xFF; //convert to octet
+  	return buf;    
+}
+
 $(document).ready(function () {
     getSMSCount();	
     changeColor();	
+    changeColor2();
     clickTd();
 });

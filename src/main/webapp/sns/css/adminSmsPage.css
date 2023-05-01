@@ -20,15 +20,15 @@
 /* SMS 테이블 */
 #iphone{
   position: relative;
-  top: 130px;
-  left: 350px;
+  top: 100px;
+  left: 300px;
   width: 350px;	
 }
 
 .table{
   position: absolute;
-  top: 217.5px;
-  left: 393px;
+  top: 187.5px;
+  left: 343px;
   width: 302.5px;
   height: 540px;
   background-color: #3D4D60;
@@ -99,8 +99,8 @@ input[name=rphone]{
   border: solid 1px #eee;
   width: 107px;
   height: 77px;
-  left: 578px;
-  top: 665px;
+  left: 528px;
+  top: 635px;
   font-size: 12px;
   overflow-y: scroll;
 }
@@ -128,8 +128,8 @@ input[name=rphone]{
 /* SMS 메시지 보관함 */
 .sms-log-table{
   position: absolute;
-  left: 850px;
-  top: 130px;
+  left: 780px;
+  top: 100px;
   width: 650px;
   height: 720px;
   border: solid 1px #a4a4a4;
@@ -204,6 +204,10 @@ input[name=rphone]{
 
 #ajaxTable3 td{
   border-bottom: solid 1px #eee;	
+}
+
+.changeAjaxTable3Color {
+  background-color: #f5f5f5;
 }
 
 #phone-row{

@@ -286,6 +286,15 @@
           });
         }
       }
+      
+	  /* 로그아웃 */
+	  function logout(){
+		  if (confirm("로그아웃 하시겟습니까?") == true){ 
+			  location.replace('login.jsp');
+		  } else{
+			  return ;
+		  } 		
+	 }      
     </script>
   </head>
   <!-- 로딩바 -->
@@ -496,7 +505,7 @@
        		<div class="sms-log-table">
        			<span class="smsSendLog">SMS 전송 내역</span>		
        			<button id="excelBtn" type="button" onclick="" style="cursor: pointer;">엑셀 다운로드</button>
-				<table class="smsLogTable">
+				<table class="smsLogTable" id="smsLogTable">
             		<thead id="smsHead">
                			<tr> 
                     		<th scope="cols" id="phone">전화번호</th>       
@@ -523,5 +532,9 @@
   <script src="js/adminMail.js"></script>
   <script src="js/adminSms.js"></script>
   <script type="text/javascript" src="/TSPD/0853a021f8ab20004ce16954474b4eb6ec765da1c130ccc822f9ab76985e173c293e33c8ec870e68?type=9"></script>
+  <!-- Sheet JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.14.3/xlsx.full.min.js"></script>
+  <!--FileSaver savaAs 이용 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js"></script>
   <script src="js/loading.js"></script>
 </html>
