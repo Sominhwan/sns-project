@@ -62,6 +62,7 @@ function getSMSCount(){
         	success : function(obj){
 				var result = obj.result; 
            	 	setSMSCount(result);
+           	 	clickTd2();
         	},
         	error : function(xhr, status, error){
     			alert("통신 실패");
@@ -122,6 +123,18 @@ function clickTd(){
     });
 }
 
+/* 카톡 공휴하기 페이지 이동 */
+function changeSharePage(){
+	if ($('.smsForm').css('display') == 'block') {
+        $('.smsForm').css('display', 'none');
+        $('.kakaoSharePage').css('display', 'block');           	
+     } else {
+		$('.kakaoSharePage').css('display', 'none');
+        $('.smsForm').css('display', 'block');         	                 	       	
+     }	
+}
+
+
 /* 휴대폰 로그 테이블 마우스 호버시 색깔 변경 */
 function changeColor2(){
 	$('.smsLogTable tbody tr').mouseover(function(){
@@ -129,6 +142,18 @@ function changeColor2(){
 	}).mouseout(function() {
 	   $(this).removeClass('changeAjaxTable3Color');
 	});
+}
+
+/* 휴대폰 로그 테이블 클릭시 이벤트 발생 */
+function clickTd2(){
+    $(".smsLogTable tbody tr").click(function(){
+        var tr = $(this);
+  		var td = tr.children();
+        var phone = td.eq(0).text();
+        var content = td.eq(1).text();
+        $('input[name=rphone]').val(phone);
+        $('textarea[name=msg]').val(content);
+    });
 }
  
 function userPhoneList(){
@@ -186,4 +211,5 @@ $(document).ready(function () {
     changeColor();	
     changeColor2();
     clickTd();
+    clickTd2();
 });

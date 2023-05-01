@@ -21,14 +21,14 @@
 #iphone{
   position: relative;
   top: 100px;
-  left: 300px;
+  left: 250px;
   width: 350px;	
 }
 
 .table{
   position: absolute;
   top: 187.5px;
-  left: 343px;
+  left: 293px;
   width: 302.5px;
   height: 540px;
   background-color: #3D4D60;
@@ -99,7 +99,7 @@ input[name=rphone]{
   border: solid 1px #eee;
   width: 107px;
   height: 77px;
-  left: 528px;
+  left: 478px;
   top: 635px;
   font-size: 12px;
   overflow-y: scroll;
@@ -125,10 +125,64 @@ input[name=rphone]{
   cursor: pointer;
 }
 
+#kakaoShare{
+  position: absolute;
+  left: 200px;
+  cursor: pointer;
+}
+
+/* 카카오 공유하기 페이지 */
+.kakaoSharePage{
+  position: absolute;
+  top: 187.5px;
+  left: 293px;
+  width: 302.5px;
+  height: 540px;
+  background-color: #ACC4D7;
+}
+
+#phoneNav{
+  position: absolute;
+  top: 0;
+  left: -20px;;
+}
+
+#kakaoProfile{
+  position: absolute;
+  left: -5px;
+  top: 40px;
+}
+
+#kakaoShareImg{
+  position: absolute;
+  left: 125px;
+  top: 65px;
+}
+
+#shareBtn{
+  position: absolute;
+  width: 147px;
+  height: 23px;
+  background-color: #473434;
+  color: #fff;
+  left: 148px;
+  top: 326px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+#smsSendBtn {
+  position: absolute;
+  left: 200px;
+  top: 500px;
+  cursor: pointer;
+}
+
 /* SMS 메시지 보관함 */
 .sms-log-table{
   position: absolute;
-  left: 780px;
+  left: 730px;
   top: 100px;
   width: 650px;
   height: 720px;

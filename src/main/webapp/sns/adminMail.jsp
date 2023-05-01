@@ -447,7 +447,7 @@
             SMS 보내기
         </span> 
         	<img alt="iphone" src="adminImages/iphone.png" id="iphone">
-        	<form method="post" name="smsForm">
+        	<form method="post" name="smsForm" class="smsForm">
         	<table class="table" style="border: 1px solid #eeeee">
         		<thead>
         			<tr>
@@ -485,11 +485,22 @@
         					<input type="hidden" name="sphone2" value="4662">
         					<input type="hidden" name="sphone3" value="7527">
         					<input class="sendBtn" type="button" value="전송하기" onclick="sendSms()">
+        					<img alt="kakaoShare" src="adminImages/kakaoShare.svg" id="kakaoShare" onclick="changeSharePage()">
         				</td>
         			</tr>         			     			 			
         		</tbody>
         	</table>
-    		</form>
+    		</form>   		
+    		<!-- 카카오 공유하기 페이지 -->
+    		<div class="kakaoSharePage" style="display: none">
+    			<img alt="phoneNav" src="adminImages/phoneNav.svg" id="phoneNav">
+    			<img alt="kakaoProfile" src="images/profile.svg" id="kakaoProfile" style="border-radius: 40%; width: 28px;">
+    			<img alt="kakaoShareImg" src="adminImages/kakaoShareImg.png" id="kakaoShareImg">
+    			<span style="position:absolute; left:3px; top:3px;font-size: 10px;">오후 2:30</span>
+    			<span style="position:absolute; left:90px; top:425px;color:#040404;font-size: 11px;">오후 1:30</span>
+    			<button type="button" id="shareBtn" onclick="">공유하기</button>
+    			<img alt="smsSendBtn" src="adminImages/smsSendBtn.svg" id="smsSendBtn" onclick="changeSharePage()">
+    		</div>
          	<div id="userPhone-content" style="display: none">
 				<table class="userPhoneTable" style="text-align: center;">
            			<tbody id="ajaxTable2">
