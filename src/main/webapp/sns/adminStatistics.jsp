@@ -110,10 +110,19 @@
     <div class="chartTable">
         <div id="statistics">
             통계
-        </div>
-        
-        <div id="container"></div>
+        </div>      
+        <div class="tab_content">
+        	<input type="radio" name="tabmenu" id="tab01" checked/>
+        	<label for="tab01">회원정보 차트</label>
+        	<input type="radio" name="tabmenu" id="tab02"/>
+        	<label for="tab02">좋아요 차트</label>
+        	<input type="radio" name="tabmenu" id="tab03"/>
+        	<label for="tab03">조회수 차트</label>        	        	
+        <div class="conbox con1" id="container1"><div id="container"></div></div>
+        <div class="conbox con2" id="container2">컨텐츠 내용2</div>
+        <div class="conbox con3" id="container3">컨텐츠 내용3</div>           
     </div>
+    
   </body>
  <script src="https://code.highcharts.com/highcharts.js"></script>
  <script src="https://code.highcharts.com/modules/exporting.js"></script>

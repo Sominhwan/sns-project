@@ -336,6 +336,30 @@ public class AdminMgr {
 			if(rs.next()) {
 				count = rs.getInt(1);
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return count;
+	}	
+	
+	// 월별 총 게시물 수 가져오기
+	public int getPostCount(int month) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		int count = 0;
+		try {
+			con = pool.getConnection();
+			sql = "SELECT COUNT(*) FROM post WHERE MONTH(creationDate) = ? AND YEAR(creationDate) = 2023";
+			pstmt = con.prepareStatement(sql);		
+			pstmt.setInt(1, month);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
 			System.out.println(count);
 		} catch (Exception e) {
 			e.printStackTrace();

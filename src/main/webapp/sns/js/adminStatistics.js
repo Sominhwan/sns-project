@@ -10,6 +10,24 @@ function searchUserCount(){
         success : function(obj){
 			var result = obj.count; 
 			userSignCount = result;
+			searchPostCount();
+        },
+        error : function(xhr, status, error){
+    		alert("통신 실패");
+        }
+    });		
+}
+
+function searchPostCount(){
+	var post = "true";
+    $.ajax({
+		url : "UserInfoCount?post="+post,
+        type : "get",
+        dataType : "json",
+        global: false,
+        success : function(obj){
+			var result = obj.count; 
+			userPostCount = result;
 			chart();
         },
         error : function(xhr, status, error){
@@ -20,6 +38,7 @@ function searchUserCount(){
 
 function chart(){
 	Highcharts.chart('container', {
+		credits: {enabled: false},
 	    title: {
 	        text: '2023년도 회원 가입 수',
 	        style: {
@@ -50,7 +69,8 @@ function chart(){
 	         		userSignCount[5].result, userSignCount[6].result, userSignCount[7].result, userSignCount[8].result, userSignCount[9].result, userSignCount[10].result, userSignCount[11].result]
 	    }, {
 	        name: '게시물 수',
-	        data: [10, 50, 60, 70, 80, 81, 85, 90, 95, 100, 110, 120]
+	        data: [userPostCount[0].result, userPostCount[1].result, userPostCount[2].result, userPostCount[3].result, userPostCount[4].result, userPostCount[5].result, userPostCount[6].result, 
+	        		userPostCount[7].result, userPostCount[8].result, userPostCount[9].result, userPostCount[10].result, userPostCount[11].result]
 	    }]
 	});
 }
