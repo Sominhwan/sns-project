@@ -182,6 +182,25 @@ function changeSMSTable(){
      }	
 }
 
+/* sms 문구 테이블 마우스 호버시 색깔 변경 */
+function changeColor3(){
+	$('.smsSampleTable tbody tr').mouseover(function(){
+	   $(this).addClass('changeAjaxTable4Color');
+	}).mouseout(function() {
+	   $(this).removeClass('changeAjaxTable4Color');
+	});
+}
+
+/* sms 문구 테이블 클릭시 이벤트 발생 */
+function clickTd3(){
+    $(".smsSampleTable tbody tr").click(function(){
+        var tr = $(this);
+  		var td = tr.children();
+        var content = td.eq(1).text();
+        $('textarea[name=msg]').val(content);
+    });
+}
+
 /* 엑셀 다운로드 이벤트 */
 const excelDownload = document.querySelector('#excelBtn');
 
@@ -228,6 +247,8 @@ $(document).ready(function () {
     getSMSCount();	
     changeColor();	
     changeColor2();
+    changeColor3();
     clickTd();
     clickTd2();
+    clickTd3();
 });

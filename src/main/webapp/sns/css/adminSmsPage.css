@@ -351,6 +351,10 @@ input[name=rphone]{
   font-weight: normal;		
 }
 
+.changeAjaxTable4Color {
+  background-color: #f5f5f5;
+}
+
 /* 잔여 문자량 */
 .smsCount{
   position: absolute;

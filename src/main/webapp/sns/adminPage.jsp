@@ -210,6 +210,15 @@
             /><span class="sideText">메일 보내기</span></a
           >
         </li>
+        <li>
+          <a href="adminStatistics.jsp"
+            ><img
+              src="adminImages/chartIcon.svg"
+              alt="charIcon"
+              class="icon"
+            /><span class="sideText">통계</span></a
+          >
+        </li>         
       </ul>
       <!-- 로그아웃 -->
       <div id="logout">

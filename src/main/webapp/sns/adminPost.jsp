@@ -36,10 +36,14 @@
 						cell.innerHTML = result[i][j].value;	
 					}			
     				cell.innerHTML = `<button class="checkBtn">삭제</button>`;
+    				// 신고 횟수 10회 이상일때 색상 변경
+    				if(result[i][9].value > 9){
+    					document.getElementsByTagName('td')[9].style.color = 'red';
+    				}
     			}
     		}
     	}
-    	
+    	  	
     	/* 회원정보 삭제 */
         // 버튼 클릭시 Row 값 가져오기
 		$(document).on('click', '.checkBtn', function(){
@@ -47,7 +51,6 @@
 			var tr = checkBtn.parent().parent();
 			var td = tr.children();
 			var postId = td.eq(2).text(); // 이메일 선택
-
 		    deleteUser(postId);
 		});
 	   	
@@ -65,7 +68,7 @@
     	}
 	 			
 	 	/* 체크박스 체크시 색상 변경 */
-		function changeColor(){
+		function changeColor(){ 		
 			 $("input[name=myCheck]").each(function(i){
 				 var tr = $("input[name=myCheck]").parent().parent().eq(i);
 					var td = tr.children();
@@ -185,6 +188,15 @@
             /><span class="sideText">메일 보내기</span></a
           >
         </li>
+        <li>
+          <a href="adminStatistics.jsp"
+            ><img
+              src="adminImages/chartIcon.svg"
+              alt="charIcon"
+              class="icon"
+            /><span class="sideText">통계</span></a
+          >
+        </li>         
       </ul>
       <!-- 로그아웃 -->
       <div id="logout">

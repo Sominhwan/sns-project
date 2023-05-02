@@ -318,6 +318,31 @@ public class AdminMgr {
 			pool.freeConnection(con, pstmt, rs);
 		}
 		return smsList;
+	}
+	
+	// 월별 회원 정보수 가져오기
+	public int getUserCount(int month) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		int count = 0;
+		try {
+			con = pool.getConnection();
+			sql = "SELECT COUNT(*) FROM userinfo WHERE MONTH(userRegTime) = ? AND YEAR(userRegTime) = 2023";
+			pstmt = con.prepareStatement(sql);		
+			pstmt.setInt(1, month);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
+			System.out.println(count);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return count;
 	}	
 	
 	// 임시 데이터 저장

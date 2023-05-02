@@ -1,0 +1,145 @@
+.left-side {
+  position: fixed;
+  left: 0%;
+  top: 0%;
+  height: 100%;
+  width: 358px;
+}
+
+aside {
+  position: fixed;
+  left: 0%;
+  top: 0%;
+  width: 358px;
+  height: 100%;
+  background-color: #303030;
+}
+
+#side-logo {
+  position: relative;
+  left: 8%;
+  top: 3%;
+  font-family: Billabong;
+  font-size: 45px;
+  color: #fff;
+}
+
+a#adminLogo {
+  text-decoration: none;
+  color: #fff;
+}
+ul {
+  position: relative;
+  list-style-type: none;
+  top: 150px;
+  margin: 0;
+  padding: 0;
+}
+
+li a {
+  display: block;
+  color: #fff;
+  font-size: 22px;
+  padding: 20px 30px;
+  text-decoration: none;
+}
+
+li a:hover:not(.active) {
+  background-color: #555;
+  color: white;
+}
+
+img {
+  padding: 0 20px;
+}
+
+span.sideText {
+  position: relative;
+  top: 20%;
+}
+
+@media (max-height: 900px) {
+  .sidebar-footer {
+    display: none;
+  }
+}
+
+div#logout {
+  position: relative;
+  top: 60%;
+  left: 9%;
+}
+a#logout {
+  text-decoration: none;
+  font-size: 22px;
+  color: #fff;
+}
+
+footer {
+  height: 50px;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+}
+
+.footer_info {
+  position: relative;
+  padding-left: 5px;
+}
+.footer_info > a {
+  text-decoration: none;
+  font-size: 12px;
+  color: #737373;
+}
+
+/* 네이게이션 바 */
+nav {
+  position: fixed;
+  left: 358px;
+  top: 0%;
+  right: 0%;
+  width: 100%;
+  /* overflow: hidden; */
+  height: 100px;
+  background-color: #fff;
+  border-bottom: 6px solid #a4a4a4;
+}
+
+#adminStatisticsLogo {
+  position: relative;
+  left: 10px;
+  top: 31px;
+}
+#adminStatistics-text {
+  position: relative;
+  font-size: 20px;
+  top: 25px;
+  color: #474747;
+}
+
+/* 회원정보 컨텐츠 */
+.chartTable {
+  position: fixed;
+  left: 358px;
+  top: 106px;
+  width: 100%;
+  height: 100%;
+}
+
+#statistics {
+  position: relative;
+  left: 45px;
+  top: 62px;
+  font-family: MalgunGothic;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#container{
+   position: absolute;
+   top:120px;
+   left: 120px;
+   width: 1300px;
+   height: 680px;
+   margin: 0 auto
+}
