@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
+    <defs>
+        <filter id="1ecc801hta" x="5" y="5" width="47" height="47" filterUnits="userSpaceOnUse">
+            <feOffset dy="3"/>
+            <feGaussianBlur stdDeviation="3" result="blur"/>
+            <feFlood flood-opacity=".161"/>
+            <feComposite operator="in" in2="blur"/>
+            <feComposite in="SourceGraphic"/>
+        </filter>
+        <filter id="1e0xmx0pmb" x="0" y="0" width="46" height="46" filterUnits="userSpaceOnUse">
+            <feOffset dy="3"/>
+            <feGaussianBlur stdDeviation="3" result="blur-2"/>
+            <feFlood flood-opacity=".161"/>
+            <feComposite operator="in" in2="blur-2"/>
+            <feComposite in="SourceGraphic"/>
+        </filter>
+    </defs>
+    <g data-name="그룹 191" transform="translate(14.324 11.324)">
+        <g style="filter:url(#1ecc801hta)">
+            <rect data-name="사각형 239" width="29" height="29" rx="6" transform="translate(-.32 -.32)" style="fill:#fff"/>
+        </g>
+        <rect data-name="사각형 240" width="29" height="29" rx="6" transform="translate(-.324 -.324)" style="fill:#303030;opacity:.19"/>
+    </g>
+    <g style="filter:url(#1e0xmx0pmb)">
+        <rect data-name="사각형 238" width="28" height="28" rx="6" transform="translate(9 6)" style="fill:#fff"/>
+    </g>
+</svg>

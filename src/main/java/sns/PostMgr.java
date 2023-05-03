@@ -376,5 +376,28 @@ public class PostMgr {
 	    return vlist;
 	  }
 	
-	
+	// 랜덤으로 이미지 30개 가져오기 
+	public ArrayList<PostBean> getRandomImage() {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		ArrayList<PostBean> userImageList = new ArrayList<PostBean>();
+		try {
+			con = pool.getConnection();
+			sql = "select imageName from post order by rand() limit 30;";
+			pstmt = con.prepareStatement(sql);		
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				PostBean bean = new PostBean();	
+				bean.setImageName(rs.getString(1));
+				userImageList.add(bean);
+			}	
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return userImageList;
+	}		
 }

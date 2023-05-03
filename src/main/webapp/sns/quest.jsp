@@ -1,4 +1,5 @@
 <!-- 친구들의 게시물 사진들 보여주기 -->
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@page import="java.util.Vector,sns.*"%>
 <jsp:useBean id="umgr" class="sns.UserinfoMgr"/>
@@ -6,16 +7,18 @@
 <jsp:useBean id="fmgr" class="sns.FriemdmanagerMgr"/>
 <jsp:useBean id="pmgr" class="sns.PostMgr"/>
 <%
-		//String email = (String)session.getAttribute("idKey");
-		String email="jseok@aaa.com";
-		//if(email==null) {
-			//response.sendRedirect("login.jsp");
-		//}
+		String email = (String)session.getAttribute("userEmail");
+		//String email="jseok@aaa.com";
+		if(email==null) {
+			response.sendRedirect("login.jsp");
+		}
 		UserinfoBean mbean = umgr.getPMember(email);
 		Vector<UserinfoBean> uilist = umgr.listPMember(email);
 		Vector<FriendmanagerBean> flist=fmgr.friendpost(email);//프렌드sign이 1인애들 가져오기
 		Vector<PostBean> uplist=fmgr.friendlist(email);
 		
+		ArrayList<PostBean> userImageList = pmgr.getRandomImage(); // 랜덤으로 사진 30개 가져오기
+		String [] arr = new String[30];		
 %>
 
 <!DOCTYPE html>
@@ -31,6 +34,7 @@
     <link type="text/css" rel="stylesheet" href="quest.css"></link>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="text/javascript">
+
     </script>
     
 </head>
@@ -78,9 +82,36 @@
         </dt>
         
     </ul>
-    <h5 class="quest">탐색</h5>
-	
-    <table>
+    <div class="quest-content">
+    <div class="gallerylist">
+	    <ul class="gallery-ul">
+	        <h5 class="quest">탐색</h5>
+	    	<li class="gallery-li">
+	    		<a href="">
+	    			<div class="screen">
+	    				<div class="top"><img src="images/exploreLinkCopyBtn.svg"></div>
+	    				<img src="photo/photo1.jpg" style="width: 350px; height: 350px;">
+					</div>
+	    		</a>
+	    	</li>	
+	    <% for(int i=0; i<userImageList.size(); i++) { 
+			arr[i] = userImageList.get(i).getImageName();
+			if(arr[i]!=null){
+		%>
+	    	<li class="gallery-li">
+	    		<a href="#">
+	    			<div class="screen">
+	    				<div class="top"><img src="images/exploreLinkCopyBtn.svg"></div>
+	    				<img src="<%=arr[i]%>" id="copyImg<%=i%>"  style="width: 350px; height: 350px;">
+					</div>
+	    		</a>
+	    	</li>
+	      <%} %>
+	    <% } %>	    		    		    		    		    		    	    	
+	    </ul>	
+	</div>	
+	</div>
+<%--     <table>
         <% for (int i=0; i < flist.size(); i+=3) { %>
             <tr>
                 <% for (int j=i; j < Math.min(i+3, flist.size()); j++) { 
@@ -97,7 +128,7 @@
                 <% } %>
             </tr>
         <% } %>
-   </table>
+   </table> --%>
    <!-- 화면꺼지게 -->
 <div class="overlay">
 	<!-- 만들기모달 -->
