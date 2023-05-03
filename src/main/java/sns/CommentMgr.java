@@ -18,7 +18,50 @@ public class CommentMgr {
 		}
 	}
 	
-	//덧글 달기
+	//답글 달기
+	public void insertReply(CommentBean bean) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		try {
+			
+			con = pool.getConnection();
+			sql = "insert comment(postId,userEmail,commentDetail,commentParrent,commentChild,commentDate,commentCorrect)values(?,?,?,?,?,now(),?) ";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, bean.getPostId());
+			pstmt.setString(2, bean.getUserEmail());
+			pstmt.setString(3, bean.getCommentDetail());
+			pstmt.setString(4, bean.getCommentParrent());
+			pstmt.setString(5, bean.getCommentChild());
+			pstmt.setString(6, null);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt);
+		}
+	}
+	//답글확인
+	public boolean replycheck(int commentId) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		String sql=null;
+		ResultSet rs=null;
+		boolean flag=false;
+		try {
+			con = pool.getConnection();
+			sql = "SELECT * FROM comment WHERE commentParrent=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, commentId);
+			rs=pstmt.executeQuery();
+			flag = rs.next();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt,rs);
+		}
+		return flag;
+	}
 	public void insertPReply(CommentBean bean) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -101,22 +144,24 @@ public class CommentMgr {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = null;
 		String sql2=null;
 		Vector<CommentBean> vlist = new Vector<CommentBean>();
 		try {
 			con = pool.getConnection();
-			sql = "select * from comment where postId=? order by if (isnull(commentParrent), commentId, commentParrent),  commentChild;";
-			sql2="SELECT * FROM comment \r\n"
-					+ "WHERE postId = ? \r\n"
-					+ "ORDER BY \r\n"
-					+ "  CASE \r\n"
-					+ "    WHEN commentId = ? THEN 0 \r\n"
-					+ "    ELSE 1 \r\n"
-					+ "  END, \r\n"
-					+ "  commentId, \r\n"
-					+ "  commentChild, \r\n"
-					+ "  commentParrent;";
+			sql2="WITH RECURSIVE CTE AS (\n"
+					+ " SELECT commentId,postId,userEmail,commentDetail,commentParrent,commentChild,commentDate,commentCorrect,convert(commentId,char)as path\n"
+					+ " FROM comment\n"
+					+ " WHERE commentParrent IS NULL\n"
+					+ " AND postId=?\n"
+					+ " UNION ALL\n"
+					+ " SELECT uc.commentId,uc.postId,uc.userEmail,uc.commentDetail,uc.commentParrent,uc.commentChild,uc.commentDate,uc.commentCorrect,concat(CTE.commentId,'-',uc.commentId)AS path\n"
+					+ " FROM comment uc\n"
+					+ " INNER JOIN CTE ON uc.commentParrent=CTE.commentId\n"
+					+ "       WHERE uc.postId=?\n"
+					+ ")\n"
+					+ "SELECT commentId,postId,userEmail,commentDetail,commentParrent,commentChild,commentDate,commentCorrect,path\n"
+					+ "FROM CTE\n"
+					+ "ORDER BY CONVERT(SUBSTRING_INDEX(path,'-',1),UNSIGNED) ASC,commentId ASC, CONVERT(SUBSTRING_INDEX(path,'-',2),UNSIGNED) ASC, commentId ASC";
 			pstmt = con.prepareStatement(sql2);
 			pstmt.setInt(1, num);
 			pstmt.setInt(2, num);
@@ -140,35 +185,7 @@ public class CommentMgr {
 		}
 		return vlist;
 	}
-	//Board Reply:답글 입력
-/**		public void replyBoard(CommentBean bean) {
-			Connection con = null;
-			PreparedStatement pstmt = null;
-			String sql = null;
-			try {
-				con = pool.getConnection();
-				sql = "insert tblBoard(name,content,subject,ref,pos,depth,regdate,"
-						+ "pass,count,ip)values(?, ?, ?, ?, ?, ?, now(), ?, 0, ?)";
-				pstmt = con.prepareStatement(sql);
-				pstmt.setString(1, bean.getName());
-				pstmt.setString(2, bean.getContent());
-				pstmt.setString(3, bean.getSubject());
-				//////////////////////////////////////
-				pstmt.setInt(4, bean.getRef());//원글과 동일한ref(그룹)
-				pstmt.setInt(5, bean.getPos()+1);//원글 pos+1(정렬)
-				pstmt.setInt(6,bean.getDepth()+1);//원글 depth+1
-				///////////////////////////////////
-				pstmt.setString(7, bean.getPass());
-				pstmt.setString(8, bean.getIp());
-				
-				pstmt.executeUpdate();
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				pool.freeConnection(con, pstmt);
-			}
-			
-		}*/
+	
 		//댓글리스트:검색기능,페이지 및 블럭처리
 		//limit 시작번호,가져올 개수
 		public Vector<CommentBean> getBoardList(String keyField, String keyWord, int start, int cnt){

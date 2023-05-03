@@ -23,10 +23,9 @@ public class CommentUpdate extends HttpServlet {
 	    String commentDetail=request.getParameter("commentDetail");
 	    CommentMgr cmgr = new CommentMgr();
 	    cmgr.updateComment(commentId, commentDetail);
-	    // You can construct a JSON response indicating the success status
+	    
 	    JSONObject jsonResponse = new JSONObject();
 	    jsonResponse.put("status", "success");
-	    // Send the JSON response back to the client
 	    PrintWriter out = response.getWriter();
 	    out.print(jsonResponse.toString());
 	    out.flush();

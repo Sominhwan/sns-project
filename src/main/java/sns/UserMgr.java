@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Vector;
 
 public class UserMgr {
@@ -414,6 +415,109 @@ public class UserMgr {
 		}
 		return flag;
 	}
+
+	   //창헌이꺼
+	   public UserinfoBean getMember(String userEmail) {
+	       Connection con = null;
+	       PreparedStatement pstmt = null;
+	       ResultSet rs = null;
+	       String sql = null;
+	       UserinfoBean bean = new UserinfoBean();
+	       try {
+	           con = pool.getConnection();
+	           sql = "select userEmail, userAddress, userPN, userName, userNickName, userSchool, userSocial, userRegDate, userInfoType from userinfo where userEmail =?";
+	           pstmt = con.prepareStatement(sql);
+	           pstmt.setString(1, userEmail);
+	           rs = pstmt.executeQuery();
+	           if(rs.next()) {
+	               bean.setUserEmail(rs.getString("userEmail"));
+	               bean.setUserAddress(rs.getString("userAddress") != null ? rs.getString("userAddress") : "-");
+	               bean.setUserPN(rs.getString("userPN") != null ? rs.getString("userPN") : "-");
+	               bean.setUserName(rs.getString("userName") != null ? rs.getString("userName") : "-"); 
+	               bean.setUserNickName(rs.getString("userNickName") != null ? rs.getString("userNickName") : "-");
+	               bean.setUserSchool(rs.getString("userSchool") != null ? rs.getString("userSchool") : "-");
+	               bean.setUserSocial(rs.getString("userSocial") != null ? rs.getString("userSocial") : "-");
+	               bean.setUserInfoType(rs.getString("userInfoType") != null ? rs.getString("userInfoType") : "-");
+	               String tempDate = SDF_DATE.format(rs.getDate("userRegDate"));  
+	               bean.setUserRegDate(tempDate != null ? tempDate : "-"); // null이 아닌 경우에만 tempDate 사용하고, null인 경우 "-"를 사용함
+	           }
+
+	       } catch (Exception e) {
+	           e.printStackTrace();
+	       } finally {
+	           pool.freeConnection(con, pstmt, rs);
+	       }
+	       return bean;
+	   }
+	   
+	   //창헌이꺼
+	   public void updateuserInfo(UserinfoBean bean, String userEmail) {
+	      Connection con = null;
+	      PreparedStatement pstmt = null;
+	      String sql = null;
+	      try {
+	         con = pool.getConnection();
+	         sql = "update userinfo set userNickName= ?,userSocial= ?,userSchool= ?,useraddress= ?  where userEmail= ?";
+	         pstmt = con.prepareStatement(sql);
+	         pstmt.setString(1, bean.getUserNickName());
+	         pstmt.setString(2, bean.getUserSocial());
+	         pstmt.setString(3, bean.getUserSchool());
+	         pstmt.setString(4, bean.getUserAddress());
+	         pstmt.setString(5, userEmail);
+	         pstmt.executeUpdate();
+	      } catch (Exception e) {
+	         e.printStackTrace();
+	      } finally {
+	         pool.freeConnection(con, pstmt);
+	      }
+
+	      }
+	   
+	   //창헌이꺼
+	   public boolean deleteUserInfo(String userEmail) {
+	      Connection con = null;
+	      PreparedStatement pstmt = null;
+	      String sql = null;
+	      boolean flag = false;
+	      try {
+	         con = pool.getConnection();
+	         sql = "delete from userInfo where userEmail = ?";
+	         pstmt = con.prepareStatement(sql);
+	         pstmt.setString(1, userEmail);
+	         if (pstmt.executeUpdate() == 1)
+	            flag = true;
+	      } catch (Exception e) {
+	         e.printStackTrace();
+	      } finally {
+	         pool.freeConnection(con, pstmt);
+	      }
+	      return flag;
+	   }
+	   
+	   //창헌이꺼
+	    public ArrayList<String> getUniversityList() {
+	        Connection con = null;
+	        PreparedStatement pstmt = null;
+	        String sql = null;
+	        ResultSet rs = null;
+	        ArrayList<String> universityList = new ArrayList<String>();
+	        try {
+	            con = pool.getConnection();
+	            sql = "SELECT uniName FROM university";
+	            pstmt = con.prepareStatement(sql);
+	            rs = pstmt.executeQuery();
+	            while (rs.next()) {
+	                String uniName = rs.getString("uniName");
+	                universityList.add(uniName);
+	            }
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        } finally {
+	            pool.freeConnection(con, pstmt, rs);
+	        }
+	        return universityList;
+	    }	
+	
 	
 	// 임시 데이터 저장
 	public static void main(String []args) {

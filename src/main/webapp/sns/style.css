@@ -21,6 +21,7 @@ a {
   margin: 52px 44px 25.9px 360px;
   padding: 17px 20px 9.1px 23px;
   border: solid 1px var(--invalid-name);
+  border-radius: 5px;
   background-color: #fff;
   position: relative; 
   left: 330px; 
@@ -29,7 +30,7 @@ a {
 .bbb {
   width: 350px;
   height: 450px;
-  margin: 52px 44px 25.9px 360px;
+  margin: 52px 44px 15px 360px;
   padding: 17px 20px 9.1px 23px;
   border: solid 1px var(--invalid-name);
   background-color: #e0e0e0;
@@ -48,7 +49,7 @@ a {
 	background-color: #fff;
   	position:relative;
   	left:690px;
-  	top:-450px;
+  	top:-490px;
 }
 #ddd{
 	width:100px;
@@ -465,15 +466,16 @@ c{
   	display:none;
 }
 .postcomtitle{
-	padding-right:40px;
+	margin-left:-20px;
+	margin-right:60px;
 	padding-top:30px;
 }
 .makepostComple{
-	padding-left:250px;
+	margin-left:270px;
 	padding-top:150px;
 }
 .bodycomple{
-	padding-left:225px;
+	padding-left:235px;
 	padding-top:60px;
 }
 .makepostCheck{
@@ -513,4 +515,3 @@ c{
 .suggestItem:hover{
 	background-color:#eee;
 }
-

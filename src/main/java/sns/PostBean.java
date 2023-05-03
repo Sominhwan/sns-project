@@ -10,22 +10,12 @@ public class PostBean {
 	private int commentNum;
 	private String creationDate;
 	private int postReport;
-	
-	public PostBean() {
-		super();
+	public int getPostReport() {
+		return postReport;
 	}
-
-	// 임시 생성자 생성
-	public PostBean(String userEmail, int likeNum, String imageName, int shareNum, int commentNum, int postReport) {
-		super();
-		this.userEmail = userEmail;
-		this.likeNum = likeNum;
-		this.imageName = imageName;
-		this.shareNum = shareNum;
-		this.commentNum = commentNum;
+	public void setPostReport(int postReport) {
 		this.postReport = postReport;
 	}
-
 	public int getPostId() {
 		return postId;
 	}
@@ -73,12 +63,6 @@ public class PostBean {
 	}
 	public void setCreationDate(String creationDate) {
 		this.creationDate = creationDate;
-	}
-	public int getPostReport() {
-		return postReport;
-	}
-	public void setPostReport(int postReport) {
-		this.postReport = postReport;
 	}
 	
 }

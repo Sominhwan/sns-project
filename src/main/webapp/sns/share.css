@@ -1,0 +1,38 @@
+.sharemodal {
+	top: 50%;
+	left: 50%;
+  width: 340px;
+  height: 175px;
+  margin: 0 0.5px 0 0;
+  padding: 7.6px 6.8px 28px 62px;
+  border-radius: 5px;
+  border: solid 1px var(--invalid-name);
+  background-color: #0080c0;
+  display:none;
+}
+.sharetext {
+  width: 64px;
+  height: 21px;
+  margin: 3.6px 7px 42.9px 4px;
+  font-family: MalgunGothic;
+  font-size: 16px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.88;
+  letter-spacing: normal;
+  text-align: left;
+  color: #303030;
+}
+.postShareNaver {
+  width: 72px;
+  height: 72px;
+  margin: 42.9px 4px 0 0;
+  object-fit: contain;
+}
+.postShareKakao {
+  width: 72px;
+  height: 72px;
+  margin: 42.9px 28.3px 0 7px;
+  object-fit: contain;
+}

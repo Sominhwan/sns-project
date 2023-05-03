@@ -59,7 +59,8 @@ public class LoginServlet extends HttpServlet {
 		if(request.getParameter("myCheck")!=null) {
 			autoLogin = request.getParameter("myCheck");
 		}
-		
+		System.out.println(userEmail);
+		System.out.println(userPwd);
 		UserMgr userMgr = new UserMgr();
 		int loginCheck = userMgr.userLogin(userEmail, userPwd);
 		if(loginCheck==1){ // 로그인 성공일 경우

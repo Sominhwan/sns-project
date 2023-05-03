@@ -19,7 +19,7 @@ public class commentAdd extends HttpServlet {
 		cbean.setPostId(postId);
 		cbean.setUserEmail(userEmail);
 		cbean.setCommentDetail(comment);
-		cbean.setCommentParrent("0");
+		cbean.setCommentParrent(null);
 		cbean.setCommentChild("0");
 		cbean.setCommentCorrect("");
 		CommentMgr cmgr = new CommentMgr();

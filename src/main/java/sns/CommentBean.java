@@ -57,4 +57,6 @@ public class CommentBean {
 	public void setCommentCorrect(String commentCorrect) {
 		this.commentCorrect = commentCorrect;
 	}
+	
+	
 }

@@ -94,7 +94,7 @@
 		%>
 			<td width="100">
 				<div class="box1">
-					<a href="javascript:goURL('guest.jsp','<%=ubean.getUserEmail()%>')"><!-- 여기에 jsp파일 -->
+					<a href="javascript:goURL('searched.jsp?userEmail=<%=ubean.getUserEmail()%>','<%=ubean.getUserEmail()%>')"><!-- 여기에 jsp파일 -->
 						<img class="profileimage" src="./photo/<%=ubean.getUserImage()%>">
 					</a>
 				</div>
@@ -116,10 +116,8 @@
 		%>
 		<tr>	
 			<td width="50">
-				<div class="boxnored">
-					<a href="javascript:goURL('guest.jsp','<%=ubean.getUserEmail()%>')"><!-- 여기에 jsp파일 -->
+				<div class="boxnored">		
 						<img class="profileimage" src="./photo/<%=ubean.getUserImage()%>">
-					</a>
 				</div>
 				
 			</td>
@@ -183,9 +181,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td colspan="2">
-			
-			
+			<td colspan="2" style="padding-left:10px;">
 				<%if (pmgr.postLike(mbean.getUserEmail(), pbean.getPostId())){ %>
 					<a href="javascript:heartdel('<%=pbean.getPostId()%>,<%=mbean.getUserEmail() %>')" id="ddd">
 					<img src="./img/postLikeTrue.svg" align="top">
@@ -202,36 +198,40 @@
 				<img src="./img/postShare.svg" align="top">
 			</a>
 			</td>
-			<td align="center"><a href="javascript:del('<%=pbean.getPostId()%>')">DEL</a></td>
+			
 		</tr>
 		<tr>
-			<td width="250"><%=uibean.getUserNickName() %>님 외 <b><%=pbean.getLikeNum() %>명</b>이 좋아합니다.</td>
+			<td width="250" style="padding-left:10px;"><%=uibean.getUserNickName() %>님 외 <b><%=pbean.getLikeNum() %>명</b>이 좋아합니다.</td>
 		</tr>
 		<tr class="commenter" stlye="height:<%=commentCount*50%>px;">
-			<td colspan="3" width="500"> 
+			<td colspan="3" width="500" style="padding-left:10px;"> 
 				<%
 				for(int j=0;j<clist.size();j++){
 					CommentBean cbean = clist.get(j);
-					if(!cbean.getCommentParrent().equals("0")){
-				%>	
+					if(cbean.getCommentParrent()!=null){
+						
+				%>
+				<div id="myDIV<%=cbean.getCommentParrent()%>" style="display:none;">	
 				<c><%=cbean.getUserEmail()%></c>&nbsp;<c class="commentDetail"><%=cbean.getCommentDetail()%></c>
 				<br>
-				<c>&nbsp;&nbsp;&nbsp;&nbsp;<%=cbean.getCommentDate()%>&nbsp;&nbsp; 답글 &nbsp;
+				<c>&nbsp;&nbsp;&nbsp;&nbsp;<c style="font-size: 90%; color: #8e8e8e;"><%=cbean.getCommentDate()%></c>&nbsp;&nbsp; 
 				<%if(email.equals(cbean.getUserEmail())){%><!-- 덧글이메일과 로그인 이메일같으면 -->
-				<a href="javascript:cup('<%=cbean.getCommentId()%>')">수정</a><%}%>&nbsp;
+				<a href="javascript:cup('<%=cbean.getCommentId()%>')" id="box<%=cbean.getCommentId()%>" style="font-size: 90%; color: #8e8e8e;">수정</a><%}%>&nbsp;
 				<%if(email.equals(cbean.getUserEmail())){%><!-- 덧글이메일과 로그인 이메일같으면 -->
-				<a href="javascript:cdel('<%=cbean.getCommentId()%>,<%=pbean.getPostId()%>')">삭제</a></c><%}%>&nbsp;
+				<a href="javascript:cdel('<%=cbean.getCommentId()%>,<%=pbean.getPostId()%>')" style="font-size: 90%; color: #8e8e8e;">삭제</a></c><%}%>&nbsp;
 				<br>
+				</div>
 				<%} else {%>
-					<b><%=cbean.getUserEmail()%></b>&nbsp;<c class="commentDetail"><%=cbean.getCommentDetail()%></c>
+					<b><%=cbean.getUserEmail()%></b>&nbsp;<c class="commentDetail" ><%=cbean.getCommentDetail()%></c>
 				<br>
-				<b>&nbsp;&nbsp;&nbsp;&nbsp;<%=cbean.getCommentDate()%>&nbsp;&nbsp; 답글 &nbsp;
+				<b><%if (cmgr.replycheck(cbean.getCommentId())) {%><a href="javascript:doDisplay('<%=cbean.getCommentId()%>');" style="font-size: 90%; color: #8e8e8e;" id="linkText<%=cbean.getCommentId()%>"> > 답글보기</a><%}%>&nbsp;<c style="font-size: 90%; color: #8e8e8e;"><%=cbean.getCommentDate()%></c>&nbsp;&nbsp; 
+				<a href="javascript:creply('<%=cbean.getCommentParrent()%>,<%=mbean.getUserEmail()%>,<%=pbean.getPostId()%>,<%=cbean.getCommentId()%>')" id="rep<%=cbean.getCommentId()%>" style="font-size: 90%; color: #8e8e8e;">답글</a> &nbsp;
 				<%if(email.equals(cbean.getUserEmail())){%><!-- 덧글이메일과 로그인 이메일같으면 -->
 				
-				<a href="javascript:cup('<%=cbean.getCommentId()%>')" id="box">수정</a><%}%>&nbsp;
+				<a href="javascript:cup('<%=cbean.getCommentId()%>')" id="box<%=cbean.getCommentId()%>" style="font-size: 90%; color: #8e8e8e;">수정</a><%}%>&nbsp;
 				
 				<%if(email.equals(cbean.getUserEmail())){%><!-- 덧글이메일과 로그인 이메일같으면 -->
-				<a href="javascript:cdel('<%=cbean.getCommentId()%>,<%=pbean.getPostId()%>')">삭제</a></b><%}%>&nbsp;
+				<a href="javascript:cdel('<%=cbean.getCommentId()%>,<%=pbean.getPostId()%>')" style="font-size: 90%; color: #8e8e8e;">삭제</a></b><%}%>&nbsp;
 				<br>
 				<%} %>
 			
@@ -507,31 +507,55 @@
 		}
  		//수정
  		var isInputBoxAdded = false;
-
  		function cup(commentId) {
- 		  const parentElement = document.getElementById("box");
-
+ 		  const parentElement = document.getElementById("box"+commentId);
  		  if (!isInputBoxAdded) {
  		    const inputBox = document.createElement('input');
  		    inputBox.type = 'text';
+ 		   	inputBox.style.borderRadius = '30px';
+ 		   	inputBox.style.width='120px';
  		    const deleteButton = document.createElement('input');
  		    deleteButton.type = 'button';
  		    deleteButton.value = '취소';
+ 		    deleteButton.style.border='1px solid skyblue';
+ 		    deleteButton.style.backgroundColor='rgba(0,0,0,0)';
+ 		   	deleteButton.style.color='skyblue';
+ 		   	deleteButton.style.borderRadius='5px';
+ 		   	deleteButton.addEventListener('mouseover', function() {
+ 		   		deleteButton.style.color = 'white';
+ 		   		deleteButton.style.backgroundColor = 'skyblue';
+		  	});
+ 		   	deleteButton.addEventListener('mouseout', function() {
+		   		deleteButton.style.color = 'skyblue';
+		   		deleteButton.style.backgroundColor = 'rgba(0,0,0,0)';
+		  	});
  		    deleteButton.onclick = function() {
- 		      parentElement.innerHTML = "수정"; 
- 		      isInputBoxAdded = false;
+ 		    	parentElement.innerHTML = "수정"; 
+ 		      	isInputBoxAdded = true;
+ 		      	location.reload();
  		    };
-
  		    const saveButton = document.createElement('input');
  		    saveButton.type = 'button';
  		    saveButton.value = '저장';
+ 		    saveButton.style.border='1px solid skyblue';
+ 		    saveButton.style.backgroundColor='rgba(0,0,0,0)';
+ 		    saveButton.style.color='skyblue';
+ 		   	saveButton.style.borderRadius='5px';
+ 		   	saveButton.addEventListener('mouseover', function() {
+ 		   		saveButton.style.color = 'white';
+ 		   		saveButton.style.backgroundColor = 'skyblue';
+		  	});
+ 		 	saveButton.addEventListener('mouseout', function() {
+ 		 		saveButton.style.color = 'skyblue';
+ 		 		saveButton.style.backgroundColor = 'rgba(0,0,0,0)';
+		  	});
  		    saveButton.onclick = function() {
- 		      var updatedComment = inputBox.value;
- 		      $.ajax({
- 		        url: 'CommentUpdate',
- 		        type: 'POST',
- 		        data: { commentId: commentId, commentDetail: updatedComment },
- 		        success: function(result) {
+ 		    	var updatedComment = inputBox.value;
+ 		      	$.ajax({
+ 		        	url: 'CommentUpdate',
+ 		        	type: 'POST',
+ 		        	data: { commentId: commentId, commentDetail: updatedComment },
+ 		        	success: function(result) {
  		        	console.log('댓글수정완료');
  		 			location.reload();
  		        },
@@ -539,7 +563,7 @@
  		        }
  		      });
  		    };
- 		    parentElement.innerHTML = '';
+ 		   	parentElement.innerHTML = '';
  		    parentElement.appendChild(inputBox);
  		    parentElement.appendChild(saveButton);
  		    parentElement.appendChild(deleteButton);
@@ -606,6 +630,29 @@
 				    error: function(xhr, status, error) {
 				    }
 				  });
+ 		}
+ 		function friendtext(email){
+ 			var formData = new FormData();
+ 			$.ajax({
+ 				type : "get",
+ 				url : "reply?boardIdx=${boardInfo.boardIdx}&writer=${boardInfo.userIdx}",
+ 					dataType : "text",
+ 					data : formData, 
+ 					contentType: false, 
+ 					processData: false, 
+ 					cache : false,
+ 					success : function(data) {
+ 		           		 // C에서 받아온 데이터로 새로 뿌려주기
+ 						var html = jQuery('<div>').html(data);
+ 						var contents1 = html.find("div#replyList").html();
+ 						var contents2 = html.find("div#replyCount").html();
+ 						$("#replyList").html(contents1);
+ 						$("#replyCount").html(contents2);
+ 					},
+ 					error : function(){
+ 		                alert("통신실패");
+ 		            }
+ 				});
  		}
  		function deletefriend(email){
  			const sentence=email;
@@ -688,6 +735,89 @@
     		}
   		});
 		}
+		//답글
+		var isReplyBoxAdded = false;
+ 		function creply(idemail) {
+ 			const sentence=idemail;
+ 			const [commentParrent,userEmail,postId,commentId]=sentence.split(",");
+ 		  	const parentElement = document.getElementById("rep"+commentId);
+ 		  	if (!isReplyBoxAdded) {
+ 		    	const replyBox = document.createElement('input');
+ 		   		replyBox.type = 'text';
+ 		   		replyBox.style.borderRadius = '10px';
+ 		   		replyBox.style.width='120px';
+ 		   		replyBox.onclick = function(event) {
+ 		       		event.stopPropagation();
+ 		     	};
+ 		    	const replydelete = document.createElement('input');
+ 		   		replydelete.type = 'button';
+ 		  		replydelete.value = '취소';
+ 		  		replydelete.style.border='1px solid skyblue';
+ 		  		replydelete.style.backgroundColor='rgba(0,0,0,0)';
+ 		  		replydelete.style.color='skyblue';
+ 		  		replydelete.style.borderRadius='5px';
+ 		  		//마우스 올릴시 기능
+ 		  		replydelete.addEventListener('mouseover', function() {
+ 		  	      replydelete.style.color = 'white';
+ 		  	      replydelete.style.backgroundColor = 'skyblue';
+ 		  	    });
+ 		  	    replydelete.addEventListener('mouseout', function() {
+ 		  	      replydelete.style.color = 'skyblue';
+ 		  	      replydelete.style.backgroundColor = 'rgba(0,0,0,0)';
+ 		  	    });
+ 		  	    
+ 		  	    
+ 		 		replydelete.onclick = function() {
+ 		    		parentElement.innerHTML = "답글"; 
+ 		    		isReplyBoxAdded = true;
+ 		    		location.reload();
+ 		    	};
+ 		    	const replysave = document.createElement('input');
+ 		   		replysave.type = 'button';
+ 		  		replysave.value = '저장';
+ 		  		replysave.style.border='1px solid skyblue';
+ 		  		replysave.style.backgroundColor='rgba(0,0,0,0)';
+ 		  		replysave.style.color='skyblue';
+ 		  		replysave.style.borderRadius='5px';
+ 		  		//마우스 올릴시 기능
+ 		  		replysave.addEventListener('mouseover', function() {
+ 		  	      replysave.style.color = 'white';
+ 		  	      replysave.style.backgroundColor = 'skyblue';
+ 		  	    });
+ 		  	    replysave.addEventListener('mouseout', function() {
+ 		  	      replysave.style.color = 'skyblue';
+ 		  	      replysave.style.backgroundColor = 'rgba(0,0,0,0)';
+ 		  	    });
+ 		  	    
+ 		 		replysave.onclick = function() {
+ 		    		var replyDetail = replyBox.value;
+ 		      		$.ajax({
+ 		        		url: 'CommentReply',
+ 		        		type: 'POST',
+ 		        		data: { 
+ 		        			commentParrent: commentParrent, 
+ 		        			commentDetail: replyDetail,
+ 		        			userEmail: userEmail,
+ 		        			postId: postId,
+ 		        			commentId: commentId
+ 		        			},
+ 		        		success: function(result) {
+ 		        		console.log('답글완료');
+ 		 				location.reload();
+ 		        	},
+ 		        	error: function(xhr, status, error) {
+ 		        	}
+ 		      	});
+ 		   	 };
+ 		   		parentElement.innerHTML = '';
+ 		    	parentElement.appendChild(replyBox);
+ 		    	parentElement.appendChild(replysave);
+ 		   	 	parentElement.appendChild(replydelete);
+ 		   	 	isInputBoxAdded = true;
+ 		   		replyBox.focus();
+ 		  		}
+ 			}
+		
  		//만들기버튼 기능들
  		const makePostButton = document.querySelector('#make-post');
  		const overlay = document.querySelector('.overlay');
@@ -794,18 +924,21 @@
                 location.reload();
             },
             error: function(xhr, status, error) {
-                // Handle error
             }
         });
     });
 });
-
-		
- 		
-	
-	
- 	</script>
-
+ 		//댓글 보기숨기기
+ 		function doDisplay(commentId){ 	
+            const elements = document.querySelectorAll("#myDIV"+commentId);
+            for(var i=0; i<elements.length; i++){
+            	if(elements[i].style.display=='none'){ 		
+            		elements[i].style.display = 'block';
+                }else{ 		
+                	elements[i].style.display = 'none'; 	
+                } 
+            }
+        } 
 </script>
 </body>
 </html>

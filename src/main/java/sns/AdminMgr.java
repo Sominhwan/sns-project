@@ -473,25 +473,17 @@ public class AdminMgr {
 		}
 	}	
 			
-	public static void main(String [] args) {
-		AdminMgr mgr = new AdminMgr();
-		String  [] userEmail = new String[50];
-		int likeNum = 50;
-		String imageName = "C:\\Jsp\\sns-project\\image.jpg";
-		int shareNum = 100;
-		int commentNum = 200;
-		int []postReport = new int[50];
-		
-		for (int i = 0; i < 50; i++) {
-			userEmail[i] = "email" + i + "@deu.ac.kr";
-			postReport[i] = i;
-		}
-		
-		for (int j = 0; j < 50; j++) {
-			mgr.postInsert(new PostBean(userEmail[j], likeNum, imageName, shareNum, commentNum, 
-					postReport[j]));
-		}		
-	}
-		
+	/*
+	 * public static void main(String [] args) { AdminMgr mgr = new AdminMgr();
+	 * String [] userEmail = new String[50]; int likeNum = 50; String imageName =
+	 * "C:\\Jsp\\sns-project\\image.jpg"; int shareNum = 100; int commentNum = 200;
+	 * int []postReport = new int[50];
+	 * 
+	 * for (int i = 0; i < 50; i++) { userEmail[i] = "email" + i + "@deu.ac.kr";
+	 * postReport[i] = i; }
+	 * 
+	 * for (int j = 0; j < 50; j++) { mgr.postInsert(new PostBean(userEmail[j],
+	 * likeNum, imageName, shareNum, commentNum, postReport[j])); } }
+	 */	
 	
 }

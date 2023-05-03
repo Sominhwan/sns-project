@@ -51,6 +51,14 @@ public class UserinfoBean {
 		this.userAd = userAd;
 		this.userInfoType = userInfoType;
 	}
+	
+	public UserinfoBean(String userNickName, String userSchool, String userAddress, String userSocial) {
+	      super();
+	      this.userNickName = userNickName;
+	      this.userSchool = userSchool;
+	      this.userAddress = userAddress;
+	      this.userSocial = userSocial;
+	   }
 
 	public String getUserInfoType() {
 		return userInfoType;

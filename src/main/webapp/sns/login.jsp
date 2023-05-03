@@ -90,7 +90,7 @@
    		if(<%=userEmailCertification%>==1){
    			alert('이메일 검증 확인');
    			/* 메인 화면 링크 추가 */
-   			/* document.loginOk_frm.submit(); */	
+   			document.loginOk_frm.submit(); 	
    		}else{
    			alert('이메일 인증을 하지 않은 계정입니다.');
    		}
@@ -260,7 +260,7 @@
         <span id="logo2_text">PhoTalk</span>
         <img class="profile" src="<%=userImage%>" />
         <!-- form action 에 메인 페이지 주소 넣기 -->
-        <form action="" method="POST" name="loginOk_frm" id = "loginOk_frm">
+        <form action="Main.jsp" method="POST" name="loginOk_frm" id = "loginOk_frm">
           <input
             class="loginOKBtn"
             id="loginOKBtn"
