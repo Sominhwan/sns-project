@@ -39,7 +39,7 @@ public class UserInfoCountServlet extends HttpServlet {
 		}
     	out.close();			
 	}
-	
+	// 회원가입 수 
 	public String getJSON() throws Exception {
 		AdminMgr mgr = new AdminMgr();
 		int [] count = new int[12];
@@ -56,7 +56,7 @@ public class UserInfoCountServlet extends HttpServlet {
 		obj.put("count", array);
 		return obj.toString();
 	}
-	
+	// 게시물 수
 	public String getJSON2() throws Exception {
 		AdminMgr mgr = new AdminMgr();
 		int [] count = new int[12];

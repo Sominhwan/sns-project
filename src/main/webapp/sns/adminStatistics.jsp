@@ -113,18 +113,27 @@
         </div>      
         <div class="tab_content">
         	<input type="radio" name="tabmenu" id="tab01" checked/>
-        	<label for="tab01">회원정보 차트</label>
+        	<label for="tab01">회원&게시물 수</label>
         	<input type="radio" name="tabmenu" id="tab02"/>
-        	<label for="tab02">좋아요 차트</label>
+        	<label for="tab02">좋아요 수</label>
         	<input type="radio" name="tabmenu" id="tab03"/>
-        	<label for="tab03">조회수 차트</label>        	        	
+        	<label for="tab03">게시물 수</label>        	        	
         <div class="conbox con1" id="container1"><div id="container"></div></div>
-        <div class="conbox con2" id="container2">컨텐츠 내용2</div>
-        <div class="conbox con3" id="container3">컨텐츠 내용3</div>           
+        <div class="conbox con2" id="container2"><div id="container2_1"></div></div>
+        <div class="conbox con3" id="container3">
+        	<figure class="highcharts-figure">
+  			<div id="container3_1"></div>
+			</figure>
+		</div>
+		</div>           
     </div>
     
   </body>
  <script src="https://code.highcharts.com/highcharts.js"></script>
+ <script src="https://code.highcharts.com/modules/data.js"></script>
+ <script src="https://code.highcharts.com/modules/drilldown.js"></script>
  <script src="https://code.highcharts.com/modules/exporting.js"></script>
+ <script src="https://code.highcharts.com/modules/export-data.js"></script>
+ <script src="https://code.highcharts.com/modules/accessibility.js"></script>
  <script src="js/adminStatistics.js"></script>
 </html>

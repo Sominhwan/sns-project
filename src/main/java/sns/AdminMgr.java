@@ -360,7 +360,85 @@ public class AdminMgr {
 			if(rs.next()) {
 				count = rs.getInt(1);
 			}
-			System.out.println(count);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return count;
+	}	
+	
+	// 상위 5개 종아요수 
+	public ArrayList<PostBean> getLikeInfo() {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		ArrayList<PostBean> postList = new ArrayList<PostBean>();
+		try {
+			con = pool.getConnection();
+			sql = "SELECT postId, userEmail, likeNum, shareNum, commentNum, postReport FROM post ORDER BY likeNum desc LIMIT 5;";
+			pstmt = con.prepareStatement(sql);		
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				PostBean bean = new PostBean();	
+				bean.setPostId(rs.getInt(1));
+				bean.setUserEmail(rs.getString(2));
+				bean.setLikeNum(rs.getInt(3));
+				bean.setShareNum(rs.getInt(4));
+				bean.setCommentNum(rs.getInt(5));
+				bean.setPostReport(rs.getInt(6));
+				postList.add(bean);
+			}	
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return postList;
+	}	
+	
+	// 유저가 올린 상위 12개 게시물  
+	public ArrayList<UserPostInfoBean> getPostInfo() {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		ArrayList<UserPostInfoBean> userPostList = new ArrayList<UserPostInfoBean>();
+		try {
+			con = pool.getConnection();
+			sql = "SELECT userEmail, COUNT(*) as count FROM post GROUP BY userEmail ORDER BY count DESC LIMIT 10;";
+			pstmt = con.prepareStatement(sql);		
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				UserPostInfoBean bean = new UserPostInfoBean();	
+				bean.setUserEmail(rs.getString(1));
+				bean.setUserPostCount(rs.getInt(2));
+				userPostList.add(bean);
+			}	
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return userPostList;
+	}	
+	
+	// 총 게시물 개수 가져오기
+	public int getPostAllCount() {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		int count = 0;
+		try {
+			con = pool.getConnection();
+			sql = "SELECT COUNT(*) AS count FROM post;";
+			pstmt = con.prepareStatement(sql);		
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

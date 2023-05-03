@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="180" height="24" viewBox="0 0 180 24">
+    <g data-name="그룹 176">
+        <g data-name="그룹 108">
+            <g data-name="그룹 41">
+                <g data-name="Form/Input/Text/Large">
+                    <rect data-name="Input/Base" width="180" height="24" rx="5" style="fill:#e7e7e7"/>
+                </g>
+            </g>
+        </g>
+    </g>
+    <text data-name="Text State" transform="translate(58 17)" style="fill:#303030;font-size:12px;font-family:MalgunGothicBold,Malgun Gothic"><tspan x="0" y="0">동영상 선택</tspan></text>
+</svg>
