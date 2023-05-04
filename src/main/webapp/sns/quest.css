@@ -37,8 +37,20 @@ body{
 
 .gallery-ul{
 	background-color:#fbfbfb;
-	width: 1620px;
+	width: 1605px;
 	height: 918px;
+}
+
+.gallery-ul::-webkit-scrollbar {
+  width: 8px; /* 스크롤바의 너비 */
+}
+
+.gallery-ul::-webkit-scrollbar-thumb {
+  background: #eeeeee; /* 스크롤바의 색상 */
+}
+
+.gallery-ul::-webkit-scrollbar-track {
+  background: #f9f9f9; /*스크롤바 뒷 배경 색상*/
 }
 
 .gallery-ul > .gallery-li{

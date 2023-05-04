@@ -27,10 +27,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pho talk</title>
+    <title>Photalk</title>
     <link rel="shortcut icon" type="image/x-icon" href="./images/mainLogo.png" />
     <link href="profile.css" rel="stylesheet" type="text/css"/>
     <link type="text/css" rel="stylesheet" href="style.css"></link>
+    <link type="text/css" rel="stylesheet" href="css/navbar.css"></link>
     <link type="text/css" rel="stylesheet" href="quest.css"></link>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="text/javascript">
@@ -44,6 +45,11 @@
          	<a href="javascript:goURL('Main.jsp','')"><img src="./images/mainLogo.png"  alt="Image Button"/></a>
 	     	<a id = "PhoTalk" class = "navbar-brand" href="Main.jsp">PhoTalk</a>
         	<span><input class = "InputBase" placeholder="검색"></span>
+        	
+      	
+        	
+        	
+        	
         	<img id = "mainMessageFalse" src="./images/mainMessageFalse.png" alt="Image Button"/>
         	<img id = "mainAlarmFalse" src="./images/mainAlarmFalse.png" alt="Image Button"/>
         	<img id = "mainProfile2" src="./images/mainProfile2.png" alt="Image Button"/>
@@ -84,6 +90,38 @@
     </ul>
     <div class="quest-content">
     <div class="gallerylist">
+    <!-- 검색 창 -->
+	<div id="userSearchContent" style="">
+		<table class="userTable">
+	          <tbody id="ajaxTable">
+	          	<tr>
+	          		<td>안녕</td>
+	          	</tr>
+	          	<tr>
+	          		<td>안녕</td>
+	          	</tr>
+	          	<tr>
+	          		<td>안녕</td>
+	          	</tr>
+	          	<tr>
+	          		<td>안녕</td>
+	          	</tr>
+	          	<tr>
+	          		<td>안녕</td>
+	          	</tr>
+	          	<tr>
+	          		<td>안녕</td>
+	          	</tr>
+	          	<tr>
+	          		<td>안녕</td>
+	          	</tr>
+	          	<tr>
+	          		<td>안녕</td>
+	          	</tr>	          		          		          		          		          		          		          	
+	          </tbody>
+	    </table>
+	 </div>  
+	 
 	    <ul class="gallery-ul">
 	        <h5 class="quest">탐색</h5>
 	    	<li class="gallery-li">

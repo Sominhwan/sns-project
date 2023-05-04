@@ -1,0 +1,47 @@
+#userSearchContent{
+  position: fixed !important;
+  left: 335px !important;
+  z-index: 1000 !important;
+  top: 70px !important;
+  border: solid 1px #eee;
+  border-radius: 7px;
+  width: 337px;
+  height: 350px;
+  background-color: #fff;
+  box-shadow: 0 3px 30px 0 rgba(0, 0, 0, 0.16); 
+}
+
+table.userTable{
+  position: relative;
+  border-collapse: collapse;
+  width: 337px;
+  height: 350px;  
+}
+
+#ajaxTable{
+  display:block;
+  margin-top: 5px;
+  width: 335px;
+  height: 340px;
+  overflow-y: scroll;
+  text-align: center;
+}
+
+#ajaxTable::-webkit-scrollbar {
+  width: 10px; /* 스크롤바의 너비 */
+
+}
+
+#ajaxTable::-webkit-scrollbar-thumb {
+  height: 30%; /* 스크롤바의 길이 */
+  background: #eeeeee; /* 스크롤바의 색상 */
+}
+
+#ajaxTable::-webkit-scrollbar-track {
+  background: #fff; /*스크롤바 뒷 배경 색상*/
+}
+
+tr{
+  height: 45px;	
+}
+
