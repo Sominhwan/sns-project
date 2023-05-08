@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="240" height="259" viewBox="0 0 240 259">
-    <g data-name="그룹 358" transform="translate(-378 -631)">
-        <path data-name="사각형 296" transform="translate(378 631)" style="fill:#b6d6f2" d="M0 0h240v259H0z"/>
-        <ellipse data-name="타원 74" cx="40.646" cy="42.903" rx="40.646" ry="42.903" transform="translate(459.028 708.418)" style="fill:#fff"/>
-        <path data-name="빼기 114" d="M170.731 83.018H0a85.981 85.981 0 0 1 25.942-58.8 85.013 85.013 0 0 1 118.845 0 85.967 85.967 0 0 1 25.943 58.8z" transform="translate(414.206 806.981)" style="fill:#fff"/>
-    </g>
-</svg>
