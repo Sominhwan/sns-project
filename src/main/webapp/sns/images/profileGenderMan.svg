@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="15.433" height="26.883" viewBox="0 0 15.433 26.883">
+    <g transform="translate(-643.566 -777.051)">
+        <g data-name="패스 601" style="fill:none">
+            <path d="M7.717 0A7.717 7.717 0 1 1 0 7.717 7.717 7.717 0 0 1 7.717 0z" style="stroke:none" transform="translate(643.566 788.5)"/>
+            <path d="M7.717 3A4.722 4.722 0 0 0 3 7.717c0 2.6 2.116 4.716 4.717 4.716 2.6 0 4.716-2.116 4.716-4.716C12.433 5.116 10.317 3 7.717 3m0-3a7.717 7.717 0 1 1 0 15.433A7.717 7.717 0 0 1 7.717 0z" style="fill:#58aaff;stroke:none" transform="translate(643.566 788.5)"/>
+        </g>
+        <rect data-name="사각형 257" width="3" height="12" rx="1.5" transform="translate(649.783 778.999)" style="fill:#58aaff"/>
+        <path data-name="합치기 88" d="m-9977.989-2216.869-3.915-3.912-3.914 3.912a1.5 1.5 0 0 1-2.121 0 1.5 1.5 0 0 1 0-2.121l4.951-4.948a1.491 1.491 0 0 1 1.084-.439 1.5 1.5 0 0 1 1.087.439l4.948 4.948a1.5 1.5 0 0 1 0 2.121 1.491 1.491 0 0 1-1.06.44 1.5 1.5 0 0 1-1.06-.44z" transform="translate(10633.404 3001.429)" style="fill:#58aaff"/>
+    </g>
+</svg>

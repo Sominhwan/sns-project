@@ -1,0 +1,276 @@
+.parent {
+  position: relative;
+}
+
+.Text-Info{
+    z-index: 10;
+    font-family: MalgunGothic;
+    position:absolute;
+    left: 91px;
+    top: 160px;
+  font-size: 16px;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.88;
+  letter-spacing: normal;
+  text-align: left;
+  color: var(--black);
+}
+
+.Text-Update{
+    z-index: 10;
+    font-family: MalgunGothic;
+    position:absolute;
+    left: 91px;
+    top: 227px;
+  font-size: 16px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.88;
+  letter-spacing: normal;
+  text-align: left;
+  color: var(--black);
+}
+
+.Info{
+    z-index: 10;
+    position:absolute;
+    left:41.2px;
+    top: 158px;
+
+}
+
+.Update{
+    z-index: 10;
+    position:absolute;
+    left:41.2px;
+    top: 227px;
+
+}
+
+.main{
+    font-weight: bold;
+    text-align: center;
+    font-size: 40px;
+    position: absolute;
+    top:253px;
+    left: 49%;
+    color:#6b6b6b;
+}
+
+
+.main1{
+    font-weight: bold;
+    font-size: 40px;
+    position: absolute;
+    top:310px;
+    left: 46%;
+
+}
+
+.main2{
+    font-weight: bold;
+    font-size: 40px;
+    position: absolute;
+    top:310px;
+    left: 57.5%;
+    color:#6b6b6b;
+}
+
+.small-main{
+    font-size: 16px;
+    position: absolute;
+    top:442px;
+    left: 46%;
+
+}
+
+input#num{
+    position:absolute;
+    top: 522px;
+    left: 46%;
+    width: 435px;
+    height: 43px;
+    background-color: #fff;
+    border: solid 1px #e7e7e7;
+    font-size:18px;
+    padding-left: 15px;
+    border-radius: 5px;
+    
+}
+
+input[type="text"]:-ms-clear {
+  display: none;
+}
+
+input:focus{
+    border: none;
+    outline: 1px solid #303030;
+}
+
+.resend{
+    left: 46%;
+    top: 588px;
+    position: absolute;
+    background-color: #e7e7e7;
+    width: 217px;
+    height: 43px;
+    font-size: 18px;
+    font-family: MalgunGothic;
+    color: #a4a4a4;
+    text-align: center;
+    line-height: 43px;
+    cursor: pointer;
+    border: none;
+    
+
+
+}
+
+#popup-button{
+    left: 58.5%;
+    top: 588px;
+    position: absolute;
+    background-color: #303030;
+    width: 217px;
+    height: 43px;
+    font-size: 18px;
+    font-family: MalgunGothic;
+    color: #ffffff;
+    text-align: center;
+    line-height: 43px;
+    cursor: pointer;
+
+
+}
+
+.popup-container {
+	z-index:1000;
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  
+  .popup-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    width: 272px;
+    height: 265px;
+  }
+
+#pupup-button-cencel{
+    position: absolute;
+    left: 50px;
+    top: 250px;
+    width: 212px;
+    height: 29px;
+    border-radius: 4px;
+    background-color: lightgray;
+    color: #fff;
+    font-family: MalgunGothic;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+#pupup-button-delete{
+    position: absolute;
+    left: 50px;
+    top: 205px;
+    width: 212px;
+    height: 29px;
+    border-radius: 4px;
+    background-color: #303030;
+    color: #ffffff;
+    font-family: MalgunGothic;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+
+
+.pupup-info {
+    position: absolute;
+    width: 182px;
+    height: 43px;
+    left: 60px;
+    top: 120px;
+    font-family: MalgunGothic;
+    font-size: 14px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.79;
+    letter-spacing: normal;
+    text-align: center;
+    color: #868e96;
+  }
+
+  .popup-real {
+    position: absolute;
+    top: 50px;
+    left: 55px;
+    width: 200px;
+    height: 27px;
+    font-family: MalgunGothic;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 1.5;
+    letter-spacing: normal;
+    text-align: left;
+    color: #303030;
+  }
+  /* 푸터 시작 */
+.login_footer {
+  height: 150px;
+  width: 119%;
+  position: absolute;
+  bottom: 0;
+}
+
+.footer_inner {
+  width: 519.5px;
+  height: 100px;
+  margin: auto;
+}
+
+.footer_info {
+  font-size: 13px;
+  line-height: 40px;
+  color: #737373;
+}
+
+.footer_info > a {
+  text-decoration: none;
+  color: #737373;
+}
+
+.footer_info2 {
+  font-size: 12px;
+  color: #737373;
+}
+
+.footer_info3 {
+  font-size: 12px;
+  color: #737373;
+}
+
+.footer_info4 {
+  font-size: 10px;
+  color: #737373;
+}
+
+a:active {
+  color: #e0e0e0;
+}
+  

@@ -3,8 +3,8 @@ body{
 }
 
 .quest-content{
-	position: absolute;
-	left: 300px;
+	position: relative;
+	left: 302px;
 	width: 1620px;
 	height: 999px;
 	text-align: center;
@@ -28,7 +28,7 @@ body{
 
 .gallerylist{
 	position: absolute;
-    top: 0;
+	top: 81px;
     margin-top: 81px;
 	max-width: 1000px;
 	width: 900px;
@@ -76,7 +76,7 @@ body{
 	display: block;
 	position: absolute;
 	top: 0;
-	left: 46px;
+	left: 60px;
 	width: 350px;
 	height: 350px;
 	background-color: rgba(0,0,0,.5);

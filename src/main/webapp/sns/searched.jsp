@@ -6,8 +6,7 @@
 <jsp:useBean id="fmgr" class="sns.FriemdmanagerMgr"/>
 <jsp:useBean id="pmgr" class="sns.PostlikeMgr"/>
 <!-- 닉네임으로 검색하거나 aaa박스에서 유저사진을 클릭햇을경우 그사람의 게시글보기 -->
-<%
-	
+<%	
 	String searchWord = null;
 	if(request.getParameter("searchWord")!=null){
 		searchWord = (String) request.getParameter("searchWord");

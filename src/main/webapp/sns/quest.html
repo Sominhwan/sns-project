@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Modal with Scroll</title>
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+			background-color: #e6e6e6;
+		}
+		.modal {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-color: rgba(0, 0, 0, 0.5);
+			z-index: 1;
+			overflow: auto;
+		}
+		.modal-content {
+			position: relative;
+			background-color: white;
+			width: 1560px;
+			height: 2080px;
+			padding: 20px;
+			box-sizing: border-box;
+			overflow: scroll;
+			overflow-x: scroll;
+		}
+		.close-button {
+			position: absolute;
+			top: 10px;
+			right: 10px;
+			font-size: 30px;
+			cursor: pointer;
+			color: #aaa;
+		}
+		 /* 탐색 글자 스타일 */
+		.search-text {
+			font-size: 24px;
+			font-weight: bold;
+			margin-top: 20px;
+			margin-bottom: 20px;
+			text-align: left;
+			position: absolute;
+			top: 10px;
+			left: 50px;
+			transform: translateX(-50%);
+			z-index: 3; /* 추가 */
+		}
+		.image-row {
+	        display: flex;
+	        flex-wrap: wrap;
+	        justify-content: space-between;
+	        margin-top: 40px;
+	        gap: 10px; /* 간격 조절 */
+   		}
+
+    	.image-container {
+	        width: calc(33.33% - 10px);
+	        margin-bottom: 20px;
+	        position: relative;
+	        box-sizing: border-box;
+	        background-color: white;
+	        padding: 40px;
+	        border-radius: 10px;
+   		}
+   		.image-container .icon {
+		    position: absolute;
+		    width: 34px;
+		    height: 34px;
+		    top: 40px;
+		    right: 40px;
+		    padding: 5px;
+		}
+
+	    .image-container img {
+	        width: 100%;
+	        height: auto;
+	        display: block;
+	        margin-bottom: 10px;
+	    }
+
+		/* 이미지 위에 마우스 오버 효과 */
+		.image-container:hover img {
+			filter: brightness(70%);
+		}
+
+		/* 이미지 위에 마우스 오버 효과로 인한 아이콘 opacity 적용 */
+		.image-container:hover .icon {
+			opacity: 1;
+		}
+	</style>
+</head>
+<body>
+	<div id="modal" class="modal">
+		<div class="modal-content">
+			<span class="close-button">&times;</span>
+			<!-- 탐색 글자 추가 -->	
+			<h2 class="search-text">탐색</h2>	
+			<div class="image-row">		
+		    <div class="image-container">
+		      <img src="images/20230311_210102.jpg" alt="이미지1">
+		    </div>
+		    <div class="image-container">
+		      <img src="images/20230311_210726.jpg" alt="이미지2">
+		      <img class="icon" src="images/exploreLinkCopyBtn@3x.png" alt="사진 여러장 있는 게시물">
+		    </div>
+		    <div class="image-container">
+		      <img src="images/20230311_211207.jpg" alt="이미지3">
+		    </div>
+		    <div class="image-container">
+		      <img src="images/20230311_211718.jpg" alt="이미지4">
+		      <img class="icon" src="images/exploreLinkCopyBtn@3x.png" alt="사진 여러장 있는 게시물">
+		    </div>
+		    <div class="image-container">
+		      <img src="images/20230311_212519.jpg" alt="이미지5">
+		    </div>
+		    <div class="image-container">
+		      <img src="images/20230311_212734.jpg" alt="이미지6">
+		      <img class="icon" src="images/exploreLinkCopyBtn@3x.png" alt="사진 여러장 있는 게시물">
+		    </div>
+		    <div class="image-container">
+		      <img src="images/20230311_213951.jpg" alt="이미지7">
+		    </div>
+		    <div class="image-container">
+		      <img src="images/20230318_192715.jpg" alt="이미지8">
+		      <img class="icon" src="images/exploreLinkCopyBtn@3x.png" alt="사진 여러장 있는 게시물">
+		    </div>
+		    <div class="image-container">
+		      <img src="images/20230319_183853.jpg" alt="이미지9">
+		    </div>
+		    <div class="image-container">
+		      <img src="images/20230426_200010.jpg" alt="이미지10">
+		      <img class="icon" src="images/exploreLinkCopyBtn@3x.png" alt="사진 여러장 있는 게시물">
+		    </div>
+		    <div class="image-container">
+		      <img src="images/20230426_200013.jpg" alt="이미지11">
+		      <img class="icon" src="images/exploreLinkCopyBtn@3x.png" alt="사진 여러장 있는 게시물">
+		    </div>
+		    <div class="image-container">
+		      <img src="images/20230426_201512.jpg" alt="이미지12">
+		      <img class="icon" src="images/videoicon.png" alt="동영상">
+		    </div>
+		    <div class="image-container">
+		      <img src="images/20230426_202523.jpg" alt="이미지13">
+		    </div>
+		    <div class="image-container">
+		      <img src="images/20230426_203407.jpg" alt="이미지14">
+		      <img class="icon" src="images/videoicon.png" alt="동영상">
+		    </div>
+		    <div class="image-container">
+		      <img src="images/20230426_203432.jpg" alt="이미지15">
+		    </div>
+		    <div class="image-container">
+		      <img src="images/beauty_20230311210545.jpg" alt="이미지16">
+		    </div>
+		    <div class="image-container">
+		      <img src="images/20230426_202538.jpg" alt="이미지17">
+		      <img class="icon" src="images/videoicon.png" alt="동영상">
+		    </div>
+		    <div class="image-container">
+		      <img src="images/20230406_202250.jpg" alt="이미지18">
+		    </div>
+		  </div>
+		</div>
+		</div>
+	<script>
+		const modal = document.querySelector("#modal");
+		const closeButton = document.querySelector(".close-button");
+
+		window.addEventListener("load", () => {
+			modal.style.display = "block";
+			document.body.style.overflow = "hidden";
+		});
+
+		closeButton.addEventListener("click", () => {
+			modal.style.display = "none";
+			document.body.style.overflow = "auto";
+		});
+	</script>
+</body>
+</html>

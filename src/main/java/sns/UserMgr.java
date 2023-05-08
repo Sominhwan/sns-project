@@ -238,6 +238,30 @@ public class UserMgr {
 		}
 		return null;
 	}
+
+	// 유저 이메일 가져오기
+	public String getSearchUserEmail(String userNickName) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		try {
+			con = pool.getConnection();
+			sql = "SELECT userEmail FROM userinfo WHERE userNickName = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, userNickName);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				return rs.getString(1);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return null;
+	}
 	
 	// 유저 프로필 가져오기
 	public String getUserImage(String userImage) {
@@ -416,6 +440,34 @@ public class UserMgr {
 		return flag;
 	}
 
+	// 네브바 프로필 검색 
+	public ArrayList<UserinfoBean> getUserProfile(String userNickName) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		ArrayList<UserinfoBean> userProfileList = new ArrayList<UserinfoBean>();
+		try {
+			con = pool.getConnection();
+			sql = "select userNickName, userEmail, userImage from userinfo where userNickName LIKE ? ";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, "%" + userNickName + "%");
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				UserinfoBean bean = new UserinfoBean();
+				bean.setUserNickName(rs.getString(1));
+				bean.setUserEmail(rs.getString(2));
+				bean.setUserImage(rs.getString(3));
+				userProfileList.add(bean);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return userProfileList;
+	}
+	
 	   //창헌이꺼
 	   public UserinfoBean getMember(String userEmail) {
 	       Connection con = null;

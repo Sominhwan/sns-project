@@ -1,10 +1,18 @@
 package sns;
 
 public class ChatMessagerBean {
+	private int roomId;
 	private int chatMessagerId;
 	private String userEmail;
 	private String message;
 	private String creationDate;
+	
+	public int getRoomId() {
+		return roomId;
+	}
+	public void setRoomId(int roomId) {
+		this.roomId = roomId;
+	}
 	public int getChatMessagerId() {
 		return chatMessagerId;
 	}

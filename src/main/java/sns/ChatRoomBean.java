@@ -4,6 +4,16 @@ public class ChatRoomBean {
 	private int roomId;
 	private String userEmail;
 	private String createTime;
+	private int lastCheck;
+	
+	
+	
+	public int getLastCheck() {
+		return lastCheck;
+	}
+	public void setLastCheck(int lastCheck) {
+		this.lastCheck = lastCheck;
+	}
 	public int getRoomId() {
 		return roomId;
 	}

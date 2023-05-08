@@ -1,0 +1,190 @@
+@charset "UTF-8";
+body {
+    font-family: sans-serif;
+}
+ 
+.modal-wrapper {
+	position: fixed;
+    top: 0;
+    right: 0;
+    margin-top: 80px;
+    height: 90vh;
+    background: rgba(0, 0, 0, 0);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    z-index: 999;
+}
+ 
+.modal {
+    background: #fff;
+    padding: 14px 16px;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    width: 316px;
+    height: 90%;
+    margin-right: 35px;
+    box-shadow: 0px 0px 12px 0px #ababab;
+}
+ 
+ 
+.modal-title {
+    font-size: 24px;
+    font-weight: bold;
+}
+ 
+.close-wrapper {
+    text-align: right;
+}
+
+.messageBack {
+  border: none;
+  background-color:transparent;
+  margin-left: auto;
+  outline: none;
+}
+.messageInvite{
+  border: none;
+  background-color:transparent;
+  margin-left: auto;
+  outline: none;
+}
+
+.semdMsgButton{
+  border: none;
+  background-color:transparent;
+  margin-left: auto;
+  outline: none;
+}
+
+.header {
+  position:relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+button, button:focus {
+  outline: none;
+  border: none;
+}
+
+.search {
+  position: relative;
+  width: 270px;
+}
+
+#search {
+  width: 100%;
+  border: 1px solid #bbb;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 14px;
+}
+
+.chatContent{
+  width: 80%;
+  border: 1px solid #bbb;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 14px;
+}
+
+#searchimg{
+  position : absolute;
+  width: 17px;
+  top: 10px;
+  left: 12px;
+  margin: 0;
+	
+}
+
+.sendMsgBox{
+  flex-grow: 1;
+  text-align: center;
+}
+
+.msgBox{
+	position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.balloon {
+ position:relative;
+ max-width: 160px;
+ padding: 5px;
+ display: inline-block;
+ word-break: break-all;
+  background:#ccddff;
+  border-radius: 10px;
+  font-weight: normal;
+  font-stretch: normal;
+}
+
+.Myballoon {
+ float: right;
+ position:relative;
+ max-width: 160px;
+ padding: 7px;
+ display: inline-block;
+ word-break: break-all;
+ background:#f5f5f5;
+ border-radius: 10px;
+ margin-right: 10px;
+}
+
+.roomAlarmBalloon {
+  font-size: 14px;
+  color: white;
+  position:relative;
+  max-width: 160px;
+  padding-right: 7px;
+  padding-left: 7px;
+  display: inline-block;
+  word-break: break-all;
+  background:#fd3c56;
+  border-radius: 15px;
+}
+
+.roomAlarm{
+	float: right;
+}
+
+#chatList {
+	overflow-y:scroll;
+	height: 80%;
+	padding-right: 3px;
+}
+
+#chatList::-webkit-scrollbar {
+    width: 5px;
+}
+
+#chatList::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.07); /* 스크롤바 색상 */
+    border-radius: 10px; /* 스크롤바 둥근 테두리 */
+}
+
+#chatList::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0);  /*스크롤바 뒷 배경 색상*/
+}
+
+.chatListContent{
+	overflow-x: visible;
+	margin-bottom: 15px;
+}
+.MychatListContent{
+	float: right;
+	width: 320px;
+	overflow-x: visible;
+	margin-bottom: 15px;
+}
+
+input:focus {outline:none;}
+
+input:focus::-webkit-input-placeholder { /* WebKit browsers */
+  color:transparent;
+}

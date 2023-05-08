@@ -95,13 +95,13 @@ public class FriemdmanagerMgr {
 		Vector<FriendmanagerBean> vlist = new Vector<FriendmanagerBean>();
 		try {
 			con = pool.getConnection();
-			sql = "select * from friendmanager where userEmail =? and friendsign=0 order by friendIndex limit 5";
+			sql = "select * from friendmanager where userEmail =? and friendsign=0 order by idx limit 5";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, email);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				FriendmanagerBean bean = new FriendmanagerBean();
-				bean.setFriendIndex(rs.getString(1));
+				bean.setFriendIndex(rs.getInt(1));
 				bean.setUserEmail(rs.getString(2));
 				bean.setFriendEmail(rs.getString(3));
 				bean.setFriendSign(rs.getInt(4));
@@ -184,7 +184,7 @@ public class FriemdmanagerMgr {
 				rs = pstmt.executeQuery();
 				while (rs.next()) {
 					FriendmanagerBean bean = new FriendmanagerBean();
-					bean.setFriendIndex(rs.getString(1));
+					bean.setFriendIndex(rs.getInt(1));
 					bean.setUserEmail(rs.getString(2));
 					bean.setFriendEmail(rs.getString(3));
 					bean.setFriendSign(rs.getInt(4));
@@ -212,7 +212,7 @@ public class FriemdmanagerMgr {
 				rs = pstmt.executeQuery();
 				while (rs.next()) {
 					FriendmanagerBean bean = new FriendmanagerBean();
-					bean.setFriendIndex(rs.getString(1));
+					bean.setFriendIndex(rs.getInt(1));
 					bean.setUserEmail(rs.getString(2));
 					bean.setFriendEmail(rs.getString(3));
 					bean.setFriendSign(rs.getInt(4));

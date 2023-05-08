@@ -1,0 +1,111 @@
+/*----------------사이드바-----------------*/
+
+/* ul {
+  position: fixed;
+  top: 0;
+  list-style-type: none;
+  padding: 0px;
+  margin: 0px;
+  width: 300px;
+  background: #ececec;
+  height: 100%;
+  overflow: auto;
+  position: fixed;
+  margin-top: 81px;
+} */
+
+/* li {
+  margin-top: 20px;
+}
+ */
+
+/* li a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #747474;
+  font-size: 17px;
+  padding: 10px 10px 10px 20px;
+  background-size: 15px;
+} */
+
+
+.sideUl {
+  list-style-type: none;
+  top: 0;
+  list-style-type: none;  
+  padding: 0px;
+  margin: 0px;
+  width: 300px;
+  background: #ececec;
+  height: 100%;
+  overflow: auto;
+  position: fixed;
+  margin-top: 81px;
+  border: solid 1px #e0e0e0;
+}
+
+.sideLi {
+  margin-top: 20px;
+}
+
+.sideLi a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #747474;
+  font-size: 17px;
+  padding: 10px 10px 10px 20px;
+  background-size: 15px;
+} 
+
+.sidebar {
+  margin-left: 20px;
+  line-height: 1.5;
+  font-family: "malgun";
+}
+
+@font-face {
+  src : url("/fonts/malgun.ttf");
+  font-family: "malgun" 
+}
+/* 
+.home:hover img{
+  content:url("/images/mainHomeTrue.png");
+}
+
+.home:hover .sidebar {
+  font-weight: bold;
+}
+
+.follow:hover img {
+  content:url("/images/mainFollowTrue.png");
+}
+
+.follow:hover .sidebar {
+  font-weight: bold;
+}
+
+.search:hover img{
+  content:url("/images/mainExploreTrue.png");
+}
+
+.search:hover .sidebar {																		
+  font-weight: bold;
+}
+
+.make:hover img{
+  content:url("/images/mainMakePostTrue.png");
+}
+
+.make:hover .sidebar {
+  font-weight: bold;
+}
+
+.profile:hover .sidebar {
+  font-weight: bold;
+} */
+
+a:active {
+  font-weight: bold;
+}

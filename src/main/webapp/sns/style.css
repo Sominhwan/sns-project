@@ -1,6 +1,5 @@
 body {
-  margin: 0;
-  background-color: #e0e0e0;
+  background-color:#ececec;
   width: 1920px;
   height: 1080px;
 }
@@ -12,44 +11,43 @@ a {
 /*   text-decoration-line: line-through; */
 /*   text-decoration-line: underline line-through overline; */
 }
-.scroll{
-	
-}
+
 .aaa {
+  position: absolute;
   width: 480px;
   height: 112.1px;
   margin: 52px 44px 25.9px 360px;
-  padding: 17px 20px 9.1px 23px;
-  border: solid 1px var(--invalid-name);
+  padding: 10px 20px 9.1px 40px;
+  border: solid 1px #E0E0E0;
   border-radius: 5px;
   background-color: #fff;
   position: relative; 
   left: 330px; 
-  top: 40px;
+  top: 100px;
 }
 .bbb {
+  position: absolute;
   width: 350px;
-  height: 450px;
+  height: 500px;
   margin: 52px 44px 15px 360px;
   padding: 17px 20px 9.1px 23px;
   border: solid 1px var(--invalid-name);
-  background-color: #e0e0e0;
-  position: relative; 
+  background-color:#ececec;
   left: 930px; 
-  top: -190px;
+  top: 61px;
   
 }
 .ccc {
-	width: 520px;
+	width: 541px;
 	height:auto;
   	margin-top:20px;
   	padding: 9px 0 19px;
-  	border-radius: 5px;
-  	border: solid 1px var(--invalid-name);
+  	border-radius: 7px;
+  	border: solid 1px #E0E0E0;
 	background-color: #fff;
   	position:relative;
   	left:690px;
-  	top:-490px;
+  	top:60px;
 }
 #ddd{
 	width:100px;
@@ -62,17 +60,22 @@ a {
     object-fit: cover;
 }
 .box1 {
-	width: 50px;
-	height: 50px;
+	width: 55px;
+	height: 55px;
 	border-radius: 70%;
 	overflow: hidden;
-	border: 2px solid red;
+	border: 3px solid transparent;
+    background-image: linear-gradient(#fff, #fff), 
+    linear-gradient(to right, red 0%,  orange 100%);
+    background-origin: border-box;
+    background-clip: content-box, border-box;   		
 }
 .boxnored {
-	width: 50px;
-	height: 50px;
+	width: 40px;
+	height: 40px;
 	border-radius: 70%;
 	overflow: hidden;
+	border: solid 1px #DEDEDE;
 }
 .box2 {
 	width: 210px;
@@ -80,25 +83,29 @@ a {
 	overflow: hidden;
 }
 .box3 {
-	width: 30px;
-	height: 30px;
+	width: 38px;
+	height: 38px;
 	border-radius: 70%;
 	overflow: hidden;
+	border: 2.5px solid transparent;
+    background-image: linear-gradient(#fff, #fff), 
+    linear-gradient(to right, red 0%,  orange 100%);
+    background-origin: border-box;
+    background-clip: content-box, border-box; 	
 }
 .profile {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+	border-radius: 70%;
+    object-fit: cover;  
 }
 
-
-
 .Nick-State {
-  width: 62px;
+  width: 120px;
   height: 30px;
   margin: 0 62px 0 7.4px;
   font-family: MalgunGothic;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -112,7 +119,7 @@ a {
  	height: 25px;
   	margin: 0 62px 0 7.4px;
   	font-family: MalgunGothic;
-  	font-size: 14px;
+  	font-size: 12px;
   	font-weight: normal;
   	font-stretch: normal;
   	font-style: normal;
@@ -141,7 +148,7 @@ a {
   position:relative;
   text-align: left;
   left: 1320px;
-  top: -170px;
+  top: 360px;
   color: #a4a4a4;
 }
 
@@ -195,16 +202,22 @@ img.postMessageProfile {
 }
 
 #postTextbox {
-  width: 350px;
+  position: relative;
+  width: 410px;
   height: 50px;
-  border-radius: 30px;
-  margin-top:-20px;
+  top: -18.5px;
+  border-radius: 25px;
+  padding-left: 15px;
+  border: solid 1px #e7e7e7;
+  outline: none;
+  background-color:  #f8f8f8;
 }
 
 .modal {
-	position: fixed;
-	top: 50%;
-	left: 50%;
+	position: absolute;
+	top: 490px;
+	left: 1020px;
+	z-index: 10;
 	transform: translate(-50%, -50%);
 	width: 250px;
 	height: 170px;
@@ -223,7 +236,7 @@ img.postMessageProfile {
   margin: 0 95px 10px;
   font-family: MalgunGothic;
   font-size: 15px;
-  font-weight: bold;
+  font-weight: normal;
   font-stretch: normal;
   font-style: normal;
   line-height: 2;
@@ -239,7 +252,6 @@ img.postMessageProfile {
 	width: 340px;
   	height: 175px;
 	margin: 0 0.5px 0 0;
-
   	border-radius: 5px;
   	border: solid 1px var(--invalid-name);
 	text-align:center;
@@ -280,7 +292,8 @@ c{
 	margin-left:30px;
 }
 .overlay {
-  position: fixed;
+  position: fixed !important;
+  z-index: 999;
   top: 0;
   left: 0;
   width: 100%;
@@ -290,6 +303,7 @@ c{
 }
 .makemodal {
   position:fixed;
+  z-index: 1000;
   top:20%;
   left:33%;
   width:600px;

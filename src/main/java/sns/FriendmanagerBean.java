@@ -1,16 +1,18 @@
 package sns;
 
 public class FriendmanagerBean {
-	private String friendIndex;
-	public String getFriendIndex() {
-		return friendIndex;
-	}
-	public void setFriendIndex(String friendIndex) {
-		this.friendIndex = friendIndex;
-	}
+	private int friendIndex;
 	private String userEmail;
 	private String friendEmail;
 	private int friendSign;
+	
+	public int getFriendIndex() {
+		return friendIndex;
+	}
+	public void setFriendIndex(int friendIndex) {
+		this.friendIndex = friendIndex;
+	}
+
 	public String getUserEmail() {
 		return userEmail;
 	}
